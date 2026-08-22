@@ -85,11 +85,11 @@ BODY_WIDTH_CM = 15.8
 BODY_FIRST_LINE_CM = 1.27
 # Modest academic air after titles. Prose is taken only from Thesis_Complete.md.
 H1_SPACE_BEFORE_PT = 18
-H1_SPACE_AFTER_PT = 56
-H1_INTRO_SPACE_AFTER_PT = 64
-CHAPTER_NUM_SPACE_AFTER_PT = 12
-H2_SPACE_BEFORE_PT = 22
-H2_SPACE_AFTER_PT = 14
+H1_SPACE_AFTER_PT = 72
+H1_INTRO_SPACE_AFTER_PT = 84
+CHAPTER_NUM_SPACE_AFTER_PT = 14
+H2_SPACE_BEFORE_PT = 28
+H2_SPACE_AFTER_PT = 20
 
 CITE_RE = re.compile(r"\((\d+(?:\s*,\s*\d+)*)\)")
 
@@ -595,14 +595,20 @@ def add_heading_styled(doc, text, level, *, new_page=False, style_name=None):
     if new_page:
         page_break_before(p)
     if level in (0, 1):
-        if text.startswith("CHAPTER "):
+        if not text.strip():
+            after = 0
+            before = 0
+        elif text.startswith("CHAPTER "):
             after = CHAPTER_NUM_SPACE_AFTER_PT
-        elif text == "INTRODUCTION":
+            before = H1_SPACE_BEFORE_PT
+        elif text in {"INTRODUCTION", "ABSTRACT"}:
             after = H1_INTRO_SPACE_AFTER_PT
+            before = H1_SPACE_BEFORE_PT
         else:
             after = H1_SPACE_AFTER_PT
+            before = H1_SPACE_BEFORE_PT
         set_paragraph_format(p, align=WD_ALIGN_PARAGRAPH.CENTER, first_line=False,
-                             space_before=H1_SPACE_BEFORE_PT, space_after=after, line_spacing=1.0)
+                             space_before=before, space_after=after, line_spacing=1.0)
         run = p.add_run(text)
         set_run_font(run, size=16, bold=True)
     else:
