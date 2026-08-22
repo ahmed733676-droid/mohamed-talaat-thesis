@@ -6,12 +6,17 @@ import shutil
 import subprocess
 from pathlib import Path
 
+from lxml import etree
+
 from docx import Document
 from docx.enum.table import WD_CELL_VERTICAL_ALIGNMENT, WD_TABLE_ALIGNMENT
 from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_LINE_SPACING
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 from docx.shared import Cm, Inches, Pt, RGBColor
+
+WP_NS = "{http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing}"
+A_NS = "{http://schemas.openxmlformats.org/drawingml/2006/main}"
 
 ROOT = Path(__file__).resolve().parent
 MD = ROOT / "Thesis_Complete.md"
@@ -250,12 +255,98 @@ def configure_styles(doc):
         pf.first_line_indent = Cm(0)
         pf.keep_with_next = True
 
+    # Header/Footer must not inherit Normal (double spacing), or Word wraps the banner twice.
+    for style_name in ("Header", "Footer"):
+        st = doc.styles[style_name]
+        based = st._element.find(qn("w:basedOn"))
+        if based is not None:
+            st._element.remove(based)
+        pf = st.paragraph_format
+        pf.space_before = Pt(0)
+        pf.space_after = Pt(0)
+        pf.line_spacing_rule = WD_LINE_SPACING.SINGLE
+        pf.line_spacing = 1.0
+        pf.first_line_indent = Cm(0)
+        pf.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        st.font.name = "Times New Roman"
+        st.font.size = Pt(8)
+        st.font.color.rgb = RGBColor(0, 0, 0)
+
 
 def _clear_hf_part(part):
     part.is_linked_to_previous = False
     while len(part.paragraphs) > 1:
         part.paragraphs[-1]._element.getparent().remove(part.paragraphs[-1]._element)
     part.paragraphs[0].clear()
+
+
+def _set_snap_to_grid(paragraph, snap=False):
+    pPr = paragraph._p.get_or_add_pPr()
+    for child in list(pPr):
+        if child.tag == qn("w:snapToGrid"):
+            pPr.remove(child)
+    el = OxmlElement("w:snapToGrid")
+    el.set(qn("w:val"), "1" if snap else "0")
+    pPr.append(el)
+
+
+def _anchor_header_banner(run, top_cm=0.12):
+    """Pin the PUA banner once at the top of the page so Word cannot wrap a second copy."""
+    drawing = run._r.find(qn("w:drawing"))
+    if drawing is None:
+        return
+    inline = drawing.find(f"{WP_NS}inline")
+    if inline is None:
+        return
+    extent = inline.find(f"{WP_NS}extent")
+    cx = extent.get("cx")
+    cy = extent.get("cy")
+    graphic = inline.find(f"{A_NS}graphic")
+    doc_pr = inline.find(f"{WP_NS}docPr")
+    frame_pr = inline.find(f"{WP_NS}cNvGraphicFramePr")
+
+    anchor = etree.SubElement(drawing, f"{WP_NS}anchor")
+    anchor.set("distT", "0")
+    anchor.set("distB", "0")
+    anchor.set("distL", "0")
+    anchor.set("distR", "0")
+    anchor.set("simplePos", "0")
+    anchor.set("relativeHeight", "251658240")
+    anchor.set("behindDoc", "0")
+    anchor.set("locked", "1")
+    anchor.set("layoutInCell", "1")
+    anchor.set("allowOverlap", "1")
+
+    simple = etree.SubElement(anchor, f"{WP_NS}simplePos")
+    simple.set("x", "0")
+    simple.set("y", "0")
+
+    pos_h = etree.SubElement(anchor, f"{WP_NS}positionH")
+    pos_h.set("relativeFrom", "page")
+    align = etree.SubElement(pos_h, f"{WP_NS}align")
+    align.text = "center"
+
+    pos_v = etree.SubElement(anchor, f"{WP_NS}positionV")
+    pos_v.set("relativeFrom", "page")
+    offset = etree.SubElement(pos_v, f"{WP_NS}posOffset")
+    offset.text = str(int(top_cm * 360000))
+
+    new_extent = etree.SubElement(anchor, f"{WP_NS}extent")
+    new_extent.set("cx", cx)
+    new_extent.set("cy", cy)
+
+    effect = etree.SubElement(anchor, f"{WP_NS}effectExtent")
+    for edge in ("l", "t", "r", "b"):
+        effect.set(edge, "0")
+
+    etree.SubElement(anchor, f"{WP_NS}wrapNone")
+    if doc_pr is not None:
+        anchor.append(doc_pr)
+    if frame_pr is not None:
+        anchor.append(frame_pr)
+    if graphic is not None:
+        anchor.append(graphic)
+    drawing.remove(inline)
 
 
 def add_header_and_footer(section):
@@ -276,20 +367,23 @@ def add_header_and_footer(section):
     header = section.header
     _clear_hf_part(header)
     hp = header.paragraphs[0]
-    pPr = hp._p.get_or_add_pPr()
-    for child in list(pPr):
-        if child.tag == qn("w:pStyle"):
-            pPr.remove(child)
+    try:
+        hp.style = "Header"
+    except KeyError:
+        pass
     hp.alignment = WD_ALIGN_PARAGRAPH.CENTER
     hp.paragraph_format.space_before = Pt(0)
     hp.paragraph_format.space_after = Pt(0)
+    # Thin header line; the banner is pinned to the page so it cannot wrap twice.
     hp.paragraph_format.line_spacing_rule = WD_LINE_SPACING.EXACTLY
-    hp.paragraph_format.line_spacing = Pt(HEADER_IMAGE_HEIGHT_CM * 28.35)
+    hp.paragraph_format.line_spacing = Pt(6)
     hp.paragraph_format.first_line_indent = Cm(0)
+    _set_snap_to_grid(hp, False)
     banner = ROOT / "figures" / "pua_header.png"
     run = hp.add_run()
     if banner.exists():
         run.add_picture(str(banner), height=Cm(HEADER_IMAGE_HEIGHT_CM))
+        _anchor_header_banner(run)
 
     footer = section.footer
     _clear_hf_part(footer)
@@ -915,6 +1009,9 @@ def configure_document(doc):
     for tag in ("w:evenAndOddHeaders", "w:titlePg"):
         for el in settings.findall(qn(tag)):
             settings.remove(el)
+    even = OxmlElement("w:evenAndOddHeaders")
+    even.set(qn("w:val"), "0")
+    settings.append(even)
     ah = settings.find(qn("w:autoHyphenation"))
     if ah is None:
         ah = OxmlElement("w:autoHyphenation")
