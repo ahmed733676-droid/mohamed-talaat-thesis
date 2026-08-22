@@ -2,7 +2,7 @@
 
 Comparative study of wear resistance and surface roughness of injectable versus conventional composite resin (in vitro study). Faculty of Dentistry, Pharos University in Alexandria.
 
-Page 1 uses the protocol header, the approved English and Arabic titles, and the supervision committee from the protocol (3 February 2025).
+Pages 1–2 of the assembled thesis are the first two pages of the approved protocol Word file (3 February 2025), inserted as they are. The rest of the thesis is ordinary editable Word.
 
 ## Final assembled files
 

@@ -7,7 +7,7 @@
 - `Thesis_Complete.docx`
 - `Thesis_Complete.pdf` (A4)
 - `Thesis_Complete.md`
-- `assets/cover/protocol_header.png` — header cropped from protocol page 1
+- `assets/cover/protocol_page1.png` / `protocol_page2.png` — first two protocol pages, used as-is
 - `assets/cover/Protocol_Format_MT_3-2-2025.pdf` — source protocol (3 February 2025)
 
 ## Formatting checked
@@ -16,8 +16,7 @@
 - Chapter titles: centred, bold, all caps (CHAPTER n / TITLE)
 - Section titles: left, bold, numbered (1.1 Aim of the Study)
 - Each chapter starts on a new page
-- Cover uses the bilingual Faculty of Dentistry header from protocol page 1 (English left, PUA seal centre, Arabic right, thin rule)
-- Cover titles and supervision committee are those of the approved protocol (English + Arabic titles; Prof. Wegdan M. Abdel-Fattah; Asst. Prof. Emad M. El-Sayed, main supervisor)
+- Pages 1–2 are the first two pages of the approved protocol, inserted whole into the Word file (no header crop)
 - Supervisors, declaration, abstract, contents (dotted leaders + page numbers), list of tables, abbreviations
 - Front matter: roman numerals; body: arabic
 - Tables 3.1 and 4.1–4.3 with captions above and footnotes below

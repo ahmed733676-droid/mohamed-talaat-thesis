@@ -16,7 +16,8 @@ from docx.shared import Cm, Pt, RGBColor, Twips
 ROOT = Path(__file__).resolve().parent
 MD = ROOT / "Thesis_Complete.md"
 OUT = ROOT / "Thesis_Complete.docx"
-HEADER_IMG = ROOT / "assets" / "cover" / "protocol_header.png"
+PROTOCOL_PAGE1 = ROOT / "assets" / "cover" / "protocol_page1.png"
+PROTOCOL_PAGE2 = ROOT / "assets" / "cover" / "protocol_page2.png"
 FONT = "Times New Roman"
 
 
@@ -256,83 +257,32 @@ def parse_table(lines, start):
     return rows, i
 
 
-def add_protocol_header(doc):
-    """Bilingual Faculty of Dentistry header cropped from protocol page 1."""
+def set_cover_page(section):
+    """Bleed the protocol pages to the A4 edge so they sit as they are."""
+    section.page_width = Cm(21.0)
+    section.page_height = Cm(29.7)
+    section.left_margin = Cm(0)
+    section.right_margin = Cm(0)
+    section.top_margin = Cm(0)
+    section.bottom_margin = Cm(0)
+    section.header_distance = Cm(0)
+    section.footer_distance = Cm(0)
+
+
+def add_protocol_page(doc, path, page_break_after=False):
+    """Insert one protocol page as a full A4 Word page (not a cropped strip)."""
     p = doc.add_paragraph()
-    _set_spacing(p, double=False, before=0, after=8, align=WD_ALIGN_PARAGRAPH.CENTER)
+    _set_spacing(p, double=False, before=0, after=0, align=WD_ALIGN_PARAGRAPH.CENTER)
     run = p.add_run()
-    # Content width: 21 − 3.0 − 2.5 cm
-    run.add_picture(str(HEADER_IMG), width=Cm(15.5))
-    return p
-
-
-def _set_run_arabic(run, size=14, bold=True):
-    arabic = "Noto Naskh Arabic"
-    run.font.name = arabic
-    run.font.size = Pt(size)
-    run.bold = bold
-    run.italic = False
-    run.font.color.rgb = RGBColor(0, 0, 0)
-    rPr = run._element.get_or_add_rPr()
-    rFonts = rPr.find(qn("w:rFonts"))
-    if rFonts is None:
-        rFonts = OxmlElement("w:rFonts")
-        rPr.append(rFonts)
-    for a in ("ascii", "hAnsi", "eastAsia", "cs"):
-        rFonts.set(qn(f"w:{a}"), arabic)
-    rtl = OxmlElement("w:rtl")
-    rPr.append(rtl)
-    szCs = OxmlElement("w:szCs")
-    szCs.set(qn("w:val"), str(int(size * 2)))
-    rPr.append(szCs)
-
-
-def centered_ar(doc, text, size=14, bold=True, before=0, after=6):
-    p = doc.add_paragraph()
-    _set_spacing(p, before=before, after=after, double=False, align=WD_ALIGN_PARAGRAPH.CENTER)
-    pPr = p._p.get_or_add_pPr()
-    bidi = OxmlElement("w:bidi")
-    bidi.set(qn("w:val"), "1")
-    pPr.append(bidi)
-    run = p.add_run(text)
-    _set_run_arabic(run, size=size, bold=bold)
+    run.add_picture(str(path), width=Cm(21.0), height=Cm(29.7))
+    if page_break_after:
+        run.add_break(WD_BREAK.PAGE)
     return p
 
 
 def add_cover(doc):
-    add_protocol_header(doc)
-    centered(doc, "Faculty of Dentistry", 12, True, after=0, double=False)
-    centered(doc, "Department of Conservative Dentistry", 12, italic=True, after=6, double=False)
-    centered(doc, "Student Code No. 202203112", 12, True, after=6, double=False)
-    centered(doc, "A Thesis submitted in partial fulfillment of the", 12, double=False)
-    centered(doc, "requirements for the degree of Master of Science", 12, double=False)
-    centered(doc, "in Conservative Dentistry", 12, True, after=6, double=False)
-    centered(doc, "Academic Year 2024–2025", 12, True, after=6, double=False)
-    centered(doc, "Name of Candidate: Mohamed Talaat Mohamed AbdelMoaty ElAbd", 12, True, after=10, double=False)
-
-    centered(doc, "English Title", 12, True, after=0, double=False)
-    centered(
-        doc,
-        "COMPARATIVE STUDY OF WEAR RESISTANCE AND SURFACE ROUGHNESS OF INJECTABLE VERSUS CONVENTIONAL COMPOSITE RESIN — IN VITRO STUDY",
-        13,
-        True,
-        before=0,
-        after=8,
-        double=False,
-    )
-    centered(doc, "Arabic Title", 12, True, after=2, double=False)
-    centered_ar(
-        doc,
-        "دراسة مقارنة للتآكل و خشونة سطح الراتينج المركب القابل للحقن و التقليدي - دراسة في المختبر",
-        14,
-        True,
-        before=0,
-        after=10,
-    )
-
-    centered(doc, "Supervision Committee", 12, True, before=4, after=4, double=False)
-    centered(doc, "1. Prof. Wegdan M. Abdel-Fattah", 12, True, after=0, double=False)
-    centered(doc, "2. Asst. Prof. Emad M. El-Sayed (Main supervisor)", 12, True, after=0, double=False)
+    add_protocol_page(doc, PROTOCOL_PAGE1, page_break_after=True)
+    add_protocol_page(doc, PROTOCOL_PAGE2, page_break_after=False)
 
 
 def add_supervisors_page(doc):
@@ -527,8 +477,7 @@ def main():
     doc = Document()
     configure_styles(doc)
     _enable_update_fields(doc)
-    set_margins(doc.sections[0])
-    doc.sections[0].top_margin = Cm(1.5)
+    set_cover_page(doc.sections[0])
     doc.sections[0].different_first_page_header_footer = True
     _hide_footer(doc.sections[0])
 
