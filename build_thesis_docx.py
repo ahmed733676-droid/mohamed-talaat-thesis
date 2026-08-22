@@ -16,6 +16,7 @@ from docx.shared import Cm, Pt, RGBColor, Twips
 ROOT = Path(__file__).resolve().parent
 MD = ROOT / "Thesis_Complete.md"
 OUT = ROOT / "Thesis_Complete.docx"
+HEADER_IMG = ROOT / "assets" / "cover" / "protocol_header.png"
 FONT = "Times New Roman"
 
 
@@ -255,38 +256,49 @@ def parse_table(lines, start):
     return rows, i
 
 
+def add_protocol_header(doc):
+    """Bilingual Faculty of Dentistry header cropped from protocol page 1."""
+    p = doc.add_paragraph()
+    _set_spacing(p, double=False, before=0, after=8, align=WD_ALIGN_PARAGRAPH.CENTER)
+    run = p.add_run()
+    # Content width: 21 − 3.0 − 2.5 cm
+    run.add_picture(str(HEADER_IMG), width=Cm(15.5))
+    return p
+
+
 def add_cover(doc):
-    centered(doc, "PHAROS UNIVERSITY IN ALEXANDRIA", 16, True, after=0)
-    centered(doc, "FACULTY OF DENTISTRY", 14, True)
-    centered(doc, "Department of Conservative Dentistry", 13, italic=True, after=18)
+    add_protocol_header(doc)
+    centered(doc, "Department of Conservative Dentistry", 13, italic=True, after=12)
     centered(
         doc,
         "COMPARATIVE EVALUATION OF WEAR RESISTANCE AND SURFACE ROUGHNESS OF INJECTABLE VERSUS CONVENTIONAL NANOHYBRID COMPOSITE RESINS",
         14,
         True,
-        before=12,
+        before=6,
         after=6,
     )
-    centered(doc, "(In Vitro Study)", 13, italic=True, after=18)
+    centered(doc, "(In Vitro Study)", 13, italic=True, after=12)
     centered(doc, "A Thesis submitted in partial fulfillment of the", 12)
     centered(doc, "requirements for the degree of Master of Science", 12)
     centered(doc, "in", 12)
-    centered(doc, "Conservative Dentistry", 13, True, after=18)
+    centered(doc, "Conservative Dentistry", 13, True, after=12)
     centered(doc, "Submitted by", 12, before=6)
-    centered(doc, "Mohamed Talaat Mohamed AbdelMoaty ElAbd", 13, True, after=18)
+    centered(doc, "Mohamed Talaat Mohamed AbdelMoaty ElAbd", 13, True)
+    centered(doc, "Student Code No. 202203112", 12, after=12)
     centered(doc, "Supervisors", 12, True, before=6)
-    centered(doc, "Prof. Dr. …………………………………………", 12)
-    centered(doc, "Ass. Prof. Dr. …………………………………………", 12, after=18)
+    centered(doc, "Prof. Wegdan M. Abdel-Fattah", 12, True)
+    centered(doc, "Asst. Prof. Emad M. El-Sayed (Main supervisor)", 12, True, after=12)
     centered(doc, "2025 / 2026", 13, True, before=12)
 
 
 def add_supervisors_page(doc):
     add_heading1(doc, "SUPERVISORS", page_break=False)
     body(doc, "This thesis was carried out under the supervision of:", first=False)
-    centered(doc, "Prof. Dr. …………………………………………", 12, before=12)
+    centered(doc, "Prof. Wegdan M. Abdel-Fattah", 12, True, before=12)
     centered(doc, "Professor of Conservative Dentistry", 12, italic=True, after=12)
-    centered(doc, "Ass. Prof. Dr. …………………………………………", 12, before=12)
+    centered(doc, "Asst. Prof. Emad M. El-Sayed", 12, True, before=12)
     centered(doc, "Assistant Professor of Conservative Dentistry", 12, italic=True)
+    centered(doc, "(Main supervisor)", 12, italic=True)
     body(doc, "Faculty of Dentistry, Pharos University in Alexandria.", first=False)
 
 
@@ -472,6 +484,7 @@ def main():
     configure_styles(doc)
     _enable_update_fields(doc)
     set_margins(doc.sections[0])
+    doc.sections[0].top_margin = Cm(1.5)
     doc.sections[0].different_first_page_header_footer = True
     _hide_footer(doc.sections[0])
 

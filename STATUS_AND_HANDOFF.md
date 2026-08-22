@@ -5,8 +5,10 @@
 
 ## Final files on GitHub
 - `Thesis_Complete.docx`
-- `Thesis_Complete.pdf` (A4, 28 pages)
+- `Thesis_Complete.pdf` (A4)
 - `Thesis_Complete.md`
+- `assets/cover/protocol_header.png` — header cropped from protocol page 1
+- `assets/cover/Protocol_Format_MT_3-2-2025.pdf` — source protocol (3 February 2025)
 
 ## Formatting checked
 - A4; left margin 3 cm; Times New Roman throughout
@@ -14,13 +16,17 @@
 - Chapter titles: centred, bold, all caps (CHAPTER n / TITLE)
 - Section titles: left, bold, numbered (1.1 Aim of the Study)
 - Each chapter starts on a new page
-- Cover, supervisors, declaration, abstract, contents (dotted leaders + page numbers), list of tables, abbreviations
+- Cover uses the bilingual Faculty of Dentistry header from protocol page 1 (English left, PUA seal centre, Arabic right, thin rule)
+- Supervisors, declaration, abstract, contents (dotted leaders + page numbers), list of tables, abbreviations
 - Front matter: roman numerals; body: arabic
 - Tables 3.1 and 4.1–4.3 with captions above and footnotes below
 - References: Vancouver, hanging indent, single spaced
 
 ## Content
-All seven chapters are in the assembled files. Geometry is 10 mm × 1 mm discs. Statistics are the locked values. Supervisor names remain blank until they are taken from the protocol.
+All seven chapters are in the assembled files. Geometry is 10 mm × 1 mm discs. Statistics are the locked values.
 
-## Cover photograph
-The typeset protocol cover is page 1. The photograph of the approved protocol was not in the repository. Send it to replace page 1.
+Supervisors, taken from the English protocol cover:
+1. Prof. Wegdan M. Abdel-Fattah
+2. Asst. Prof. Emad M. El-Sayed (Main supervisor)
+
+Student Code No. 202203112. Protocol academic year 2024–2025. Thesis cover year remains 2025 / 2026.

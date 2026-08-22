@@ -2,6 +2,8 @@
 
 Comparative evaluation of wear resistance and surface roughness of injectable versus conventional nanohybrid composite resins (in vitro study). Faculty of Dentistry, Pharos University in Alexandria.
 
+Page 1 of the assembled thesis carries the bilingual Faculty of Dentistry header from the approved protocol (3 February 2025).
+
 ## Final assembled files
 
 - [Thesis_Complete.docx](Thesis_Complete.docx) — A4, Times New Roman 12 pt, double spacing, 3 cm left margin
