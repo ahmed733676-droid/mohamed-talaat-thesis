@@ -81,7 +81,7 @@ MARGIN_TOP_CM = 2.80
 MARGIN_BOTTOM_CM = 2.55
 HEADER_DISTANCE_CM = 0.30
 FOOTER_DISTANCE_CM = 0.28
-HEADER_IMAGE_WIDTH_CM = 13.8
+HEADER_IMAGE_WIDTH_CM = 13.6
 BODY_WIDTH_CM = 15.8
 BODY_FIRST_LINE_CM = 1.27
 
@@ -305,7 +305,7 @@ def cover_para(doc, text, *, size=12, bold=False, italic=False,
     p = doc.add_paragraph()
     set_paragraph_format(p, align=align, first_line=False,
                          space_before=space_before, space_after=space_after,
-                         line_spacing=1.15)
+                         line_spacing=1.3)
     run = p.add_run(text)
     set_run_font(run, size=size, bold=bold, italic=italic)
     return p
@@ -316,40 +316,40 @@ def add_cover(doc):
     cover_para(doc, "Faculty of Dentistry", bold=True, align=WD_ALIGN_PARAGRAPH.LEFT)
     cover_para(doc, "Department of Restorative Dentistry", align=WD_ALIGN_PARAGRAPH.LEFT)
     cover_para(doc, "Student Code No. 202203112", bold=True,
-               align=WD_ALIGN_PARAGRAPH.LEFT, space_after=14)
+               align=WD_ALIGN_PARAGRAPH.LEFT, space_after=20)
 
-    cover_para(doc, "A Thesis submitted in partial fulfilment of the", bold=True, space_before=8)
+    cover_para(doc, "A Thesis submitted in partial fulfilment of the", bold=True, space_before=10)
     cover_para(doc, "requirements for the degree of Master of Science", bold=True)
     cover_para(doc, "in Conservative Dentistry", bold=True)
-    cover_para(doc, "Academic Year 2024–2025 / 2025–2026", bold=True, space_after=14)
+    cover_para(doc, "Academic Year 2024–2025 / 2025–2026", bold=True, space_after=20)
 
-    cover_para(doc, "Name of Candidate", space_before=6)
-    cover_para(doc, "Mohamed Talaat Mohamed AbdelMoaty ElAbd", size=14, bold=True, space_after=14)
+    cover_para(doc, "Name of Candidate", space_before=8)
+    cover_para(doc, "Mohamed Talaat Mohamed AbdelMoaty ElAbd", size=14, bold=True, space_after=20)
 
     cover_para(doc, "English Title:", bold=True, italic=True,
-               align=WD_ALIGN_PARAGRAPH.LEFT, space_before=4)
-    cover_para(doc, "COMPARATIVE STUDY OF WEAR RESISTANCE", bold=True, space_before=4)
+               align=WD_ALIGN_PARAGRAPH.LEFT, space_before=6)
+    cover_para(doc, "COMPARATIVE STUDY OF WEAR RESISTANCE", bold=True, space_before=6)
     cover_para(doc, "AND SURFACE ROUGHNESS OF INJECTABLE VERSUS", bold=True)
-    cover_para(doc, "CONVENTIONAL COMPOSITE RESIN — IN VITRO STUDY", bold=True, space_after=12)
+    cover_para(doc, "CONVENTIONAL COMPOSITE RESIN — IN VITRO STUDY", bold=True, space_after=16)
 
     cover_para(doc, "Arabic Title:", bold=True, italic=True,
-               align=WD_ALIGN_PARAGRAPH.LEFT, space_before=4)
+               align=WD_ALIGN_PARAGRAPH.LEFT, space_before=6)
     cover_para(
         doc,
         "دراسة مقارنة للتآكل وخشونة سطح الراتينج المركب القابل للحقن والتقليدي – دراسة في المختبر",
-        bold=True, space_before=4, space_after=12,
+        bold=True, space_before=6, space_after=16,
     )
 
     p = doc.add_paragraph()
     set_paragraph_format(p, align=WD_ALIGN_PARAGRAPH.LEFT, first_line=False,
-                         space_after=14, line_spacing=1.15)
+                         space_after=20, line_spacing=1.3)
     run = p.add_run("Keywords: ")
     set_run_font(run, size=12, bold=True)
     run = p.add_run("Surface roughness, wear, injectable composite, conventional composite.")
     set_run_font(run, size=12)
 
-    cover_para(doc, "Supervision Committee", bold=True, space_before=6, space_after=8)
-    cover_para(doc, "1. Prof. Wegdan M. Abdel-Fattah", space_after=4)
+    cover_para(doc, "Supervision Committee", bold=True, space_before=8, space_after=10)
+    cover_para(doc, "1. Prof. Wegdan M. Abdel-Fattah", space_after=8)
     cover_para(doc, "2. Asst. Prof. Emad M. El-Sayed  (Main supervisor)")
 
 
@@ -616,9 +616,9 @@ def add_body_paragraph(doc, text, *, numbered=False, caption=False, footnote=Fal
         render_inline(p, text)
         return p
     if compact or duty:
-        before = 10 if numbered else 0
-        after = 6 if numbered else 4
-        set_paragraph_format(p, first_line=False, line_spacing=1.15,
+        before = 12 if numbered else 0
+        after = 8 if numbered else 6
+        set_paragraph_format(p, first_line=False, line_spacing=1.2,
                              space_before=before, space_after=after)
         if numbered:
             hanging_indent(p, BODY_FIRST_LINE_CM, 0.63)
