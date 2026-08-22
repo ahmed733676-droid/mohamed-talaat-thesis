@@ -13,7 +13,7 @@ A complete thesis assembled from the locked experimental data, laid out to match
 - Chapters 1–7
 - Tables 3.1, 4.1–4.3 and Figures 4.1–4.3
 
-Word and PDF share one page architecture: a single section, the same PUA banner at the top of every page, and the same faculty footer plus page number. The Word file stays editable. Result-table numbers (Mean ± SD) are centred on one line.
+Word and PDF are written from `Thesis_Complete.md` (not extracted from a PDF). They share one page architecture: a single section, the same PUA banner at the top of every page, and the same faculty footer plus page number. The Word file stays editable. Result-table numbers (Mean ± SD) are centred on one line. Chapter titles, the Introduction, and section headings have a modest academic gap below them.
 
 Formatting follows the protocol: A4; Times New Roman 12 pt body; double-spaced justified text with a 1.27 cm first-line indent; centred all-caps chapter titles; 3 cm left margin.
 
