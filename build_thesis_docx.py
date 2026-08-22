@@ -70,7 +70,6 @@ COMPACT_FRONT = {
     "ROLE OF SUPERVISORS",
     "LIST OF TABLES",
     "LIST OF FIGURES",
-    "LIST OF ABBREVIATIONS",
     "CONTENTS",
 }
 
@@ -412,8 +411,8 @@ def write_cell_text(cell, text, *, bold=False, align=WD_ALIGN_PARAGRAPH.LEFT, si
     for i, line in enumerate(lines):
         p = cell.paragraphs[0] if i == 0 else cell.add_paragraph()
         set_paragraph_format(p, align=align, first_line=False, line_spacing=1.15)
-        p.paragraph_format.space_before = Pt(3)
-        p.paragraph_format.space_after = Pt(3)
+        p.paragraph_format.space_before = Pt(4)
+        p.paragraph_format.space_after = Pt(4)
         run = p.add_run(line)
         set_run_font(run, size=size, bold=bold)
 
@@ -430,13 +429,14 @@ def add_table(doc, rows):
         # Wide enough that Dimethacrylate / Multifunctional do not split mid-word.
         widths = [2.9, 2.3, 3.4, 3.5, 1.5, 2.2]
     elif cols == 5:
-        widths = [4.2, 3.0, 3.0, 3.0, 2.6]
+        # Numeric Mean ± SD values stay on one line at 12 pt.
+        widths = [3.5, 3.3, 3.3, 3.3, 2.4]
     elif cols == 3:
-        widths = [6.2, 5.4, 4.2]
+        widths = [6.0, 5.8, 4.0]
     else:
         widths = [usable / cols] * cols
-    cell_size = 10
-    cell_pad = 80 if cols == 6 else 100
+    cell_size = 12
+    cell_pad = 100 if cols == 6 else 120
 
     tbl = table._tbl
     tblPr = tbl.tblPr
@@ -528,7 +528,7 @@ def add_contents(doc, page_map):
     for title in TOC_ITEMS:
         p = doc.add_paragraph()
         set_paragraph_format(p, align=WD_ALIGN_PARAGRAPH.LEFT, first_line=False,
-                             space_before=4, space_after=4, line_spacing=1.15)
+                             space_before=8, space_after=8, line_spacing=1.5)
         add_right_tab(p, leader="dot")
         run = p.add_run(f"{title}")
         set_run_font(run, size=12)
@@ -540,7 +540,7 @@ def add_contents(doc, page_map):
 def add_leader_list(doc, items, page_map):
     header = doc.add_paragraph()
     set_paragraph_format(header, align=WD_ALIGN_PARAGRAPH.LEFT, first_line=False,
-                         space_before=10, space_after=8, line_spacing=1.15)
+                         space_before=12, space_after=10, line_spacing=1.5)
     add_right_tab(header, leader="none")
     run = header.add_run("Title")
     set_run_font(run, bold=True, size=12)
@@ -550,7 +550,7 @@ def add_leader_list(doc, items, page_map):
     for title, _needle in items:
         p = doc.add_paragraph()
         set_paragraph_format(p, align=WD_ALIGN_PARAGRAPH.LEFT, first_line=False,
-                             space_before=6, space_after=6, line_spacing=1.15)
+                             space_before=8, space_after=8, line_spacing=1.5)
         add_right_tab(p, leader="dot")
         run = p.add_run(title)
         set_run_font(run, size=12)
@@ -601,7 +601,7 @@ def add_body_paragraph(doc, text, *, numbered=False, caption=False, footnote=Fal
     p = doc.add_paragraph()
     if caption:
         set_paragraph_format(p, align=WD_ALIGN_PARAGRAPH.LEFT, first_line=False,
-                             space_before=14, space_after=8, line_spacing=1.15)
+                             space_before=16, space_after=10, line_spacing=1.15)
         keep_with_next(p)
         render_inline(p, text)
         return p
@@ -682,7 +682,7 @@ def convert_md(doc, text, page_map):
                 # would duplicate CONTENTS. Build the list only.
                 header = doc.add_paragraph()
                 set_paragraph_format(header, align=WD_ALIGN_PARAGRAPH.LEFT, first_line=False,
-                                     space_before=10, space_after=8, line_spacing=1.15)
+                                     space_before=12, space_after=10, line_spacing=1.5)
                 add_right_tab(header, leader="none")
                 run = header.add_run("Contents")
                 set_run_font(run, bold=True, size=12)
@@ -692,7 +692,7 @@ def convert_md(doc, text, page_map):
                 for title in TOC_ITEMS:
                     p = doc.add_paragraph()
                     set_paragraph_format(p, align=WD_ALIGN_PARAGRAPH.LEFT, first_line=False,
-                                         space_before=4, space_after=4, line_spacing=1.15)
+                                         space_before=8, space_after=8, line_spacing=1.5)
                     add_right_tab(p, leader="dot")
                     run = p.add_run(title)
                     set_run_font(run, size=12)

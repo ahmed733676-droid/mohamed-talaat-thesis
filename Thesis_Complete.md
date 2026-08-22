@@ -22,13 +22,13 @@ Pharos University in Alexandria
 Conceptualization/formulation of study plan and design of the study.
 Analysis and interpretation of study results.
 Supervision of study execution and writing.
-Guidance of paper/thesis writing
+Guidance of paper/thesis writing.
 
 2. **Asst. Prof. Emad M. El-Sayed**
-Supervision of the clinical/experimental procedures
+Supervision of the clinical/experimental procedures.
 Conceptualization/formulation of study plan and design of the study.
 Supervision of study execution and writing.
-Revising the thesis and/or manuscript
+Revising the thesis and/or manuscript.
 
 ---
 
