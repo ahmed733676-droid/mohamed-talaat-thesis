@@ -1,7 +1,10 @@
 # Mohamed Talaat Master's Thesis — status
 
 **Last updated:** 22 August 2026  
-**Branch:** `cursor/complete-thesis-f431`
+**Writing branch:** `cursor/complete-thesis-f431` — **merged to `main`**  
+**QA session:** https://cursor.com/agents/bc-01a02977-9ab6-754e-a969-d68110b6e72f  
+**QA PR:** https://github.com/ahmed733676-droid/mohamed-talaat-thesis/pull/2  
+**Handoff:** `QA_HANDOFF.md`
 
 ## File for supervision
 - `Thesis_Complete.docx`
