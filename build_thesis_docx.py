@@ -401,6 +401,9 @@ def set_academic_cell_borders(cell, *, top=None, bottom=None):
 
 def set_cell_margins(cell, twips=100):
     tcPr = cell._tc.get_or_add_tcPr()
+    for child in list(tcPr):
+        if child.tag == qn("w:tcMar"):
+            tcPr.remove(child)
     tcMar = OxmlElement("w:tcMar")
     for edge in ("top", "left", "bottom", "right"):
         node = OxmlElement(f"w:{edge}")
@@ -408,6 +411,29 @@ def set_cell_margins(cell, twips=100):
         node.set(qn("w:type"), "dxa")
         tcMar.append(node)
     tcPr.append(tcMar)
+
+
+def shade_cell(cell, fill="F2F2F2"):
+    tcPr = cell._tc.get_or_add_tcPr()
+    for child in list(tcPr):
+        if child.tag == qn("w:shd"):
+            tcPr.remove(child)
+    shading = OxmlElement("w:shd")
+    shading.set(qn("w:val"), "clear")
+    shading.set(qn("w:color"), "auto")
+    shading.set(qn("w:fill"), fill)
+    tcPr.append(shading)
+
+
+def set_row_height(row, twips, rule="atLeast"):
+    trPr = row._tr.get_or_add_trPr()
+    for child in list(trPr):
+        if child.tag == qn("w:trHeight"):
+            trPr.remove(child)
+    height = OxmlElement("w:trHeight")
+    height.set(qn("w:val"), str(twips))
+    height.set(qn("w:hRule"), rule)
+    trPr.append(height)
 
 
 def split_header_lines(text):
@@ -454,7 +480,7 @@ def add_table(doc, rows):
     header = rows[0]
     is_abbrev = header and "abbreviation" in header[0].lower()
     if is_abbrev and cols == 2:
-        widths = [4.4, 11.4]
+        widths = [3.8, 12.0]
     elif cols == 6:
         # Word-boundary wrap only: Dimethacrylate / Multifunctional stay whole words.
         widths = [2.55, 2.20, 3.20, 3.30, 1.70, 2.85]
@@ -467,8 +493,8 @@ def add_table(doc, rows):
         widths = [7.90, 7.90]
     else:
         widths = [BODY_WIDTH_CM / cols] * cols
-    cell_size = 11
-    cell_pad = 50 if cols >= 5 else 70
+    cell_size = 12 if is_abbrev else 11
+    cell_pad = 80 if is_abbrev else (50 if cols >= 5 else 70)
 
     tbl = table._tbl
     tblPr = tbl.tblPr
@@ -515,6 +541,8 @@ def add_table(doc, rows):
         trPr.append(OxmlElement("w:cantSplit"))
         if r_idx == 0:
             trPr.append(OxmlElement("w:tblHeader"))
+        if is_abbrev:
+            set_row_height(table.rows[r_idx], 340 if r_idx == 0 else 320)
         for c_idx in range(cols):
             cell = table.cell(r_idx, c_idx)
             raw = row[c_idx] if c_idx < len(row) else ""
@@ -529,12 +557,18 @@ def add_table(doc, rows):
                 bold=bold,
                 align=align,
                 size=cell_size,
-                no_wrap=numeric and r_idx > 0,
+                no_wrap=(numeric and r_idx > 0) or (is_abbrev and c_idx == 0),
             )
             cell.vertical_alignment = WD_CELL_VERTICAL_ALIGNMENT.CENTER
             set_cell_margins(cell, twips=cell_pad)
-            top = 18 if r_idx == 0 else None
-            bottom = 8 if r_idx == 0 else (18 if r_idx == last else None)
+            if is_abbrev:
+                top = 18 if r_idx == 0 else None
+                bottom = 18 if r_idx == last else (12 if r_idx == 0 else 4)
+                if r_idx == 0:
+                    shade_cell(cell, "E7E6E6")
+            else:
+                top = 18 if r_idx == 0 else None
+                bottom = 8 if r_idx == 0 else (18 if r_idx == last else None)
             set_academic_cell_borders(cell, top=top, bottom=bottom)
 
     if (not is_abbrev) and header and header[-1].lower().startswith("p-value") and len(rows) > 2:
