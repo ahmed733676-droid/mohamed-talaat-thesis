@@ -1,8 +1,8 @@
 # Mohamed Talaat — Master's thesis
 
-Comparative evaluation of wear resistance and surface roughness of injectable versus conventional nanohybrid composite resins (in vitro study). Faculty of Dentistry, Pharos University in Alexandria.
+Comparative study of wear resistance and surface roughness of injectable versus conventional composite resin (in vitro study). Faculty of Dentistry, Pharos University in Alexandria.
 
-Page 1 of the assembled thesis carries the bilingual Faculty of Dentistry header from the approved protocol (3 February 2025).
+Page 1 uses the protocol header, the approved English and Arabic titles, and the supervision committee from the protocol (3 February 2025).
 
 ## Final assembled files
 

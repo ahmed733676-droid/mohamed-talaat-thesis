@@ -266,37 +266,81 @@ def add_protocol_header(doc):
     return p
 
 
+def _set_run_arabic(run, size=14, bold=True):
+    arabic = "Noto Naskh Arabic"
+    run.font.name = arabic
+    run.font.size = Pt(size)
+    run.bold = bold
+    run.italic = False
+    run.font.color.rgb = RGBColor(0, 0, 0)
+    rPr = run._element.get_or_add_rPr()
+    rFonts = rPr.find(qn("w:rFonts"))
+    if rFonts is None:
+        rFonts = OxmlElement("w:rFonts")
+        rPr.append(rFonts)
+    for a in ("ascii", "hAnsi", "eastAsia", "cs"):
+        rFonts.set(qn(f"w:{a}"), arabic)
+    rtl = OxmlElement("w:rtl")
+    rPr.append(rtl)
+    szCs = OxmlElement("w:szCs")
+    szCs.set(qn("w:val"), str(int(size * 2)))
+    rPr.append(szCs)
+
+
+def centered_ar(doc, text, size=14, bold=True, before=0, after=6):
+    p = doc.add_paragraph()
+    _set_spacing(p, before=before, after=after, double=False, align=WD_ALIGN_PARAGRAPH.CENTER)
+    pPr = p._p.get_or_add_pPr()
+    bidi = OxmlElement("w:bidi")
+    bidi.set(qn("w:val"), "1")
+    pPr.append(bidi)
+    run = p.add_run(text)
+    _set_run_arabic(run, size=size, bold=bold)
+    return p
+
+
 def add_cover(doc):
     add_protocol_header(doc)
-    centered(doc, "Department of Conservative Dentistry", 13, italic=True, after=12)
+    centered(doc, "Faculty of Dentistry", 12, True, after=0, double=False)
+    centered(doc, "Department of Conservative Dentistry", 12, italic=True, after=6, double=False)
+    centered(doc, "Student Code No. 202203112", 12, True, after=6, double=False)
+    centered(doc, "A Thesis submitted in partial fulfillment of the", 12, double=False)
+    centered(doc, "requirements for the degree of Master of Science", 12, double=False)
+    centered(doc, "in Conservative Dentistry", 12, True, after=6, double=False)
+    centered(doc, "Academic Year 2024–2025", 12, True, after=6, double=False)
+    centered(doc, "Name of Candidate: Mohamed Talaat Mohamed AbdelMoaty ElAbd", 12, True, after=10, double=False)
+
+    centered(doc, "English Title", 12, True, after=0, double=False)
     centered(
         doc,
-        "COMPARATIVE EVALUATION OF WEAR RESISTANCE AND SURFACE ROUGHNESS OF INJECTABLE VERSUS CONVENTIONAL NANOHYBRID COMPOSITE RESINS",
+        "COMPARATIVE STUDY OF WEAR RESISTANCE AND SURFACE ROUGHNESS OF INJECTABLE VERSUS CONVENTIONAL COMPOSITE RESIN — IN VITRO STUDY",
+        13,
+        True,
+        before=0,
+        after=8,
+        double=False,
+    )
+    centered(doc, "Arabic Title", 12, True, after=2, double=False)
+    centered_ar(
+        doc,
+        "دراسة مقارنة للتآكل و خشونة سطح الراتينج المركب القابل للحقن و التقليدي - دراسة في المختبر",
         14,
         True,
-        before=6,
-        after=6,
+        before=0,
+        after=10,
     )
-    centered(doc, "(In Vitro Study)", 13, italic=True, after=12)
-    centered(doc, "A Thesis submitted in partial fulfillment of the", 12)
-    centered(doc, "requirements for the degree of Master of Science", 12)
-    centered(doc, "in", 12)
-    centered(doc, "Conservative Dentistry", 13, True, after=12)
-    centered(doc, "Submitted by", 12, before=6)
-    centered(doc, "Mohamed Talaat Mohamed AbdelMoaty ElAbd", 13, True)
-    centered(doc, "Student Code No. 202203112", 12, after=12)
-    centered(doc, "Supervisors", 12, True, before=6)
-    centered(doc, "Prof. Wegdan M. Abdel-Fattah", 12, True)
-    centered(doc, "Asst. Prof. Emad M. El-Sayed (Main supervisor)", 12, True, after=12)
-    centered(doc, "2025 / 2026", 13, True, before=12)
+
+    centered(doc, "Supervision Committee", 12, True, before=4, after=4, double=False)
+    centered(doc, "1. Prof. Wegdan M. Abdel-Fattah", 12, True, after=0, double=False)
+    centered(doc, "2. Asst. Prof. Emad M. El-Sayed (Main supervisor)", 12, True, after=0, double=False)
 
 
 def add_supervisors_page(doc):
-    add_heading1(doc, "SUPERVISORS", page_break=False)
+    add_heading1(doc, "SUPERVISION COMMITTEE", page_break=False)
     body(doc, "This thesis was carried out under the supervision of:", first=False)
-    centered(doc, "Prof. Wegdan M. Abdel-Fattah", 12, True, before=12)
+    centered(doc, "1. Prof. Wegdan M. Abdel-Fattah", 12, True, before=12)
     centered(doc, "Professor of Conservative Dentistry", 12, italic=True, after=12)
-    centered(doc, "Asst. Prof. Emad M. El-Sayed", 12, True, before=12)
+    centered(doc, "2. Asst. Prof. Emad M. El-Sayed", 12, True, before=12)
     centered(doc, "Assistant Professor of Conservative Dentistry", 12, italic=True)
     centered(doc, "(Main supervisor)", 12, italic=True)
     body(doc, "Faculty of Dentistry, Pharos University in Alexandria.", first=False)

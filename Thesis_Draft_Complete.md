@@ -1,25 +1,26 @@
-# COMPARATIVE EVALUATION OF WEAR RESISTANCE AND SURFACE ROUGHNESS OF INJECTABLE VERSUS CONVENTIONAL NANOHYBRID COMPOSITE RESINS
-## (In Vitro Study)
+# COMPARATIVE STUDY OF WEAR RESISTANCE AND SURFACE ROUGHNESS OF INJECTABLE VERSUS CONVENTIONAL COMPOSITE RESIN — IN VITRO STUDY
+
+**Arabic title.** دراسة مقارنة للتآكل و خشونة سطح الراتينج المركب القابل للحقن و التقليدي - دراسة في المختبر
 
 **A Thesis submitted in partial fulfillment of the requirements for the degree of Master of Science**
 
 **In**
 **Conservative Dentistry**
 
-**Submitted by**
+**Name of Candidate**
 **Mohamed Talaat Mohamed AbdelMoaty ElAbd**
 **Student Code No. 202203112**
 
 **Faculty of Dentistry, Pharos University in Alexandria**
 
-**2025 / 2026**
+**Academic Year 2024–2025**
 
 ---
 
-## Supervisors
+## Supervision Committee
 
-Prof. Wegdan M. Abdel-Fattah
-Asst. Prof. Emad M. El-Sayed (Main supervisor)
+1. Prof. Wegdan M. Abdel-Fattah
+2. Asst. Prof. Emad M. El-Sayed (Main supervisor)
 
 ---
 
