@@ -12,6 +12,18 @@ finished; this directory decides whether it is acceptable.
 | `locked_data.json` | Single source of truth for every number allowed in the thesis |
 | `SUPERVISION_REPORT.md` | Review of the current draft, with required corrections |
 | `gate_output_review1.txt` | Recorded gate output for the reviewed draft |
+| `make_result_figures.py` | Builds Figures 4.1–4.3 from `locked_data.json` |
+
+## Building the results figures
+
+```bash
+pip install matplotlib
+python3 supervision/make_result_figures.py --outdir figures
+```
+
+Writes 300 dpi TIFF and PNG in greyscale, plus `figures/CAPTIONS.md`. Every value is read from
+`locked_data.json`, so a figure cannot drift away from its table through re-typing. Regenerate
+rather than editing by hand.
 
 ## Running the gate
 
