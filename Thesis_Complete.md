@@ -16,12 +16,19 @@ Pharos University in Alexandria
 
 ---
 
-## Supervisors
+## Role of Supervisors
 
-**Supervision Committee** (as named on the approved research protocol)
+1. **Prof. Wegdan M. Abdel-Fattah**
+Conceptualization/formulation of study plan and design of the study.
+Analysis and interpretation of study results.
+Supervision of study execution and writing.
+Guidance of paper/thesis writing
 
-1. Prof. Wegdan M. Abdel-Fattah
-2. Asst. Prof. Emad M. El-Sayed (Main supervisor)
+2. **Asst. Prof. Emad M. El-Sayed**
+Supervision of the clinical/experimental procedures
+Conceptualization/formulation of study plan and design of the study.
+Supervision of study execution and writing.
+Revising the thesis and/or manuscript
 
 ---
 
@@ -31,19 +38,7 @@ I wish to thank my supervisors for their guidance throughout the planning and wr
 
 ---
 
-## Abstract
-
-**Background.** Highly filled injectable composites are marketed for use in load-bearing restorations. Independent data comparing their gravimetric wear and surface roughness after standardised toothbrush abrasion with those of a conventional nanohybrid resin remain limited.
-
-**Aim.** To compare percentage weight loss and arithmetic mean roughness (Ra) of Beautifil Flow Plus X F00, G-ænial Universal Injectable and Beautifil II LS after 10 000 toothbrushing cycles.
-
-**Methods.** Thirty-six discs (10 mm diameter × 1 mm thick; n = 12 per group) were subjected to 10 000 brushing cycles at a load of 2 N in a Colgate Total slurry prepared according to ISO guidance. Specimen mass was recorded before and after abrasion. Ra was measured by contact profilometry. Percentage weight loss was compared by one-way ANOVA. Ra after brushing was compared by the Kruskal–Wallis test (α = 0.05).
-
-**Results.** Mean percentage weight loss was 1.49 ± 3.14 % for Beautifil Flow Plus X F00, 0.65 ± 0.37 % for G-ænial Universal Injectable and 0.41 ± 0.25 % for Beautifil II LS (p = 0.329). Mean Ra after brushing was 0.104 ± 0.017 µm, 0.100 ± 0.023 µm and 0.194 ± 0.050 µm respectively (p < 0.001). Each injectable resin was significantly smoother than Beautifil II LS. The two injectable materials did not differ from each other. One Beautifil Flow Plus X F00 disc lost approximately 11.4 % of its mass and accounts for the large standard deviation in that group.
-
-**Conclusions.** Under this toothbrushing protocol, gravimetric wear did not differ significantly among the three resins. Both injectable materials remained significantly smoother than the conventional nanohybrid. Mean Ra of the injectable resins stayed below the 0.2 µm plaque-retention threshold, whereas the nanohybrid mean lay on that threshold.
-
-**Keywords.** Injectable composite; nanohybrid composite; toothbrush abrasion; wear; surface roughness; giomer.
+## Contents
 
 ---
 
@@ -73,6 +68,22 @@ RDA — relative dentine abrasivity
 SD — standard deviation  
 S-PRG — surface pre-reacted glass-ionomer  
 ΔRa — change in Ra (after − before)
+
+---
+
+## Abstract
+
+**Background.** Highly filled injectable composites are marketed for use in load-bearing restorations. Independent data comparing their gravimetric wear and surface roughness after standardised toothbrush abrasion with those of a conventional nanohybrid resin remain limited.
+
+**Aim.** To compare percentage weight loss and arithmetic mean roughness (Ra) of Beautifil Flow Plus X F00, G-ænial Universal Injectable and Beautifil II LS after 10 000 toothbrushing cycles.
+
+**Methods.** Thirty-six discs (10 mm diameter × 1 mm thick; n = 12 per group) were subjected to 10 000 brushing cycles at a load of 2 N in a Colgate Total slurry prepared according to ISO guidance. Specimen mass was recorded before and after abrasion. Ra was measured by contact profilometry. Percentage weight loss was compared by one-way ANOVA. Ra after brushing was compared by the Kruskal–Wallis test (α = 0.05).
+
+**Results.** Mean percentage weight loss was 1.49 ± 3.14 % for Beautifil Flow Plus X F00, 0.65 ± 0.37 % for G-ænial Universal Injectable and 0.41 ± 0.25 % for Beautifil II LS (p = 0.329). Mean Ra after brushing was 0.104 ± 0.017 µm, 0.100 ± 0.023 µm and 0.194 ± 0.050 µm respectively (p < 0.001). Each injectable resin was significantly smoother than Beautifil II LS. The two injectable materials did not differ from each other. One Beautifil Flow Plus X F00 disc lost approximately 11.4 % of its mass and accounts for the large standard deviation in that group.
+
+**Conclusions.** Under this toothbrushing protocol, gravimetric wear did not differ significantly among the three resins. Both injectable materials remained significantly smoother than the conventional nanohybrid. Mean Ra of the injectable resins stayed below the 0.2 µm plaque-retention threshold, whereas the nanohybrid mean lay on that threshold.
+
+**Keywords.** Injectable composite; nanohybrid composite; toothbrush abrasion; wear; surface roughness; giomer.
 
 ---
 

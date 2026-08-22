@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
-"""Build an A4 double-spaced thesis .docx from Thesis_Complete.md."""
+"""Build an A4 double-spaced thesis .docx that follows the approved PUA protocol layout."""
 
+import re
+import shutil
+import subprocess
 from pathlib import Path
 
 from docx import Document
@@ -13,6 +16,43 @@ from docx.shared import Cm, Inches, Pt, RGBColor
 ROOT = Path(__file__).resolve().parent
 MD = ROOT / "Thesis_Complete.md"
 OUT = ROOT / "Thesis_Complete.docx"
+PDF = ROOT / "Thesis_Complete.pdf"
+
+CHAPTER_TITLES = {
+    "introduction": "INTRODUCTION",
+    "review of literature": "REVIEW OF LITERATURE",
+    "materials and methods": "MATERIALS AND METHODS",
+    "results": "RESULTS",
+    "discussion": "DISCUSSION",
+    "conclusions and recommendations": "CONCLUSIONS AND RECOMMENDATIONS",
+    "references": "REFERENCES",
+    "abstract": "ABSTRACT",
+    "acknowledgements": "ACKNOWLEDGEMENTS",
+    "role of supervisors": "ROLE OF SUPERVISORS",
+    "supervisors": "ROLE OF SUPERVISORS",
+    "contents": "CONTENTS",
+    "list of tables": "LIST OF TABLES",
+    "list of figures": "LIST OF FIGURES",
+    "list of abbreviations": "LIST OF ABBREVIATIONS",
+}
+
+TOC_ITEMS = [
+    "ROLE OF SUPERVISORS",
+    "ACKNOWLEDGEMENTS",
+    "LIST OF TABLES",
+    "LIST OF FIGURES",
+    "LIST OF ABBREVIATIONS",
+    "ABSTRACT",
+    "INTRODUCTION",
+    "REVIEW OF LITERATURE",
+    "MATERIALS AND METHODS",
+    "RESULTS",
+    "DISCUSSION",
+    "CONCLUSIONS AND RECOMMENDATIONS",
+    "REFERENCES",
+]
+
+CITE_RE = re.compile(r"\((\d+(?:\s*,\s*\d+)*)\)")
 
 
 def set_run_font(run, size=12, bold=False, italic=False, name="Times New Roman"):
@@ -30,16 +70,31 @@ def set_paragraph_format(p, *, align=WD_ALIGN_PARAGRAPH.JUSTIFY, space_after=0,
     pf.alignment = align
     pf.space_before = Pt(space_before)
     pf.space_after = Pt(space_after)
-    pf.line_spacing_rule = WD_LINE_SPACING.DOUBLE if line_spacing == 2.0 else WD_LINE_SPACING.SINGLE
-    pf.line_spacing = line_spacing
-    pf.first_line_indent = Cm(1.25) if first_line and align == WD_ALIGN_PARAGRAPH.JUSTIFY else Cm(0)
+    if line_spacing == 2.0:
+        pf.line_spacing_rule = WD_LINE_SPACING.DOUBLE
+        pf.line_spacing = 2.0
+    else:
+        pf.line_spacing_rule = WD_LINE_SPACING.MULTIPLE
+        pf.line_spacing = line_spacing
+    # Protocol body: paragraphs are marked by a first-line indent, not a blank gap.
+    if first_line and align == WD_ALIGN_PARAGRAPH.JUSTIFY:
+        pf.first_line_indent = Cm(1.27)
+    else:
+        pf.first_line_indent = Cm(0)
+    pf.widow_control = True
+
+
+def keep_with_next(p):
+    p.paragraph_format.keep_with_next = True
 
 
 def page_break(doc):
+    """Insert a page break on its own single-spaced paragraph so it stays on the previous page."""
     p = doc.add_paragraph()
+    set_paragraph_format(p, first_line=False, space_before=0, space_after=0, line_spacing=1.0)
+    p.paragraph_format.line_spacing_rule = WD_LINE_SPACING.SINGLE
     p.add_run().add_break(WD_BREAK.PAGE)
-    p.paragraph_format.space_before = Pt(0)
-    p.paragraph_format.space_after = Pt(0)
+    return p
 
 
 def shade_cell(cell, hex_color="E8E8E8"):
@@ -87,6 +142,16 @@ def add_top_border(paragraph):
     pPr.append(pBdr)
 
 
+def add_right_tab(paragraph, pos_cm=16.2):
+    pPr = paragraph._p.get_or_add_pPr()
+    tabs = OxmlElement("w:tabs")
+    tab = OxmlElement("w:tab")
+    tab.set(qn("w:val"), "right")
+    tab.set(qn("w:pos"), str(int(pos_cm * 567)))
+    tabs.append(tab)
+    pPr.append(tabs)
+
+
 def add_page_field(paragraph, size=10):
     run = paragraph.add_run()
     set_run_font(run, size=size)
@@ -124,7 +189,6 @@ def add_header_and_footer(section):
 
     footer = section.footer
     footer.is_linked_to_previous = False
-    # clear default paragraph
     fp = footer.paragraphs[0]
     fp.alignment = WD_ALIGN_PARAGRAPH.CENTER
     fp.paragraph_format.space_before = Pt(2)
@@ -155,10 +219,12 @@ def add_header_and_footer(section):
     add_page_field(pnum, size=10)
 
 
-def centered(doc, text, size, bold=False, italic=False, space_before=0, space_after=0):
+def centered(doc, text, size, bold=False, italic=False, space_before=0, space_after=0,
+             line_spacing=1.15):
     p = doc.add_paragraph()
     set_paragraph_format(p, align=WD_ALIGN_PARAGRAPH.CENTER, first_line=False,
-                         space_before=space_before, space_after=space_after)
+                         space_before=space_before, space_after=space_after,
+                         line_spacing=line_spacing)
     run = p.add_run(text)
     set_run_font(run, size=size, bold=bold, italic=italic)
     return p
@@ -169,42 +235,43 @@ def add_cover(doc):
     def left(text, size=12, bold=False, italic=False, space_before=0, space_after=0):
         p = doc.add_paragraph()
         set_paragraph_format(p, align=WD_ALIGN_PARAGRAPH.LEFT, first_line=False,
-                             space_before=space_before, space_after=space_after)
+                             space_before=space_before, space_after=space_after,
+                             line_spacing=1.15)
         run = p.add_run(text)
         set_run_font(run, size=size, bold=bold, italic=italic)
         return p
 
     left("Faculty of Dentistry", 13, bold=True)
     left("Department of Restorative Dentistry", 13)
-    left("Student Code No. 202203112", 12, bold=True, space_after=12)
+    left("Student Code No. 202203112", 12, bold=True, space_after=8)
 
-    centered(doc, "A Thesis submitted in partial fulfilment of the", 13, bold=True, space_before=12)
+    centered(doc, "A Thesis submitted in partial fulfilment of the", 13, bold=True, space_before=8)
     centered(doc, "requirements for the degree of Master of Science", 13, bold=True)
-    centered(doc, "in Conservative Dentistry", 13, bold=True, space_after=6)
-    centered(doc, "Academic Year 2024–2025 / 2025–2026", 13, bold=True, space_after=12)
+    centered(doc, "in Conservative Dentistry", 13, bold=True, space_after=4)
+    centered(doc, "Academic Year 2024–2025 / 2025–2026", 13, bold=True, space_after=8)
 
-    centered(doc, "Name of Candidate", 12, space_before=6)
-    centered(doc, "Mohamed Talaat Mohamed AbdelMoaty ElAbd", 14, bold=True, space_after=12)
+    centered(doc, "Name of Candidate", 12, space_before=4)
+    centered(doc, "Mohamed Talaat Mohamed AbdelMoaty ElAbd", 14, bold=True, space_after=8)
 
-    left("English Title:", 12, bold=True, italic=True, space_before=8)
+    left("English Title:", 12, bold=True, italic=True, space_before=6)
     centered(
         doc,
         "COMPARATIVE STUDY OF WEAR RESISTANCE AND SURFACE ROUGHNESS OF "
         "INJECTABLE VERSUS CONVENTIONAL COMPOSITE RESIN — IN VITRO STUDY",
-        13, bold=True, space_before=4, space_after=8,
+        13, bold=True, space_before=2, space_after=6,
     )
     left("Arabic Title:", 12, bold=True, italic=True)
     centered(
         doc,
         "دراسة مقارنة للتآكل وخشونة سطح الراتينج المركب القابل للحقن والتقليدي – دراسة في المختبر",
-        13, bold=True, space_before=4, space_after=10,
+        13, bold=True, space_before=2, space_after=6,
     )
-    left("Keywords: Surface roughness, wear, injectable composite, conventional composite.", 12, space_after=12)
+    left("Keywords: Surface roughness, wear, injectable composite, conventional composite.", 12, space_after=8)
 
-    centered(doc, "Supervision Committee", 13, bold=True, space_before=8, space_after=6)
+    last = centered(doc, "Supervision Committee", 13, bold=True, space_before=4, space_after=4)
     centered(doc, "1. Prof. Wegdan M. Abdel-Fattah", 12)
-    centered(doc, "2. Asst. Prof. Emad M. El-Sayed  (Main supervisor)", 12, space_after=6)
-    page_break(doc)
+    last = centered(doc, "2. Asst. Prof. Emad M. El-Sayed  (Main supervisor)", 12, space_after=0)
+    last.add_run().add_break(WD_BREAK.PAGE)
 
 
 def parse_table(lines, start):
@@ -243,79 +310,194 @@ def add_table(doc, rows):
             if r_idx == 0:
                 shade_cell(cell)
     spacer = doc.add_paragraph()
-    set_paragraph_format(spacer, first_line=False, space_after=6)
+    set_paragraph_format(spacer, first_line=False, space_after=6, line_spacing=1.0)
 
 
 def add_heading_styled(doc, text, level):
+    """Protocol headings: chapter titles centred 18 pt caps; subsections left 14 pt bold."""
     p = doc.add_paragraph()
-    sizes = {0: 16, 1: 14, 2: 13, 3: 12}
-    set_paragraph_format(
-        p,
-        align=WD_ALIGN_PARAGRAPH.CENTER if level == 0 else WD_ALIGN_PARAGRAPH.LEFT,
-        first_line=False,
-        space_before=12 if level else 6,
-        space_after=6,
-    )
-    run = p.add_run(text)
-    set_run_font(run, size=sizes.get(level, 12), bold=True)
+    if level in (0, 1):
+        set_paragraph_format(
+            p,
+            align=WD_ALIGN_PARAGRAPH.CENTER,
+            first_line=False,
+            space_before=12 if level == 0 else 0,
+            space_after=18,
+            line_spacing=1.15,
+        )
+        run = p.add_run(text)
+        set_run_font(run, size=18, bold=True)
+    else:
+        set_paragraph_format(
+            p,
+            align=WD_ALIGN_PARAGRAPH.LEFT,
+            first_line=False,
+            space_before=12,
+            space_after=0,
+        )
+        run = p.add_run(text)
+        set_run_font(run, size=14, bold=True)
+    keep_with_next(p)
+    return p
+
+
+def add_contents(doc, page_map):
+    add_heading_styled(doc, "CONTENTS", 0)
+    header = doc.add_paragraph()
+    set_paragraph_format(header, align=WD_ALIGN_PARAGRAPH.LEFT, first_line=False,
+                         space_before=6, space_after=0, line_spacing=1.15)
+    add_right_tab(header)
+    run = header.add_run("Contents")
+    set_run_font(run, bold=True, size=12)
+    run = header.add_run("\tPage")
+    set_run_font(run, bold=True, size=12)
+    add_bottom_border(header)
+
+    for title in TOC_ITEMS:
+        p = doc.add_paragraph()
+        set_paragraph_format(p, align=WD_ALIGN_PARAGRAPH.LEFT, first_line=False,
+                             space_before=0, space_after=0)
+        add_right_tab(p)
+        run = p.add_run(f"– {title}")
+        set_run_font(run, size=12)
+        page = page_map.get(title, "")
+        run = p.add_run(f"\t{page}")
+        set_run_font(run, size=12)
 
 
 def add_image(doc, path: Path):
     if not path.exists():
         return
     p = doc.add_paragraph()
-    set_paragraph_format(p, align=WD_ALIGN_PARAGRAPH.CENTER, first_line=False, space_before=6, space_after=6)
+    set_paragraph_format(p, align=WD_ALIGN_PARAGRAPH.CENTER, first_line=False,
+                         space_before=6, space_after=6, line_spacing=1.0)
     run = p.add_run()
     run.add_picture(str(path), width=Inches(5.7))
 
 
-def render_inline(p, text):
+def render_inline(p, text, size=12, italic=False):
+    """Render markdown bold and Vancouver citations as superscript parentheses."""
     parts = text.split("**")
     for idx, part in enumerate(parts):
         if not part:
             continue
-        run = p.add_run(part)
-        set_run_font(run, bold=(idx % 2 == 1))
+        bold = idx % 2 == 1
+        pos = 0
+        for match in CITE_RE.finditer(part):
+            before = part[pos:match.start()]
+            if before:
+                run = p.add_run(before)
+                set_run_font(run, size=size, bold=bold, italic=italic)
+            cite = p.add_run(match.group(0))
+            set_run_font(cite, size=size, bold=False, italic=False)
+            cite.font.superscript = True
+            pos = match.end()
+        rest = part[pos:]
+        if rest:
+            run = p.add_run(rest)
+            set_run_font(run, size=size, bold=bold, italic=italic)
 
 
-def convert_md(doc, text):
+def hanging_indent(p, left_cm=1.27, hang_cm=1.27):
+    p.paragraph_format.left_indent = Cm(left_cm)
+    p.paragraph_format.first_line_indent = Cm(-hang_cm)
+
+
+def add_body_paragraph(doc, text, *, numbered=False, caption=False, footnote=False,
+                       formula=False, reference=False):
+    p = doc.add_paragraph()
+    if caption:
+        set_paragraph_format(p, align=WD_ALIGN_PARAGRAPH.JUSTIFY, first_line=False,
+                             space_before=6, space_after=6)
+        render_inline(p, text, italic=True)
+        return p
+    if footnote:
+        set_paragraph_format(p, first_line=False, space_before=0, space_after=0,
+                             line_spacing=1.15)
+        render_inline(p, text, size=10, italic=True)
+        return p
+    if formula:
+        set_paragraph_format(p, align=WD_ALIGN_PARAGRAPH.CENTER, first_line=False,
+                             space_before=6, space_after=6)
+        render_inline(p, text)
+        return p
+    set_paragraph_format(p, first_line=not numbered and not reference)
+    if numbered or reference:
+        hanging_indent(p)
+    render_inline(p, text)
+    return p
+
+
+def is_numbered(line):
+    return len(line) > 2 and line[0].isdigit() and (
+        line[1] == "." or (line[1].isdigit() and line[2] == ".")
+    )
+
+
+def is_formula(line):
+    stripped = line.strip()
+    return (
+        stripped.startswith("[")
+        or stripped.startswith("ΔRa")
+        or stripped.startswith("[(W")
+        or "× 100" in stripped
+    )
+
+
+def is_footnote(line):
+    return line.startswith("†") or line.startswith("‡") or line.startswith("Values are mean")
+
+
+def convert_md(doc, text, page_map):
     lines = text.splitlines()
-    start = next((i for i, ln in enumerate(lines) if ln.strip() == "## Supervisors"), 0)
+    start = next(
+        (i for i, ln in enumerate(lines) if ln.strip() in {"## Role of Supervisors", "## Supervisors"}),
+        0,
+    )
     chapter1 = next(i for i, ln in enumerate(lines) if ln.strip() == "# Chapter 1")
+    n = len(lines)
 
-    # Front matter from Supervisors through Chapter 1
     i = start
+    first_front = True
     while i < chapter1:
         line = lines[i].rstrip()
         if not line or line.startswith("---"):
             i += 1
             continue
         if line.startswith("## "):
+            if not first_front:
+                page_break(doc)
+            first_front = False
             heading = line[3:].strip()
-            add_heading_styled(doc, heading, 0 if heading in {"Abstract"} else 1)
+            display = CHAPTER_TITLES.get(heading.lower(), heading.upper())
+            if display == "CONTENTS":
+                add_contents(doc, page_map)
+                i += 1
+                continue
+            add_heading_styled(doc, display, 0)
             i += 1
             continue
         if line.startswith("- "):
             p = doc.add_paragraph()
-            set_paragraph_format(p, first_line=False, space_after=0)
-            run = p.add_run(line[2:])
+            set_paragraph_format(p, first_line=False)
+            run = p.add_run(f"– {line[2:]}")
             set_run_font(run)
             i += 1
             continue
-        p = doc.add_paragraph()
-        set_paragraph_format(p)
-        render_inline(p, line)
+        add_body_paragraph(
+            doc,
+            line,
+            numbered=is_numbered(line),
+            footnote=is_footnote(line),
+        )
         i += 1
-    page_break(doc)
 
     i = chapter1
-    n = len(lines)
+    pending_chapter = None
+    in_references = False
     while i < n:
         line = lines[i].rstrip()
-        if not line:
-            i += 1
-            continue
-        if line.startswith("---"):
+        if not line or line.startswith("---"):
             i += 1
             continue
         if line.startswith("![") and "](" in line:
@@ -329,11 +511,16 @@ def convert_md(doc, text):
             continue
         if line.startswith("# ") and not line.startswith("##"):
             title = line[2:].strip()
-            level = 0 if title.startswith("Chapter") or title in {
-                "Introduction", "Review of literature", "Materials and methods",
-                "Results", "Discussion", "Conclusions and recommendations", "References",
-            } else 1
-            add_heading_styled(doc, title, level)
+            if title.lower().startswith("chapter "):
+                pending_chapter = title
+            else:
+                page_break(doc)
+                if pending_chapter:
+                    add_heading_styled(doc, pending_chapter.upper(), 0)
+                    pending_chapter = None
+                display = CHAPTER_TITLES.get(title.lower(), title.upper())
+                add_heading_styled(doc, display, 1)
+                in_references = display == "REFERENCES"
             i += 1
             continue
         if line.startswith("### "):
@@ -341,22 +528,28 @@ def convert_md(doc, text):
             i += 1
             continue
         if line.startswith("## "):
-            add_heading_styled(doc, line[3:].strip(), 1)
+            add_heading_styled(doc, line[3:].strip(), 2)
             i += 1
             continue
-        numbered = len(line) > 2 and line[0].isdigit() and (line[1] == "." or (line[1].isdigit() and line[2] == "."))
-        p = doc.add_paragraph()
-        set_paragraph_format(p, first_line=not numbered)
-        render_inline(p, line)
+        caption = line.startswith("**Table ") or line.startswith("**Figure ")
+        add_body_paragraph(
+            doc,
+            line,
+            numbered=is_numbered(line) and not caption and not in_references,
+            caption=caption,
+            footnote=is_footnote(line),
+            formula=is_formula(line),
+            reference=in_references and is_numbered(line),
+        )
         i += 1
 
 
-def main():
+def build_docx(page_map):
     doc = Document()
     section = doc.sections[0]
     section.page_width = Cm(21.0)
     section.page_height = Cm(29.7)
-    section.left_margin = Cm(2.5)
+    section.left_margin = Cm(3.0)
     section.right_margin = Cm(2.0)
     section.top_margin = Cm(3.4)
     section.bottom_margin = Cm(3.6)
@@ -368,9 +561,44 @@ def main():
     style._element.rPr.rFonts.set(qn("w:eastAsia"), "Times New Roman")
 
     add_cover(doc)
-    convert_md(doc, MD.read_text(encoding="utf-8"))
+    convert_md(doc, MD.read_text(encoding="utf-8"), page_map)
     doc.save(OUT)
     print(f"Wrote {OUT}")
+
+
+def convert_pdf():
+    soffice = shutil.which("soffice") or shutil.which("libreoffice")
+    if not soffice:
+        raise SystemExit("LibreOffice (soffice) is required to build the PDF")
+    subprocess.run(
+        [soffice, "--headless", "--convert-to", "pdf", str(OUT), "--outdir", str(ROOT)],
+        check=True,
+    )
+    print(f"Wrote {PDF}")
+
+
+def extract_heading_pages():
+    import pymupdf
+
+    found = {}
+    doc = pymupdf.open(PDF)
+    wanted = set(TOC_ITEMS)
+    for i, page in enumerate(doc):
+        for raw in page.get_text().splitlines():
+            key = raw.strip()
+            if key in wanted and key not in found:
+                found[key] = i + 1
+    print("TOC pages:", found)
+    return found
+
+
+def main():
+    build_docx({})
+    convert_pdf()
+    page_map = extract_heading_pages()
+    if page_map:
+        build_docx(page_map)
+        convert_pdf()
 
 
 if __name__ == "__main__":

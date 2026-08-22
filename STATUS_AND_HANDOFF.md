@@ -5,23 +5,22 @@
 
 ## What is finished
 
-A complete, bound-style thesis has been assembled from the locked experimental data:
+A complete thesis assembled from the locked experimental data, laid out to match the approved PUA research protocol:
 
-- Cover, supervisors page, acknowledgements, structured abstract
-- Chapters 1–6 (Introduction, Literature Review, Methods, Results, Discussion, Conclusions)
-- Chapter 7 — 23 verified Vancouver references
-- Tables 3.1, 4.1, 4.2, 4.3 in first-mention order
-- Figures 4.1–4.3 generated from `supervision/locked_data.json` and embedded
+- Cover (faculty, department, student code 202203112, official English and Arabic titles, keywords, supervision committee)
+- Role of Supervisors (wording from the protocol)
+- Acknowledgements, Contents, lists of tables/figures/abbreviations, structured abstract
+- Chapters 1–6 and Chapter 7 (25 Vancouver references)
+- Tables 3.1, 4.1–4.3 and Figures 4.1–4.3
 
-Formatting: A4, Times New Roman 12 pt, double spacing, 3 cm left margin, justified body, page numbers.
+Formatting follows the protocol: A4; Times New Roman 12 pt; double-spaced justified body with a 1.27 cm first-line indent and no extra gap between paragraphs; centred all-caps chapter titles; PUA header and faculty footer on every page; 3 cm left margin.
 
-The earlier 40-page minimum was set aside by the user in favour of a complete, well-organised thesis rather than padded length. The rendered PDF is 24 pages including references and figures.
+The rendered PDF is 40 pages. Length comes from protocol-style spacing and one-section-per-page front matter, not from padded prose.
 
 ## Still for the candidate to insert
 
-- Supervisor names and titles from the approved protocol
-- Laboratory photographs of the mould, simulator and profilometer (Figures 3.1–3.3), if required by the department
-- Batch numbers, curing-light model, finishing sequence, brush type, slurry ratio and statistical software, if the laboratory notebook holds them
+- Laboratory photographs of the mould, simulator and profilometer (Figures 3.1–3.3), if the department requires them
+- Batch numbers, finishing sequence, brush type and statistical software, if the laboratory notebook holds them
 
 ## Do not email
 
