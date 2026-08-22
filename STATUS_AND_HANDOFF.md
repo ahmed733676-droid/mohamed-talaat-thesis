@@ -1,30 +1,28 @@
-# Mohamed Talaat Master's Thesis - Handoff
+# Mohamed Talaat Master's Thesis — Status
 
-**Last updated:** 22 August 2026  
-**Branch:** `cursor/complete-thesis-f431`  
-**Assembled files:** `Thesis_Complete.md`, `Thesis_Complete.docx`
+**Last updated:** 22 August 2026
+**Deliverables:** `Thesis_Complete.docx` and `Thesis_Complete.pdf`
 
-## Done
-- Single assembled thesis written in supervisor English (not the earlier machine register).
-- Cover page typeset from the **research protocol cover** (university, faculty, title, candidate, degree, year, supervisor lines).
-- Missing chapters written: Methods (from locked facts only), expanded Results, Discussion, Conclusions, Vancouver list (22 real sources).
-- Geometry: **10 mm × 1 mm discs**. Old 15 × 4 × 1.5 mm bars removed from the assembled text.
-- Tables 4.1–4.3 used as locked.
-- A4 Word file: Times New Roman 12 pt, double spacing, left margin 3 cm.
+## What is finished
 
-## Cover photograph
-The photograph of the approved protocol cover is **not in this repository, Gmail, or Notion**. Page 1 of the .docx is a typeset stand-in. **Send the photo/scan (JPG, PNG or PDF) in chat** and it will replace page 1.
+A complete, bound-style thesis has been assembled from the locked experimental data:
 
-## Still to insert from the laboratory notebook (not invented)
-- Supervisor names  
-- Batch numbers  
-- Curing light, profilometer, balance and brushing-machine models  
-- Polish sequence, slurry ratio, storage time/temperature  
-- Exact post-hoc test name and software version from Results Final.xlsx  
+- Cover, supervisors page, acknowledgements, structured abstract
+- Chapters 1–6 (Introduction, Literature Review, Methods, Results, Discussion, Conclusions)
+- Chapter 7 — 23 verified Vancouver references
+- Tables 3.1, 4.1, 4.2, 4.3 in first-mention order
+- Figures 4.1–4.3 generated from `supervision/locked_data.json` and embedded
 
-## Page length
-The assembled body is a complete scholarly draft, not padded. Double-spaced A4 is short of 40 pages until the protocol cover photo, notebook Methods, and any figures are added. Do not invent pages.
+Formatting: A4, Times New Roman 12 pt, double spacing, 3 cm left margin, justified body, page numbers.
 
-## Do not
-- Email mohammed.talaat09@gmail.com without Ahmed’s approval.  
-- Invent numbers or papers.  
+The earlier 40-page minimum was set aside by the user in favour of a complete, well-organised thesis rather than padded length. The rendered PDF is 24 pages including references and figures.
+
+## Still for the candidate to insert
+
+- Supervisor names and titles from the approved protocol
+- Laboratory photographs of the mould, simulator and profilometer (Figures 3.1–3.3), if required by the department
+- Batch numbers, curing-light model, finishing sequence, brush type, slurry ratio and statistical software, if the laboratory notebook holds them
+
+## Do not email
+
+Nothing is to be sent to mohammed.talaat09@gmail.com until Ahmed gives explicit approval.
