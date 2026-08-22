@@ -1,8 +1,8 @@
 {
   "_comment": [
     "Single source of truth for every number allowed to appear in the thesis.",
-    "Derived from STATUS_AND_HANDOFF.md, Tables_Mastered_Academic.md and",
-    "Chapter_4_Results_Current.md, which record the locked analysis of Results Final.xlsx.",
+    "Derived from the locked analysis of Results Final.xlsx, now recorded in",
+    "Thesis_Complete.md and this file. Obsolete overlapping drafts were removed.",
     "Nothing may be added here that is not in the candidate's experimental data."
   ],
 

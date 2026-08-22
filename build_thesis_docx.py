@@ -7,7 +7,6 @@ import subprocess
 from pathlib import Path
 
 from docx import Document
-from docx.enum.section import WD_SECTION
 from docx.enum.table import WD_CELL_VERTICAL_ALIGNMENT, WD_TABLE_ALIGNMENT
 from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_LINE_SPACING
 from docx.oxml import OxmlElement
@@ -245,28 +244,44 @@ def configure_styles(doc):
         pf.keep_with_next = True
 
 
+def _clear_hf_part(part):
+    part.is_linked_to_previous = False
+    while len(part.paragraphs) > 1:
+        part.paragraphs[-1]._element.getparent().remove(part.paragraphs[-1]._element)
+    part.paragraphs[0].clear()
+
+
 def add_header_and_footer(section):
     section.different_first_page_header_footer = False
-    section.odd_and_even_pages_header_footer = False
     section.header_distance = Cm(HEADER_DISTANCE_CM)
     section.footer_distance = Cm(FOOTER_DISTANCE_CM)
 
+    sect_pr = section._sectPr
+    for child in list(sect_pr):
+        tag = child.tag
+        if tag.endswith("titlePg"):
+            sect_pr.remove(child)
+        elif tag.endswith("headerReference") and child.get(qn("w:type")) in ("first", "even"):
+            sect_pr.remove(child)
+        elif tag.endswith("footerReference") and child.get(qn("w:type")) in ("first", "even"):
+            sect_pr.remove(child)
+
     header = section.header
-    header.is_linked_to_previous = False
+    _clear_hf_part(header)
     hp = header.paragraphs[0]
     hp.alignment = WD_ALIGN_PARAGRAPH.CENTER
     hp.paragraph_format.space_before = Pt(0)
     hp.paragraph_format.space_after = Pt(0)
-    hp.paragraph_format.line_spacing = 1.0
+    hp.paragraph_format.line_spacing_rule = WD_LINE_SPACING.EXACTLY
+    hp.paragraph_format.line_spacing = Pt(HEADER_IMAGE_HEIGHT_CM * 28.35)
     hp.paragraph_format.first_line_indent = Cm(0)
     banner = ROOT / "figures" / "pua_header.png"
     run = hp.add_run()
     if banner.exists():
-        # Height-capped so the Word header pane is a thin strip, not a second page.
         run.add_picture(str(banner), height=Cm(HEADER_IMAGE_HEIGHT_CM))
 
     footer = section.footer
-    footer.is_linked_to_previous = False
+    _clear_hf_part(footer)
     fp = footer.paragraphs[0]
     fp.alignment = WD_ALIGN_PARAGRAPH.CENTER
     fp.paragraph_format.space_before = Pt(0)
@@ -394,16 +409,32 @@ def split_header_lines(text):
     return [text]
 
 
-def write_cell_text(cell, text, *, bold=False, align=WD_ALIGN_PARAGRAPH.LEFT, size=10.5):
+def suppress_hyphens(paragraph):
+    pPr = paragraph._p.get_or_add_pPr()
+    pPr.append(OxmlElement("w:suppressAutoHyphens"))
+
+
+def set_no_wrap(cell):
+    tcPr = cell._tc.get_or_add_tcPr()
+    for child in list(tcPr):
+        if child.tag == qn("w:noWrap"):
+            tcPr.remove(child)
+    tcPr.append(OxmlElement("w:noWrap"))
+
+
+def write_cell_text(cell, text, *, bold=False, align=WD_ALIGN_PARAGRAPH.LEFT, size=11, no_wrap=False):
     cell.text = ""
     lines = [ln for ln in text.split("\n") if ln != ""] or [""]
     for i, line in enumerate(lines):
         p = cell.paragraphs[0] if i == 0 else cell.add_paragraph()
-        set_paragraph_format(p, align=align, first_line=False, line_spacing=1.15)
-        p.paragraph_format.space_before = Pt(4)
-        p.paragraph_format.space_after = Pt(4)
+        set_paragraph_format(p, align=align, first_line=False, line_spacing=1.0)
+        p.paragraph_format.space_before = Pt(2)
+        p.paragraph_format.space_after = Pt(2)
+        suppress_hyphens(p)
         run = p.add_run(line)
         set_run_font(run, size=size, bold=bold)
+    if no_wrap:
+        set_no_wrap(cell)
 
 
 def add_table(doc, rows):
@@ -413,22 +444,30 @@ def add_table(doc, rows):
     table = doc.add_table(rows=len(rows), cols=cols)
     table.alignment = WD_TABLE_ALIGNMENT.CENTER
     table.autofit = False
-    usable = BODY_WIDTH_CM
-    if cols == 6:
-        # Wide enough that Dimethacrylate / Multifunctional do not split mid-word.
-        widths = [2.9, 2.3, 3.4, 3.5, 1.5, 2.2]
+    header = rows[0]
+    is_abbrev = header and "abbreviation" in header[0].lower()
+    if is_abbrev and cols == 2:
+        widths = [4.4, 11.4]
+    elif cols == 6:
+        # Word-boundary wrap only: Dimethacrylate / Multifunctional stay whole words.
+        widths = [2.55, 2.20, 3.20, 3.30, 1.70, 2.85]
     elif cols == 5:
-        # Numeric Mean ± SD values stay on one line at 12 pt.
-        widths = [3.5, 3.3, 3.3, 3.3, 2.4]
+        # Mean ± SD values stay on one centred line.
+        widths = [3.50, 3.30, 3.30, 3.30, 2.40]
     elif cols == 3:
-        widths = [6.0, 5.8, 4.0]
+        widths = [5.80, 5.50, 4.50]
+    elif cols == 2:
+        widths = [7.90, 7.90]
     else:
-        widths = [usable / cols] * cols
-    cell_size = 12
-    cell_pad = 100 if cols == 6 else 120
+        widths = [BODY_WIDTH_CM / cols] * cols
+    cell_size = 11
+    cell_pad = 50 if cols >= 5 else 70
 
     tbl = table._tbl
     tblPr = tbl.tblPr
+    for child in list(tblPr):
+        if child.tag in (qn("w:tblW"), qn("w:tblLayout"), qn("w:tblGrid")):
+            tblPr.remove(child)
     tblW = OxmlElement("w:tblW")
     tblW.set(qn("w:w"), str(int(sum(widths) * 567)))
     tblW.set(qn("w:type"), "dxa")
@@ -436,46 +475,69 @@ def add_table(doc, rows):
     layout = OxmlElement("w:tblLayout")
     layout.set(qn("w:type"), "fixed")
     tblPr.append(layout)
+    existing_grid = tbl.find(qn("w:tblGrid"))
+    if existing_grid is not None:
+        tbl.remove(existing_grid)
+    grid = OxmlElement("w:tblGrid")
+    for w in widths:
+        col = OxmlElement("w:gridCol")
+        col.set(qn("w:w"), str(int(w * 567)))
+        grid.append(col)
+    tbl.insert(1, grid)
 
     for i, w in enumerate(widths):
         for cell in table.columns[i].cells:
             cell.width = Cm(w)
+            tcPr = cell._tc.get_or_add_tcPr()
+            tcW = OxmlElement("w:tcW")
+            tcW.set(qn("w:w"), str(int(w * 567)))
+            tcW.set(qn("w:type"), "dxa")
+            tcPr.append(tcW)
 
-    header = rows[0]
     last = len(rows) - 1
     numeric_cols = set()
-    for c_idx, h in enumerate(header):
-        key = h.lower()
-        if any(tok in key for tok in ("mean", "p-value", "load", "range", "vol%", "mg", "µm", "μm", "%")):
-            numeric_cols.add(c_idx)
+    if not is_abbrev:
+        for c_idx, h in enumerate(header):
+            key = h.lower()
+            if any(tok in key for tok in ("mean", "p-value", "load", "range", "vol%", "mg", "µm", "μm", "%")):
+                numeric_cols.add(c_idx)
 
     for r_idx, row in enumerate(rows):
         tr = table.rows[r_idx]._tr
         trPr = tr.get_or_add_trPr()
-        cant = OxmlElement("w:cantSplit")
-        trPr.append(cant)
+        trPr.append(OxmlElement("w:cantSplit"))
         if r_idx == 0:
-            hdr = OxmlElement("w:tblHeader")
-            trPr.append(hdr)
+            trPr.append(OxmlElement("w:tblHeader"))
         for c_idx in range(cols):
             cell = table.cell(r_idx, c_idx)
             raw = row[c_idx] if c_idx < len(row) else ""
             if r_idx == 0:
                 raw = "\n".join(split_header_lines(raw))
-            align = WD_ALIGN_PARAGRAPH.CENTER if c_idx in numeric_cols else WD_ALIGN_PARAGRAPH.LEFT
-            write_cell_text(cell, raw, bold=(r_idx == 0), align=align, size=cell_size)
+            numeric = c_idx in numeric_cols
+            align = WD_ALIGN_PARAGRAPH.CENTER if numeric else WD_ALIGN_PARAGRAPH.LEFT
+            bold = r_idx == 0 or (is_abbrev and c_idx == 0)
+            write_cell_text(
+                cell,
+                raw,
+                bold=bold,
+                align=align,
+                size=cell_size,
+                no_wrap=numeric and r_idx > 0,
+            )
             cell.vertical_alignment = WD_CELL_VERTICAL_ALIGNMENT.CENTER
             set_cell_margins(cell, twips=cell_pad)
             top = 18 if r_idx == 0 else None
             bottom = 8 if r_idx == 0 else (18 if r_idx == last else None)
             set_academic_cell_borders(cell, top=top, bottom=bottom)
 
-    if header and header[-1].lower().startswith("p-value") and len(rows) > 2:
+    if (not is_abbrev) and header and header[-1].lower().startswith("p-value") and len(rows) > 2:
         pval = next((r[cols - 1] for r in rows[1:] if r[cols - 1].strip()), "")
-        table.cell(1, cols - 1).merge(table.cell(last, cols - 1))
-        write_cell_text(table.cell(1, cols - 1), pval, align=WD_ALIGN_PARAGRAPH.CENTER, size=cell_size)
-        set_academic_cell_borders(table.cell(1, cols - 1), bottom=18)
-        set_cell_margins(table.cell(1, cols - 1), twips=cell_pad)
+        merged = table.cell(1, cols - 1)
+        merged.merge(table.cell(last, cols - 1))
+        write_cell_text(merged, pval, align=WD_ALIGN_PARAGRAPH.CENTER, size=cell_size, no_wrap=True)
+        set_academic_cell_borders(merged, bottom=18)
+        set_cell_margins(merged, twips=cell_pad)
+        merged.vertical_alignment = WD_CELL_VERTICAL_ALIGNMENT.CENTER
 
     spacer = doc.add_paragraph()
     set_paragraph_format(spacer, first_line=False, space_after=12, line_spacing=1.0)
@@ -697,6 +759,10 @@ def convert_md(doc, text, page_map):
         if current_front in {"CONTENTS", "LIST OF TABLES", "LIST OF FIGURES"}:
             i += 1
             continue
+        if line.startswith("|"):
+            rows, i = parse_table(lines, i)
+            add_table(doc, rows)
+            continue
         if line.startswith("- "):
             p = doc.add_paragraph()
             set_paragraph_format(p, first_line=False, line_spacing=1.15,
@@ -783,14 +849,40 @@ def apply_section(section):
     add_header_and_footer(section)
 
 
+def configure_document(doc):
+    settings = doc.settings.element
+    for tag in ("w:evenAndOddHeaders", "w:titlePg"):
+        for el in settings.findall(qn(tag)):
+            settings.remove(el)
+    ah = settings.find(qn("w:autoHyphenation"))
+    if ah is None:
+        ah = OxmlElement("w:autoHyphenation")
+        settings.append(ah)
+    ah.set(qn("w:val"), "0")
+
+
+def drop_empty_leading_paragraph(doc):
+    first = doc.paragraphs[0]
+    if first.text.strip():
+        return
+    if any(run._element.findall(".//{http://schemas.openxmlformats.org/wordprocessingml/2006/main}drawing")
+           or run._element.findall(".//{http://schemas.openxmlformats.org/drawingml/2006/main}blip")
+           for run in first.runs):
+        return
+    first._element.getparent().remove(first._element)
+
+
 def build_docx(page_map):
     doc = Document()
     configure_styles(doc)
+    configure_document(doc)
     apply_section(doc.sections[0])
     add_cover(doc)
-    body = doc.add_section(WD_SECTION.NEW_PAGE)
-    apply_section(body)
+    drop_empty_leading_paragraph(doc)
+    doc.add_page_break()
     convert_md(doc, MD.read_text(encoding="utf-8"), page_map)
+    if len(doc.sections) != 1:
+        raise RuntimeError(f"Word must stay one section to match the PDF; found {len(doc.sections)}")
     doc.save(OUT)
     print(f"Wrote {OUT}")
 

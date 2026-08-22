@@ -61,16 +61,18 @@ I am grateful to Prof. Wegdan M. Abdel-Fattah and Asst. Prof. Emad M. El-Sayed f
 
 ## List of abbreviations
 
-ANOVA — analysis of variance  
-CAD/CAM — computer-aided design / computer-aided manufacture  
-ISO — International Organization for Standardization  
-LED — light-emitting diode  
-Ra — arithmetic mean roughness  
-RDA — relative dentine abrasivity  
-SD — standard deviation  
-S-PRG — surface pre-reacted glass-ionomer  
-vol% — percentage by volume  
-ΔRa — change in Ra (after − before)
+| Abbreviation | Meaning |
+|--------------|---------|
+| ANOVA | analysis of variance |
+| CAD/CAM | computer-aided design / computer-aided manufacture |
+| ISO | International Organization for Standardization |
+| LED | light-emitting diode |
+| Ra | arithmetic mean roughness |
+| RDA | relative dentine abrasivity |
+| SD | standard deviation |
+| S-PRG | surface pre-reacted glass-ionomer |
+| vol% | percentage by volume |
+| ΔRa | change in Ra (after − before) |
 
 ---
 

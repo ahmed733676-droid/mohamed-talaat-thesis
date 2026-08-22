@@ -1,6 +1,6 @@
 # Mohamed Talaat — complete Master’s thesis
 
-This is the **full thesis** (cover through Chapter 7, about 42 pages). It is not the short draft.
+This is the **full thesis** (cover through Chapter 7). The only working source is `Thesis_Complete.md`. Overlapping drafts were removed so they cannot overwrite the locked disc geometry.
 
 Comparative study of wear resistance and surface roughness of injectable versus conventional composite resin (in vitro).
 

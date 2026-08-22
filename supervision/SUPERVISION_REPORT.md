@@ -100,10 +100,9 @@ Line 149 names the 15 × 4 × 1.5 mm bar in order to explain that it was not use
 sentence entirely. Chapter 3 states the method that was performed — 10 mm diameter × 1 mm thick
 discs in a CAD/CAM Teflon mould — and says nothing about earlier drafts.
 
-Related: `Chapter_4_Results_Current.md` on `main` still opens "Thirty-six **bar-shaped**
-specimens". That legacy file contradicts the locked geometry and will poison any future assembly
-that reads from it. Archive the superseded drafts under `archive/` so nothing is assembled from
-them again (see §6).
+Related: the superseded `Chapter_4_Results_Current.md` opened "Thirty-six **bar-shaped**
+specimens" and contradicted the locked geometry. That file, and the other overlapping drafts,
+have been deleted so nothing can be assembled from them again (see §6).
 
 ### B5 — Three placeholder sites
 
@@ -287,19 +286,12 @@ confirm that a paper exists. That check is manual and it is not optional.
 
 ## 6. Repository hygiene
 
-Five overlapping draft files now describe the same thesis with contradictory content:
-
-| File | Problem |
-|------|---------|
-| `Thesis_Draft_Chapters_1-3.md` | Bar geometry; `[Equipment list as previously]` placeholders |
-| `Thesis_Draft_Complete.md` | Bar geometry; empty results tables; "Insert the detailed text here" |
-| `Chapter_4_Results.md` | Superseded |
-| `Chapter_4_Results_Current.md` | "Thirty-six **bar-shaped** specimens" — contradicts locked geometry |
-| `Tables_Mastered_Academic.md` | Correct, and the source of the locked tables |
-
-Recommendation: move the four superseded files to `archive/` with a one-line note, and keep
-`Thesis_Complete.md` as the single working document. This prevents a later assembly from reading
-the bar geometry back in — which is exactly how B4 happened.
+The overlapping draft files that contradicted the locked disc geometry
+(`Thesis_Draft_Chapters_1-3.md`, `Thesis_Draft_Complete.md`, `Chapter_4_Results.md`,
+`Chapter_4_Results_Current.md`, `Tables_Mastered_Academic.md`) have been deleted.
+`Thesis_Complete.md` is the single working document. `locked_data.json` remains the
+numeric source of truth. This prevents a later assembly from reading the abandoned
+15 × 4 × 1.5 mm bar geometry back in.
 
 ---
 
