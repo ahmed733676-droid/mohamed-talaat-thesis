@@ -618,6 +618,10 @@ def add_heading_styled(doc, text, level, *, new_page=False, style_name=None):
         run = p.add_run(text)
         set_run_font(run, size=12, bold=True)
     keep_with_next(p)
+    if level in (0, 1) and text.strip() and not text.startswith("CHAPTER "):
+        gap = doc.add_paragraph()
+        set_paragraph_format(gap, first_line=False, space_before=0, space_after=6, line_spacing=1.0)
+        keep_with_next(gap)
     return p
 
 
