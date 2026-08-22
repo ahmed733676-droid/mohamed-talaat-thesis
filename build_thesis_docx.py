@@ -388,7 +388,12 @@ def add_header_and_footer(section):
     footer = section.footer
     _clear_hf_part(footer)
     fp = footer.paragraphs[0]
+    try:
+        fp.style = "Footer"
+    except KeyError:
+        pass
     fp.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    _set_snap_to_grid(fp, False)
     fp.paragraph_format.space_before = Pt(0)
     fp.paragraph_format.space_after = Pt(0)
     fp.paragraph_format.line_spacing = 1.0
