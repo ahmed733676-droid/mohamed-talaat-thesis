@@ -83,6 +83,13 @@ FOOTER_DISTANCE_CM = 0.18
 HEADER_IMAGE_HEIGHT_CM = 1.30
 BODY_WIDTH_CM = 15.8
 BODY_FIRST_LINE_CM = 1.27
+# Modest academic air after titles. Prose is taken only from Thesis_Complete.md.
+H1_SPACE_BEFORE_PT = 18
+H1_SPACE_AFTER_PT = 56
+H1_INTRO_SPACE_AFTER_PT = 64
+CHAPTER_NUM_SPACE_AFTER_PT = 12
+H2_SPACE_BEFORE_PT = 22
+H2_SPACE_AFTER_PT = 14
 
 CITE_RE = re.compile(r"\((\d+(?:\s*,\s*\d+)*)\)")
 
@@ -236,8 +243,8 @@ def configure_styles(doc):
         st.font.underline = False
         pf = st.paragraph_format
         pf.alignment = align
-        pf.space_before = Pt(12 if style_name == "Heading 1" else 16)
-        pf.space_after = Pt(42 if style_name == "Heading 1" else 10)
+        pf.space_before = Pt(H1_SPACE_BEFORE_PT if style_name == "Heading 1" else H2_SPACE_BEFORE_PT)
+        pf.space_after = Pt(H1_SPACE_AFTER_PT if style_name == "Heading 1" else H2_SPACE_AFTER_PT)
         pf.line_spacing_rule = WD_LINE_SPACING.SINGLE
         pf.line_spacing = 1.0
         pf.first_line_indent = Cm(0)
@@ -550,14 +557,20 @@ def add_heading_styled(doc, text, level, *, new_page=False, style_name=None):
     if new_page:
         page_break_before(p)
     if level in (0, 1):
-        after = 10 if text.startswith("CHAPTER ") else 42
+        if text.startswith("CHAPTER "):
+            after = CHAPTER_NUM_SPACE_AFTER_PT
+        elif text == "INTRODUCTION":
+            after = H1_INTRO_SPACE_AFTER_PT
+        else:
+            after = H1_SPACE_AFTER_PT
         set_paragraph_format(p, align=WD_ALIGN_PARAGRAPH.CENTER, first_line=False,
-                             space_before=12, space_after=after, line_spacing=1.0)
+                             space_before=H1_SPACE_BEFORE_PT, space_after=after, line_spacing=1.0)
         run = p.add_run(text)
         set_run_font(run, size=16, bold=True)
     else:
         set_paragraph_format(p, align=WD_ALIGN_PARAGRAPH.LEFT, first_line=False,
-                             space_before=16, space_after=8, line_spacing=1.0)
+                             space_before=H2_SPACE_BEFORE_PT, space_after=H2_SPACE_AFTER_PT,
+                             line_spacing=1.0)
         run = p.add_run(text)
         set_run_font(run, size=12, bold=True)
     keep_with_next(p)
