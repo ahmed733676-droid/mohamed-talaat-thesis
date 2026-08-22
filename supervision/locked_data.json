@@ -1,0 +1,115 @@
+{
+  "_comment": [
+    "Single source of truth for every number allowed to appear in the thesis.",
+    "Derived from STATUS_AND_HANDOFF.md, Tables_Mastered_Academic.md and",
+    "Chapter_4_Results_Current.md, which record the locked analysis of Results Final.xlsx.",
+    "Nothing may be added here that is not in the candidate's experimental data."
+  ],
+
+  "design": {
+    "specimen_geometry": "10 mm diameter x 1 mm thick discs",
+    "mould": "CAD/CAM Teflon mould",
+    "n_per_group": 12,
+    "n_total": 36,
+    "groups": 3,
+    "brushing_cycles": 10000,
+    "brush_load_newton": 2,
+    "iso_load_range_newton": [0.5, 2.5],
+    "dentifrice": "Colgate Total",
+    "alpha": 0.05,
+    "abandoned_geometry": "15 mm x 4 mm x 1.5 mm bar",
+    "gpower_initial_n": 10
+  },
+
+  "materials": [
+    {
+      "name": "Beautifil Flow Plus X F00",
+      "manufacturer": "Shofu Inc., Kyoto, Japan",
+      "type": "highly filled injectable giomer"
+    },
+    {
+      "name": "G-\u00e6nial Universal Injectable",
+      "manufacturer": "GC Corporation, Tokyo, Japan",
+      "type": "highly filled nanofilled injectable",
+      "filler_wt_percent": 69,
+      "filler_vol_percent": 50,
+      "mean_filler_size_nm": 150
+    },
+    {
+      "name": "Beautifil II LS",
+      "manufacturer": "Shofu Inc., Kyoto, Japan",
+      "type": "conventional nanohybrid giomer, low shrinkage",
+      "filler_wt_percent": 83
+    }
+  ],
+
+  "weight": {
+    "test": "one-way ANOVA",
+    "p_value": 0.329,
+    "significant": false,
+    "groups": {
+      "Beautifil Flow Plus X F00": {
+        "before_g": [0.1602, 0.0074],
+        "after_g": [0.1576, 0.0031],
+        "loss_percent": [1.49, 3.14],
+        "loss_mg": [2.58, 5.91],
+        "loss_mg_range": [0.2, 20.7]
+      },
+      "G-\u00e6nial Universal Injectable": {
+        "before_g": [0.1630, 0.0102],
+        "after_g": [0.1619, 0.0106],
+        "loss_percent": [0.65, 0.37],
+        "loss_mg": [1.07, 0.62],
+        "loss_mg_range": [0.2, 1.9]
+      },
+      "Beautifil II LS": {
+        "before_g": [0.2313, 0.0154],
+        "after_g": [0.2303, 0.0156],
+        "loss_percent": [0.41, 0.25],
+        "loss_mg": [0.95, 0.58],
+        "loss_mg_range": [0.1, 1.8]
+      }
+    },
+    "outlier": {
+      "group": "Beautifil Flow Plus X F00",
+      "n_specimens": 1,
+      "loss_percent": 11.4,
+      "loss_mg": 20.7,
+      "action": "retained in the analysis and footnoted; never silently removed"
+    }
+  },
+
+  "roughness": {
+    "test": "Kruskal-Wallis",
+    "p_value_after": "< 0.001",
+    "significant": true,
+    "posthoc": "each injectable vs Beautifil II LS p < 0.001; the two injectables not significantly different",
+    "groups": {
+      "Beautifil Flow Plus X F00": {
+        "before_um": [0.038, 0.011],
+        "after_um": [0.104, 0.017],
+        "delta_um": [0.066, 0.021]
+      },
+      "G-\u00e6nial Universal Injectable": {
+        "before_um": [0.054, 0.010],
+        "after_um": [0.100, 0.023],
+        "delta_um": [0.046, 0.023]
+      },
+      "Beautifil II LS": {
+        "before_um": [0.119, 0.054],
+        "after_um": [0.194, 0.050],
+        "delta_um": [0.075, 0.066]
+      }
+    }
+  },
+
+  "thresholds": {
+    "plaque_retention_um": 0.2,
+    "tongue_detection_um": 0.5
+  },
+
+  "hypotheses": {
+    "h01_weight_loss": "retained (p = 0.329)",
+    "h02_roughness": "rejected (p < 0.001)"
+  }
+}
