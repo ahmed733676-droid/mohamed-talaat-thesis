@@ -184,7 +184,7 @@ def add_header_and_footer(section):
     banner = ROOT / "figures" / "pua_header.png"
     run = hp.add_run()
     if banner.exists():
-        run.add_picture(str(banner), width=Cm(16.0))
+        run.add_picture(str(banner), width=Cm(14.8))
     add_bottom_border(hp)
 
     footer = section.footer
@@ -241,35 +241,46 @@ def add_cover(doc):
         set_run_font(run, size=size, bold=bold, italic=italic)
         return p
 
-    left("Faculty of Dentistry", 13, bold=True)
-    left("Department of Restorative Dentistry", 13)
-    left("Student Code No. 202203112", 12, bold=True, space_after=8)
+    def gap(pts=10):
+        p = doc.add_paragraph()
+        set_paragraph_format(p, first_line=False, space_before=0, space_after=pts, line_spacing=1.0)
+        p.paragraph_format.line_spacing_rule = WD_LINE_SPACING.SINGLE
+        return p
 
-    centered(doc, "A Thesis submitted in partial fulfilment of the", 13, bold=True, space_before=8)
-    centered(doc, "requirements for the degree of Master of Science", 13, bold=True)
-    centered(doc, "in Conservative Dentistry", 13, bold=True, space_after=4)
-    centered(doc, "Academic Year 2024–2025 / 2025–2026", 13, bold=True, space_after=8)
+    left("Faculty of Dentistry", 12, bold=True)
+    left("Department of Restorative Dentistry", 12)
+    left("Student Code No. 202203112", 12, bold=True)
+    gap(16)
 
-    centered(doc, "Name of Candidate", 12, space_before=4)
-    centered(doc, "Mohamed Talaat Mohamed AbdelMoaty ElAbd", 14, bold=True, space_after=8)
+    centered(doc, "A Thesis submitted in partial fulfilment of the", 12, bold=True)
+    centered(doc, "requirements for the degree of Master of Science", 12, bold=True)
+    centered(doc, "in Conservative Dentistry", 12, bold=True)
+    centered(doc, "Academic Year 2024–2025 / 2025–2026", 12, bold=True)
+    gap(16)
 
-    left("English Title:", 12, bold=True, italic=True, space_before=6)
-    centered(
-        doc,
-        "COMPARATIVE STUDY OF WEAR RESISTANCE AND SURFACE ROUGHNESS OF "
-        "INJECTABLE VERSUS CONVENTIONAL COMPOSITE RESIN — IN VITRO STUDY",
-        13, bold=True, space_before=2, space_after=6,
-    )
+    centered(doc, "Name of Candidate", 12)
+    centered(doc, "Mohamed Talaat Mohamed AbdelMoaty ElAbd", 13, bold=True)
+    gap(16)
+
+    left("English Title:", 12, bold=True, italic=True)
+    centered(doc, "COMPARATIVE STUDY OF WEAR RESISTANCE", 12, bold=True, space_before=4)
+    centered(doc, "AND SURFACE ROUGHNESS OF INJECTABLE VERSUS", 12, bold=True)
+    centered(doc, "CONVENTIONAL COMPOSITE RESIN — IN VITRO STUDY", 12, bold=True)
+    gap(10)
+
     left("Arabic Title:", 12, bold=True, italic=True)
     centered(
         doc,
         "دراسة مقارنة للتآكل وخشونة سطح الراتينج المركب القابل للحقن والتقليدي – دراسة في المختبر",
-        13, bold=True, space_before=2, space_after=6,
+        12, bold=True, space_before=4,
     )
-    left("Keywords: Surface roughness, wear, injectable composite, conventional composite.", 12, space_after=8)
+    gap(10)
 
-    last = centered(doc, "Supervision Committee", 13, bold=True, space_before=4, space_after=4)
-    centered(doc, "1. Prof. Wegdan M. Abdel-Fattah", 12)
+    left("Keywords: Surface roughness, wear, injectable composite, conventional composite.", 12)
+    gap(16)
+
+    centered(doc, "Supervision Committee", 12, bold=True, space_after=6)
+    centered(doc, "1. Prof. Wegdan M. Abdel-Fattah", 12, space_after=2)
     last = centered(doc, "2. Asst. Prof. Emad M. El-Sayed  (Main supervisor)", 12, space_after=0)
     last.add_run().add_break(WD_BREAK.PAGE)
 
@@ -287,30 +298,104 @@ def parse_table(lines, start):
     return rows, i
 
 
+def set_academic_cell_borders(cell, *, top=None, bottom=None):
+    """Three-line academic table: horizontal rules only (no vertical grid)."""
+    tcPr = cell._tc.get_or_add_tcPr()
+    # replace any existing borders
+    for child in list(tcPr):
+        if child.tag == qn("w:tcBorders"):
+            tcPr.remove(child)
+    tcBorders = OxmlElement("w:tcBorders")
+    for edge in ("top", "left", "bottom", "right"):
+        el = OxmlElement(f"w:{edge}")
+        spec = top if edge == "top" else bottom if edge == "bottom" else None
+        if spec:
+            el.set(qn("w:val"), "single")
+            el.set(qn("w:sz"), str(spec))
+            el.set(qn("w:space"), "0")
+            el.set(qn("w:color"), "000000")
+        else:
+            el.set(qn("w:val"), "nil")
+            el.set(qn("w:sz"), "0")
+            el.set(qn("w:space"), "0")
+            el.set(qn("w:color"), "auto")
+        tcBorders.append(el)
+    tcPr.append(tcBorders)
+
+
+def split_header_lines(text):
+    if " Mean ± SD" in text:
+        return [text.replace(" Mean ± SD", "").strip(), "Mean ± SD"]
+    return [text]
+
+
+def write_cell_text(cell, text, *, bold=False, align=WD_ALIGN_PARAGRAPH.LEFT, size=10):
+    cell.text = ""
+    lines = [ln for ln in text.split("\n") if ln != ""] or [""]
+    for i, line in enumerate(lines):
+        p = cell.paragraphs[0] if i == 0 else cell.add_paragraph()
+        p.paragraph_format.line_spacing = 1.0
+        p.paragraph_format.space_after = Pt(0)
+        p.paragraph_format.space_before = Pt(0)
+        p.paragraph_format.first_line_indent = Cm(0)
+        p.alignment = align
+        run = p.add_run(line)
+        set_run_font(run, size=size, bold=bold)
+
+
 def add_table(doc, rows):
     if not rows:
         return
     cols = max(len(r) for r in rows)
     table = doc.add_table(rows=len(rows), cols=cols)
     table.alignment = WD_TABLE_ALIGNMENT.CENTER
-    table.autofit = True
+    table.autofit = False
+    usable = 15.8
+    if cols == 6:
+        widths = [3.5, 2.5, 2.9, 2.7, 1.5, 2.7]
+    elif cols == 5:
+        widths = [4.0, 3.1, 3.1, 3.1, 2.5]
+    elif cols == 3:
+        widths = [6.2, 5.4, 4.2]
+    else:
+        widths = [usable / cols] * cols
+    for i, w in enumerate(widths):
+        for cell in table.columns[i].cells:
+            cell.width = Cm(w)
+
+    header = rows[0]
+    last = len(rows) - 1
+    numeric_cols = set()
+    for c_idx, h in enumerate(header):
+        key = h.lower()
+        if any(tok in key for tok in ("mean", "p-value", "load", "range", "vol%", "mg", "µm", "μm", "%")):
+            numeric_cols.add(c_idx)
+
     for r_idx, row in enumerate(rows):
         for c_idx in range(cols):
             cell = table.cell(r_idx, c_idx)
-            cell.text = ""
-            p = cell.paragraphs[0]
-            p.paragraph_format.line_spacing = 1.0
-            p.paragraph_format.space_after = Pt(2)
-            p.paragraph_format.space_before = Pt(2)
-            p.paragraph_format.first_line_indent = Cm(0)
-            text = row[c_idx] if c_idx < len(row) else ""
-            run = p.add_run(text)
-            set_run_font(run, size=9, bold=(r_idx == 0))
-            set_cell_border(cell)
+            raw = row[c_idx] if c_idx < len(row) else ""
             if r_idx == 0:
-                shade_cell(cell)
+                raw = "\n".join(split_header_lines(raw))
+            align = WD_ALIGN_PARAGRAPH.CENTER if c_idx in numeric_cols else WD_ALIGN_PARAGRAPH.LEFT
+            write_cell_text(cell, raw, bold=(r_idx == 0), align=align, size=10)
+            top = 18 if r_idx == 0 else None
+            bottom = 8 if r_idx == 0 else (18 if r_idx == last else None)
+            set_academic_cell_borders(cell, top=top, bottom=bottom)
+
+    # One p-value for the whole comparison: merge the data cells in that column.
+    if header and header[-1].lower().startswith("p-value") and len(rows) > 2:
+        table.cell(1, cols - 1).merge(table.cell(last, cols - 1))
+        write_cell_text(
+            table.cell(1, cols - 1),
+            rows[1][cols - 1] or next((r[cols - 1] for r in rows[1:] if r[cols - 1].strip()), ""),
+            align=WD_ALIGN_PARAGRAPH.CENTER,
+            size=10,
+        )
+        set_academic_cell_borders(table.cell(1, cols - 1), bottom=18)
+
     spacer = doc.add_paragraph()
-    set_paragraph_format(spacer, first_line=False, space_after=6, line_spacing=1.0)
+    set_paragraph_format(spacer, first_line=False, space_after=8, line_spacing=1.0)
 
 
 def add_heading_styled(doc, text, level):
@@ -407,9 +492,10 @@ def add_body_paragraph(doc, text, *, numbered=False, caption=False, footnote=Fal
                        formula=False, reference=False):
     p = doc.add_paragraph()
     if caption:
-        set_paragraph_format(p, align=WD_ALIGN_PARAGRAPH.JUSTIFY, first_line=False,
-                             space_before=6, space_after=6)
-        render_inline(p, text, italic=True)
+        set_paragraph_format(p, align=WD_ALIGN_PARAGRAPH.LEFT, first_line=False,
+                             space_before=10, space_after=6, line_spacing=1.15)
+        keep_with_next(p)
+        render_inline(p, text, italic=False)
         return p
     if footnote:
         set_paragraph_format(p, first_line=False, space_before=0, space_after=0,
@@ -551,8 +637,8 @@ def build_docx(page_map):
     section.page_height = Cm(29.7)
     section.left_margin = Cm(3.0)
     section.right_margin = Cm(2.0)
-    section.top_margin = Cm(3.4)
-    section.bottom_margin = Cm(3.6)
+    section.top_margin = Cm(3.0)
+    section.bottom_margin = Cm(3.3)
     add_header_and_footer(section)
 
     style = doc.styles["Normal"]
