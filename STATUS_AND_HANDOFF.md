@@ -17,7 +17,7 @@ Word and PDF share one page architecture: a single section, the same PUA banner 
 
 Formatting follows the protocol: A4; Times New Roman 12 pt body; double-spaced justified text with a 1.27 cm first-line indent; centred all-caps chapter titles; 3 cm left margin.
 
-Obsolete overlapping drafts were removed so only `Thesis_Complete.md` can be assembled.
+Obsolete overlapping drafts were removed so only `Thesis_Complete.md` can be assembled. The current rendered PDF is 39 pages.
 
 ## Still for the candidate to insert
 
