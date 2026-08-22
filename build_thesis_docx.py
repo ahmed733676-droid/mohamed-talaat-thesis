@@ -237,8 +237,8 @@ def configure_styles(doc):
         st.font.underline = False
         pf = st.paragraph_format
         pf.alignment = align
-        pf.space_before = Pt(0 if style_name == "Heading 1" else 16)
-        pf.space_after = Pt(14 if style_name == "Heading 1" else 8)
+        pf.space_before = Pt(12 if style_name == "Heading 1" else 16)
+        pf.space_after = Pt(42 if style_name == "Heading 1" else 10)
         pf.line_spacing_rule = WD_LINE_SPACING.SINGLE
         pf.line_spacing = 1.0
         pf.first_line_indent = Cm(0)
@@ -311,21 +311,21 @@ def add_cover(doc):
     cover_para(doc, "in Conservative Dentistry", bold=True)
     cover_para(doc, "Academic Year 2024–2025 / 2025–2026", bold=True, space_after=20)
 
-    cover_para(doc, "Name of Candidate", space_before=8)
-    cover_para(doc, "Mohamed Talaat Mohamed AbdelMoaty ElAbd", size=14, bold=True, space_after=20)
+    cover_para(doc, "Name of Candidate", space_before=8, space_after=12)
+    cover_para(doc, "Mohamed Talaat Mohamed AbdelMoaty ElAbd", size=14, bold=True, space_after=36)
 
     cover_para(doc, "English Title:", bold=True, italic=True,
-               align=WD_ALIGN_PARAGRAPH.LEFT, space_before=6)
-    cover_para(doc, "COMPARATIVE STUDY OF WEAR RESISTANCE", bold=True, space_before=6)
+               align=WD_ALIGN_PARAGRAPH.LEFT, space_before=14, space_after=10)
+    cover_para(doc, "COMPARATIVE STUDY OF WEAR RESISTANCE", bold=True, space_before=12)
     cover_para(doc, "AND SURFACE ROUGHNESS OF INJECTABLE VERSUS", bold=True)
     cover_para(doc, "CONVENTIONAL COMPOSITE RESIN — IN VITRO STUDY", bold=True, space_after=16)
 
     cover_para(doc, "Arabic Title:", bold=True, italic=True,
-               align=WD_ALIGN_PARAGRAPH.LEFT, space_before=6)
+               align=WD_ALIGN_PARAGRAPH.LEFT, space_before=12, space_after=8)
     cover_para(
         doc,
         "دراسة مقارنة للتآكل وخشونة سطح الراتينج المركب القابل للحقن والتقليدي – دراسة في المختبر",
-        bold=True, space_before=6, space_after=16,
+        bold=True, space_before=10, space_after=16,
     )
 
     p = doc.add_paragraph()
@@ -336,7 +336,7 @@ def add_cover(doc):
     run = p.add_run("Surface roughness, wear, injectable composite, conventional composite.")
     set_run_font(run, size=12)
 
-    cover_para(doc, "Supervision Committee", bold=True, space_before=8, space_after=10)
+    cover_para(doc, "Supervision Committee", bold=True, space_before=10, space_after=16)
     cover_para(doc, "1. Prof. Wegdan M. Abdel-Fattah", space_after=8)
     cover_para(doc, "2. Asst. Prof. Emad M. El-Sayed  (Main supervisor)")
 
@@ -488,9 +488,9 @@ def add_heading_styled(doc, text, level, *, new_page=False, style_name=None):
     if new_page:
         page_break_before(p)
     if level in (0, 1):
-        after = 6 if text.startswith("CHAPTER ") else 16
+        after = 10 if text.startswith("CHAPTER ") else 42
         set_paragraph_format(p, align=WD_ALIGN_PARAGRAPH.CENTER, first_line=False,
-                             space_before=0, space_after=after, line_spacing=1.0)
+                             space_before=12, space_after=after, line_spacing=1.0)
         run = p.add_run(text)
         set_run_font(run, size=16, bold=True)
     else:
@@ -605,9 +605,9 @@ def add_body_paragraph(doc, text, *, numbered=False, caption=False, footnote=Fal
         render_inline(p, text)
         return p
     if compact or duty:
-        before = 12 if numbered else 0
+        before = 6 if numbered else 2
         after = 8 if numbered else 6
-        set_paragraph_format(p, first_line=False, line_spacing=1.2,
+        set_paragraph_format(p, first_line=False, line_spacing=1.3,
                              space_before=before, space_after=after)
         if numbered:
             hanging_indent(p, BODY_FIRST_LINE_CM, 0.63)
