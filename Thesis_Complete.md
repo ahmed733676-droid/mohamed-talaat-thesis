@@ -3,9 +3,11 @@
 
 Resin composites fail when the surface wears away or when what is left is rough. Wear flattens anatomy and can shorten the vertical dimension. Roughness holds plaque, takes stain and favours caries at the margin (1,2). Toothbrushing is a daily source of both. Dentifrice abrasive works as a third body. The resin-rich skin is removed first. Filler then stands proud or is pulled out. Mass falls. Ra rises (3,4).
 
-Highly filled injectable resins were made so that a syringeable paste could be used in cavities that used to be reserved for packable composites. Filler load is raised, particle size is reduced, and silane treatment is improved until the paste still flows but no longer behaves like a classical low-filled flowable (5,6). G-ænial Universal Injectable (GC Corporation, Tokyo, Japan) and Beautifil Flow Plus X F00 (Shofu Inc., Kyoto, Japan) are sold on that claim. Beautifil II LS (Shofu Inc.) is a sculptable low-shrinkage nanohybrid giomer and is the conventional control in this work.
+On free surfaces of anterior restorations that wear is largely three-body. The brush and the paste sit between the bristle and the resin. Two-body contact wear is a different problem. It needs an antagonist and a much higher load. The two tests answer different questions (3,6,10).
 
-Independent data on these three products, tested together, under three-body toothbrush abrasion, are thin. Two-body chewing-simulator studies are not a substitute. They load a steatite antagonist at about 49 N. They measure volume, not toothbrush slurry (6). The present test is the other wear mode: ISO toothbrushing guidance, 2 N, 10 000 strokes, taken as about one year of twice-daily brushing (3,7,8).
+Highly filled injectable resins were made so that a syringeable paste could be used in cavities that used to be reserved for packable composites. Filler load is raised, particle size is reduced, and silane treatment is improved until the paste still flows but no longer behaves like a classical low-filled flowable (5,6). G-ænial Universal Injectable (GC Corporation, Tokyo, Japan) and Beautifil Flow Plus X F00 (Shofu Inc., Kyoto, Japan) are sold on that claim. Beautifil II LS (Shofu Inc.) is a sculptable low-shrinkage nanohybrid giomer and is the conventional control in this work. All three were used in shade A2.
+
+Independent data on these three products, tested together, under three-body toothbrush abrasion, are thin. Two-body chewing-simulator studies are not a substitute. They load a steatite antagonist at about 49 N. They measure volume, not toothbrush slurry (6). Some highly filled flowables have been reported as weaker than a paste; others have not (6,20). The present test is the other wear mode: ISO toothbrushing guidance, 2 N, 10 000 strokes, taken as about one year of twice-daily brushing (3,7,8).
 
 An Ra of 0.2 µm is the usual threshold above which plaque retention rises (1). Surfaces smoother than that do not keep less plaque in a way that matters clinically. A restoration rougher than about 0.5 µm can be felt by the tongue (2). Those two numbers are the clinical frame for the roughness results.
 
@@ -68,47 +70,74 @@ Two-body wear of G-ænial Universal Injectable and Beautifil Flow Plus F00 is fa
 # CHAPTER 3
 # MATERIALS AND METHODS
 
-## 3.1 Study Design and Sample
+## 3.1 Study Design and Setting
 
-The study was an in-vitro comparison of three resin composites. Thirty-six discs were prepared, 10 mm in diameter and 1 mm thick, in a CAD/CAM Teflon mould. The discs were allocated at random to three groups of twelve. A first G*Power estimate had given ten discs a group. Twelve were used to raise power.
+The study was an in-vitro comparison of three resin composites. Disc preparation was done in the laboratory of the Faculty of Dentistry, Pharos University in Alexandria. The toothbrushing run and the measurements were done in the Conservative Dentistry laboratory of the Faculty of Dentistry, Alexandria University.
 
-## 3.2 Materials
+## 3.2 Sample Size
+
+Thirty-six discs were prepared, 10 mm in diameter and 1 mm thick. The discs were allocated at random to three groups of twelve.
+
+The first sample-size estimate used G*Power version 3.1.9.2. It was based on a two-body wear comparison of highly filled injectables with a conventional paste (6). With 80 % power and α = 0.05 the calculation gave ten discs a group (thirty in all). Twelve were used. Lost or damaged discs were to be replaced so that each group stayed at twelve. None had to be replaced.
+
+## 3.3 Materials
 
 The materials used were:
 
-1. G-ænial Universal Injectable, a highly filled injectable composite (GC Corporation, Tokyo, Japan).
-2. Beautifil Flow Plus X F00, a highly filled injectable giomer (Shofu Inc., Kyoto, Japan).
-3. Beautifil II LS, a conventional nanohybrid giomer (Shofu Inc., Kyoto, Japan).
-4. Colgate Total toothpaste.
+1. G-ænial Universal Injectable, shade A2, a highly filled injectable composite (GC Corporation, Tokyo, Japan).
+2. Beautifil Flow Plus X F00, shade A2, a highly filled injectable giomer, zero-flow (Shofu Inc., Kyoto, Japan).
+3. Beautifil II LS, shade A2, a conventional nanohybrid giomer (Shofu Inc., Kyoto, Japan).
+4. Colgate Total toothpaste (relative dentine abrasivity 70).
 5. Distilled water.
 
-The composition of the three resin composites is summarised in Table 3.1.
+The approved grouping was:
+
+Group I. G-ænial Universal Injectable.
+
+Group II. Beautifil Flow Plus X F00.
+
+Group III. Beautifil II LS.
+
+The composition of the three resin composites, as listed in the approved protocol, is given in Table 3.1.
 
 **Table 3.1** Brand, type, matrix, filler and load of the resin composites used in the study
 
 | Composite | Type | Matrix and filler | Load |
 |-----------|------|-------------------|------|
-| G-ænial Universal Injectable | Nanofilled injectable | UDMA, Bis-MEPP, TEGDMA; ultrafine barium glass and silica (~150 nm) | 69 wt% / 50 vol% |
-| Beautifil Flow Plus X F00 | Giomer injectable, zero flow | Dimethacrylate resin; nano S-PRG filler | Highly filled injectable |
-| Beautifil II LS | Nanohybrid giomer | SRS monomer; S-PRG and pre-polymerised fillers | 83 wt% |
+| G-ænial Universal Injectable (A2) | Nanofilled injectable | Dimethacrylate monomers; barium glass and silica | 50 vol% |
+| Beautifil Flow Plus X F00 (A2) | Giomer injectable, F00 | Bis-GMA, TEGDMA; multifunctional glass and S-PRG | 47 vol% |
+| Beautifil II LS (A2) | Nanohybrid giomer | Bis-GMA, UDMA, Bis-EMA, PEGMA, TEGDMA; multifunctional glass and S-PRG | 68 vol% |
 
-Manufacturers: GC Corporation, Tokyo, Japan; Shofu Inc., Kyoto, Japan.
+Manufacturers: GC Corporation, Tokyo, Japan; Shofu Inc., Kyoto, Japan. Filler loads are those recorded in the approved protocol (volume percent).
 
-## 3.3 Specimen Preparation
+## 3.4 Equipment
 
-Each material was placed in the Teflon mould. A matrix strip and a glass plate were used to exclude air from the surface and to keep the disc flat. Polymerisation followed the manufacturer’s instructions for that product. Flash was removed. The discs were identified by group and stored in distilled water until testing.
+1. Custom-made toothbrushing simulator, Dental Biomaterial Department, Faculty of Dentistry, Alexandria University.
+2. Blender computer-aided design software (Blender Institute B.V., Amsterdam, the Netherlands), used to mill the Teflon mould.
+3. MarSurf PS10 contact profilometer (Mahr GmbH, Göttingen, Germany).
+4. RADWAG AS 220-R2 analytical balance (RADWAG Wagi Elektroniczne, Warsaw, Poland).
+5. LED curing light, MiniS (Woodpecker, Guilin, China), 800 mW/cm².
+6. Digital caliper.
 
-## 3.4 Baseline Measurements
+## 3.5 Specimen Preparation
 
-Each disc was dried and weighed on an analytical balance. The recorded masses run to 0.0001 g; the balance therefore read to 0.1 mg. Ra was measured with a contact profilometer on the test face. The value used for analysis was the mean of the traces taken on that disc.
+Thirty-six discs were packed, one increment each, in a CAD/CAM-milled Teflon mould, 10 mm in diameter and 1 mm deep. A Mylar strip and a transparent microscope slide were placed over the paste so that the face was flat and free of air. The light tip was held against the slide. Each disc was cured for 20 s at 800 mW/cm². Three further 20 s exposures were given from different directions so that the disc was polymerised through its thickness. Flash was trimmed with a no. 12 scalpel blade (Suzhou Kyuan Medical Co., Jiangsu, China).
 
-## 3.5 Toothbrushing Protocol
+After removal from the mould the diameter of each disc was checked with the digital caliper. The discs were stored in distilled water in a closed glass container at 37 °C for 24 h. Before each weighing or roughness run a disc was taken out and dried with a sterile disposable sponge.
 
-Discs were mounted in a toothbrushing simulator. A slurry of Colgate Total and water was prepared after ISO 11609 and ISO/TR 14569-1 (3,14). The brush load was 2 N, inside the ISO range of 0.5–2.5 N (3). Each disc received 10 000 cycles. That count is the conventional laboratory equivalent of one year of twice-daily brushing (7,8). Fresh slurry was used as required to keep the abrasive present. After the run the discs were rinsed free of paste.
+## 3.6 Baseline Measurements
 
-## 3.6 Post-test Evaluation
+Each dried disc was weighed on the RADWAG AS 220-R2. The recorded masses run to 0.0001 g; the balance therefore read to 0.1 mg.
 
-Mass and Ra were recorded again with the same instruments and the same drying habit as at baseline.
+Ra was measured on the test face with the MarSurf PS10. Five traces were taken at different sites on each disc. The value used for analysis was the mean of those five traces.
+
+## 3.7 Toothbrushing Protocol
+
+Discs were mounted in the custom brushing machine. The vertical load was 2.0 N, inside the ISO range of 0.5–2.5 N (3). The slurry was 250 g of Colgate Total in 1 L of distilled water, after ISO/TR 14569-1 and ISO 11609 (3,14). Relative dentine abrasivity of that paste is 70. The slurry was replaced every 5 000 cycles. Each disc received 10 000 cycles. That count is the conventional laboratory equivalent of one year of twice-daily brushing (7,8). After the run each disc was washed with a stream of tap water and dried with a disposable sponge.
+
+## 3.8 Post-test Evaluation
+
+Mass and Ra were recorded again with the same instruments, the same drying habit and, for Ra, five traces a disc.
 
 Percentage weight loss was calculated as:
 
@@ -120,18 +149,22 @@ Absolute loss (mg) = (W₁ − W₂) × 1000.
 
 ΔRa (µm) = Ra after − Ra before.
 
-## 3.7 Statistical Analysis
+## 3.9 Statistical Analysis
 
 Descriptive values are presented as mean ± standard deviation. Percentage weight loss was compared among groups by one-way analysis of variance (ANOVA). Ra after brushing was compared by the Kruskal–Wallis test, followed by pairwise post-hoc comparisons. The level of significance was set at α = 0.05.
+
+## 3.10 Ethical Considerations
+
+The work used commercial restorative pastes and laboratory discs. No patient, extracted tooth or identifiable human tissue was used. Ethical approval for human subjects was not required.
 
 # CHAPTER 4
 # RESULTS
 
-Thirty-six discs were tested, twelve in each group. All discs completed 10 000 cycles at 2 N. Wear is reported as mass. Roughness is reported as Ra.
+Thirty-six discs were tested, twelve in each group. All discs completed 10 000 cycles at 2 N. None was lost in processing. Wear is reported as mass, as percentage of the baseline mass and as milligrams shed. Roughness is reported as Ra, as the mean of five traces a disc, before and after the same abrasion.
+
+The three pastes did not start at the same mass or at the same Ra. Those baseline differences are part of the result. They are not adjusted away.
 
 ## 4.1 Weight Loss
-
-Mean mass before and after brushing, and percentage loss, are given in Table 4.1.
 
 **Table 4.1** Mean weight before and after simulated toothbrushing and percentage weight loss of the tested composite resins (n = 12)
 
@@ -143,11 +176,13 @@ Mean mass before and after brushing, and percentage loss, are given in Table 4.1
 
 † One-way ANOVA. Values are mean ± standard deviation.
 
-Beautifil II LS discs were heavier at baseline (0.2313 ± 0.0154 g) than the two injectables (0.1602 ± 0.0074 g and 0.1630 ± 0.0102 g). That follows from filler load and density, not from a difference in disc size.
+Beautifil II LS discs were heavier at baseline (0.2313 ± 0.0154 g) than the two injectables (0.1602 ± 0.0074 g and 0.1630 ± 0.0102 g). The mould was the same. The difference is filler load and density. Beautifil II LS is listed at 68 vol%. The injectables are listed at 47 vol% and 50 vol%. A heavier disc of the same diameter and thickness is the expected finding, not a fault in allocation.
 
 One-way ANOVA on percentage loss gave p = 0.329. The first null hypothesis is not rejected. Numerically, Beautifil II LS lost the least (0.41 ± 0.25 %), then G-ænial Universal Injectable (0.65 ± 0.37 %), then Beautifil Flow Plus X F00 (1.49 ± 3.14 %). The last standard deviation is an order larger than the other two.
 
-Absolute loss is given in Table 4.3, after the roughness data, because percentage loss on a lighter disc can exaggerate a small mass change.
+A non-significant p-value does not make the three means equal. It says that, with twelve discs a group and with the variance that was observed, the test could not separate them. Most of that variance sits in one group.
+
+Absolute loss is given in Table 4.3, after the roughness data, because percentage loss on a lighter disc can exaggerate a small mass change. The two numbers should be read together.
 
 ## 4.2 Surface Roughness
 
@@ -163,13 +198,15 @@ Mean Ra before and after brushing, and ΔRa, are given in Table 4.2.
 
 ‡ Kruskal–Wallis test. Pairwise tests: each injectable versus Beautifil II LS, p < 0.001; the two injectables, not significant. Values are mean ± standard deviation.
 
-At baseline Beautifil II LS was already the roughest (0.119 ± 0.054 µm). Beautifil Flow Plus X F00 was the smoothest (0.038 ± 0.011 µm). G-ænial Universal Injectable lay between them (0.054 ± 0.010 µm).
+At baseline Beautifil II LS was already the roughest (0.119 ± 0.054 µm). Beautifil Flow Plus X F00 was the smoothest (0.038 ± 0.011 µm). G-ænial Universal Injectable lay between them (0.054 ± 0.010 µm). The finishing step was the same for every disc: a Mylar strip under a glass slide and a scalpel for flash. No further polish sequence was used. The baseline gap is therefore a material difference on an as-cured, strip-finished face, not a difference in grit.
 
-Every group roughened. ΔRa was 0.066 ± 0.021 µm, 0.046 ± 0.023 µm and 0.075 ± 0.066 µm. After 10 000 cycles the means were 0.104 ± 0.017 µm (Beautifil Flow Plus X F00), 0.100 ± 0.023 µm (G-ænial Universal Injectable) and 0.194 ± 0.050 µm (Beautifil II LS).
+Every group roughened. ΔRa was 0.066 ± 0.021 µm for Beautifil Flow Plus X F00, 0.046 ± 0.023 µm for G-ænial Universal Injectable and 0.075 ± 0.066 µm for Beautifil II LS. After 10 000 cycles the means were 0.104 ± 0.017 µm, 0.100 ± 0.023 µm and 0.194 ± 0.050 µm.
 
 The Kruskal–Wallis test on Ra after brushing was significant (p < 0.001). The second null hypothesis is rejected. Pairwise tests separated Beautifil II LS from each injectable. They did not separate the two injectables.
 
-Relative to the 0.2 µm plaque line (1), both injectable means were below it. The Beautifil II LS mean was 0.194 µm, on the line. Its standard deviation of 0.050 µm means some discs in that group crossed 0.2 µm. All three means were well below 0.50 µm (2).
+The order of the groups did not change. The nanohybrid was the roughest before and the roughest after. G-ænial Universal Injectable changed the least. Beautifil Flow Plus X F00 started lowest and finished with G-ænial Universal Injectable.
+
+Relative to the 0.2 µm plaque line (1), both injectable means were below it. The Beautifil II LS mean was 0.194 µm, on the line. Its standard deviation of 0.050 µm means some discs in that group crossed 0.2 µm. All three means were well below 0.50 µm (2). A patient would not be expected to feel these surfaces after this brushing model. Plaque retention is the sharper distinction, and it applies to the nanohybrid group.
 
 Absolute weight loss is set out in Table 4.3.
 
@@ -185,44 +222,58 @@ Values are mean ± standard deviation. The large standard deviation in Beautifil
 
 ## 4.3 Summary of Results
 
-Percentage weight loss did not differ significantly. Absolute loss in the two well-behaved groups and in most of the Beautifil Flow Plus X F00 discs was about 1 mg. One disc in that group did not. After the same abrasion both injectables were smoother than Beautifil II LS and did not differ from each other.
+Percentage weight loss did not differ significantly (p = 0.329). Absolute loss in the two well-behaved groups and in most of the Beautifil Flow Plus X F00 discs was about 1 mg. One disc in that group lost 20.7 mg. After the same abrasion both injectables were smoother than Beautifil II LS (p < 0.001) and did not differ from each other. The injectable means stayed below 0.2 µm. The nanohybrid mean sat on that line.
 
 # CHAPTER 5
 # DISCUSSION
 
 The first null hypothesis stands. The second does not. The three resins lost a statistically similar fraction of their mass. They did not finish with a similar Ra.
 
+The protocol asked whether two current injectables would wear and roughen like Beautifil II LS under toothbrush slurry. The answer is split. On mass they could not be separated. On Ra they could.
+
 ## 5.1 Weight Loss
 
 A non-significant ANOVA (p = 0.329) is not proof of equal wear. It is a failure to reject equality. Beautifil Flow Plus X F00 had a standard deviation of 3.14 % beside a mean of 1.49 %. That spread is the outlier disc (about 11.4 %, 20.7 mg). Residual variance rises. Power falls. The other eleven discs in that group, and the twenty-four discs in the other groups, lost between 0.1 mg and 1.9 mg. On that restricted view the three pastes are close.
 
-Beautifil II LS started heavier. Percentage loss on a heavier disc is a smaller number for the same milligrams shed. Absolute loss treats that fairly: 0.95 ± 0.58 mg against 1.07 ± 0.62 mg for G-ænial Universal Injectable. Those two means are near each other. The injectable with the nano-filled barium-glass bed did not shed more mass than the 83 wt% nanohybrid under this slurry.
+Beautifil II LS started heavier, as its 68 vol% listing would lead one to expect. Percentage loss on a heavier disc is a smaller number for the same milligrams shed. Absolute loss treats that fairly: 0.95 ± 0.58 mg against 1.07 ± 0.62 mg for G-ænial Universal Injectable. Those two means are near each other. The injectable with the barium-glass and silica bed (50 vol%) did not shed more mass than the conventional nanohybrid under this slurry.
+
+The slurry was a single paste, Colgate Total, RDA 70, mixed 250 g to 1 L after ISO/TR 14569-1 (3,14). That is a moderate abrasive, not a high-RDA whitening paste. Monteiro and Spohr showed that a higher RDA cuts gloss faster and leaves a rougher track (8). A harsher dentifrice might have opened a gap in mass that this paste did not. The present ranking is for this slurry only.
 
 Rajabi et al. found less volumetric two-body wear for G-ænial Universal Injectable and Beautifil Flow Plus F00 than for a nanohybrid paste (6). The direction is friendly to injectables. The test is not the same test. They used 200 000 chewing cycles, 49 N and a steatite ball. They did not use toothpaste. They measured volume. Beautifil Flow Plus F00 is also not Beautifil Flow Plus X F00. Agreement can be stated only as a general remark: highly filled injectables are not automatically the weaker partner in a wear assay.
 
-Why one disc lost 20.7 mg is not known from the laboratory record used here. A void, a soft under-cured layer, or a weighing error would all produce that point. The value was not dropped. It is footnoted in Table 4.3. Any later re-analysis that excludes it must say so.
+Why one disc lost 20.7 mg is not known from the laboratory record used here. A void, a soft under-cured layer, or a weighing error would all produce that point. Curing was 20 s through the slide plus three further 20 s exposures. That is a full dose for a 1 mm disc. It does not exclude a local defect in one increment. The value was not dropped. It is footnoted in Table 4.3. Any later re-analysis that excludes it must say so.
+
+Gravimetric loss is a bulk number. It does not say where the substance left the disc. Heintze compared mass, profile depth and scanned volume and showed that the three methods do not tell the same story (15). The present work has only mass. A later volumetric or profilometric wear depth would sit beside Table 4.3, not replace it.
 
 ## 5.2 Surface Roughness
 
 The roughness result is cleaner. The nanohybrid was rougher before brushing and rougher after it. ΔRa was also largest in that group, with a wide spread (0.075 ± 0.066 µm). G-ænial Universal Injectable changed the least (0.046 ± 0.023 µm). Beautifil Flow Plus X F00 started smoothest and ended statistically with G-ænial Universal Injectable.
 
-That pattern fits filler geometry. A nanofilled injectable with ~150 nm barium glass and silica wears more evenly (6,18). A nanohybrid with larger S-PRG and pre-polymerised particles loses matrix first. The large fillers stand up or leave pits (4,18). Hasan, Eltoukhy and Zaghloul saw the same order after simulated brushing: G-ænial Universal Injectable smoother than a nanohybrid; two nanofilled resins not different from each other (18). Heintze et al. had already shown that hybrid and microhybrid pastes roughen more with load and time than microfilled resins (4).
+That pattern fits filler geometry. A nanofilled injectable with barium glass and silica at 50 vol% wears more evenly (6,18). A nanohybrid with larger S-PRG and glass particles loses matrix first. The large fillers stand up or leave pits (4,18). Hasan, Eltoukhy and Zaghloul saw the same order after simulated brushing: G-ænial Universal Injectable smoother than a nanohybrid; two nanofilled resins not different from each other (18). Heintze et al. had already shown that hybrid and microhybrid pastes roughen more with load and time than microfilled resins (4).
+
+The discs were strip-finished, not polished through a graded grit sequence. Baseline Ra is therefore the as-cured skin plus whatever the scalpel left at the edge. The after-brushing comparison is still valid. Every group had the same finish and the same 10 000 cycles. Part of the after-brushing gap, though, was already present at baseline. Beautifil II LS started at 0.119 µm. The injectables started at 0.038 µm and 0.054 µm.
+
+Five traces a disc on the MarSurf PS10 is a standard contact-stylus habit. It is not a map of the whole face. A local pit can be missed. Optical methods would have given that map (4,16). They were not used.
 
 The 0.2 µm line is the clinically useful one (1,17). Both injectables ended near 0.10 µm. They remain, on the mean, in the range where further smoothing is not expected to cut plaque. Beautifil II LS ended at 0.194 ± 0.050 µm. The mean is acceptable on the published threshold. The spread is not entirely below it. None of the means approach the 0.50 µm tongue threshold (2). Patients would not be expected to feel these surfaces after one year of this brushing model. Biofilm risk is the sharper distinction, and it applies to the nanohybrid group.
 
+S-PRG glass can roughen in acid by ion exchange (21). The present slurry was not an acid challenge. The higher Ra of Beautifil II LS after brushing is read as filler geometry under three-body abrasion, not as a fluoride-release effect. An eight-year clinical series of an earlier giomer paste showed acceptable retention (22). That is a different question from toothbrush Ra of Beautifil II LS.
+
 ## 5.3 Clinical Implications
 
-Within this protocol the two injectables may be used where toothbrush abrasion is the wear of interest without paying a roughness penalty against Beautifil II LS. They do not, on these data, wear less. They finish smoother. That matters on free cleanable surfaces and at margins. It does not license a claim that they survive occlusal contact better. Occlusal contact was not tested.
+Within this protocol the two injectables may be used where toothbrush abrasion is the wear of interest without paying a roughness penalty against Beautifil II LS. They do not, on these data, wear less. They finish smoother. That matters on free cleanable surfaces and at margins of anterior restorations, which is the wear mode the protocol named. It does not license a claim that they survive occlusal contact better. Occlusal contact was not tested.
 
-Beautifil II LS remains a reasonable packable control. Its higher baseline Ra may reflect filler size, polish, or both. If the nanohybrid was left with a coarser finish, part of the after-brushing difference was already present at baseline. The after-brushing test is still valid. The groups were compared as they stood after the same abrasion.
+Beautifil II LS remains a reasonable packable control. Its higher baseline Ra is the as-cured nanohybrid face. If a clinic polishes that paste through a fine sequence, the starting Ra would be lower than 0.119 µm. The after-brushing test would then start from a different place. The groups here were compared as they stood after the same strip finish and the same abrasion.
+
+The injectable means at 0.10 µm sit in the range where Bollen and Quirynen would not expect a further plaque gain from smoothness (1,17). The nanohybrid mean at 0.194 µm is on their line. Some discs in that group are over it. That is the clinical sentence the roughness data will bear. It will not bear a sentence about occlusal longevity or about stain, which was not scored.
 
 ## 5.4 Strengths of the Study
 
-The three products are current commercial pastes, including the X-generation Flow Plus. Sample size was twelve, not ten. Both mass and Ra were read on the same discs. The brushing load and cycle count sit on published ISO and Sexson–Phillips figures (3,7). The statistical tests match the distributions used in the locked spreadsheet. The outlier was kept and named.
+The three products are current commercial pastes, including the X-generation Flow Plus, not the older Beautifil Flow Plus F00. Sample size was twelve, not the ten given by the first G*Power run. Both mass and Ra were read on the same discs. The mould, the cure, the balance, the profilometer, the load, the slurry ratio and the cycle count are those of the approved protocol. The brushing load and cycle count sit on published ISO and Sexson–Phillips figures (3,7). The statistical tests match the distributions used in the locked spreadsheet. The outlier was kept and named.
 
 ## 5.5 Limitations of the Study
 
-The test is in vitro. Saliva, pH, enzymes and occlusal load are missing. Gravimetric loss is not worn volume and is not worn anatomy. One dentifrice was used. There are no scanning electron images, so filler plucking is an inference from the roughness numbers, not a micrograph. Ten thousand cycles are one conventional year, not a clinical year. Disc geometry is not a Class II box.
+The test is in vitro. Saliva, pH, enzymes and occlusal load are missing. Gravimetric loss is not worn volume and is not worn anatomy (15). One dentifrice was used. There are no scanning electron images, so filler plucking is an inference from the roughness numbers, not a micrograph. Ten thousand cycles are one conventional year, not a clinical year (7,8). Disc geometry is not a Class II box. The face was strip-finished, not polished. Storage was 24 h in water at 37 °C; longer water ageing was not done.
 
 ## 5.6 Concluding Remarks
 
@@ -231,7 +282,11 @@ After 10 000 strokes at 2 N the three resins could not be separated on percentag
 # CHAPTER 6
 # CONCLUSIONS AND RECOMMENDATIONS
 
-## 6.1 Conclusions
+## 6.1 Summary
+
+Thirty-six discs, 10 mm × 1 mm, of Beautifil Flow Plus X F00, G-ænial Universal Injectable and Beautifil II LS were brushed for 10 000 cycles at 2 N in a Colgate Total slurry (RDA 70; 250 g/L). Mass was read on a RADWAG AS 220-R2. Ra was the mean of five MarSurf PS10 traces. Percentage weight loss did not differ (ANOVA p = 0.329). Ra after brushing did (Kruskal–Wallis p < 0.001). The injectables were smoother than Beautifil II LS and not different from each other. One Flow Plus X disc lost about 11.4 % of its mass.
+
+## 6.2 Conclusions
 
 Under the conditions of this in-vitro study:
 
@@ -241,7 +296,7 @@ Under the conditions of this in-vitro study:
 4. One Beautifil Flow Plus X F00 disc lost about 11.4 % of its mass and is the source of that group’s large standard deviation.
 5. The first null hypothesis is retained. The second is rejected.
 
-## 6.2 Recommendations
+## 6.3 Recommendations
 
 **Clinical practice.** Where toothbrush abrasion and smoothness after hygiene are the concern, either injectable tested here may be considered beside Beautifil II LS. The data do not show less wear. They show a smoother surface after this brushing model.
 

@@ -285,15 +285,70 @@ def add_cover(doc):
     add_protocol_page(doc, PROTOCOL_PAGE2, page_break_after=False)
 
 
+def _set_run_arabic(run, size=12, bold=False):
+    arabic = "Noto Naskh Arabic"
+    run.font.name = arabic
+    run.font.size = Pt(size)
+    run.bold = bold
+    run.italic = False
+    run.font.color.rgb = RGBColor(0, 0, 0)
+    rPr = run._element.get_or_add_rPr()
+    rFonts = rPr.find(qn("w:rFonts"))
+    if rFonts is None:
+        rFonts = OxmlElement("w:rFonts")
+        rPr.append(rFonts)
+    for a in ("ascii", "hAnsi", "eastAsia", "cs"):
+        rFonts.set(qn(f"w:{a}"), arabic)
+    rPr.append(OxmlElement("w:rtl"))
+    szCs = OxmlElement("w:szCs")
+    szCs.set(qn("w:val"), str(int(size * 2)))
+    rPr.append(szCs)
+
+
+def arabic_para(doc, text, *, size=12, bold=False, align=WD_ALIGN_PARAGRAPH.JUSTIFY, first=False, before=0, after=0, double=True):
+    p = doc.add_paragraph()
+    _set_spacing(p, first_line=1.27 if first else 0, align=align, before=before, after=after, double=double)
+    pPr = p._p.get_or_add_pPr()
+    bidi = OxmlElement("w:bidi")
+    bidi.set(qn("w:val"), "1")
+    pPr.append(bidi)
+    run = p.add_run(text)
+    _set_run_arabic(run, size=size, bold=bold)
+    return p
+
+
 def add_supervisors_page(doc):
     add_heading1(doc, "SUPERVISION COMMITTEE", page_break=False)
     body(doc, "This thesis was carried out under the supervision of:", first=False)
     centered(doc, "1. Prof. Wegdan M. Abdel-Fattah", 12, True, before=12)
-    centered(doc, "Professor of Conservative Dentistry", 12, italic=True, after=12)
+    centered(doc, "Professor of Conservative Dentistry", 12, italic=True, after=0)
+    body(doc, "Conceptualization and design of the study. Analysis and interpretation of the results. Supervision of execution and of the writing.", first=False)
     centered(doc, "2. Asst. Prof. Emad M. El-Sayed", 12, True, before=12)
     centered(doc, "Assistant Professor of Conservative Dentistry", 12, italic=True)
-    centered(doc, "(Main supervisor)", 12, italic=True)
+    centered(doc, "(Main supervisor)", 12, italic=True, after=0)
+    body(doc, "Supervision of the experimental procedures. Conceptualization and design of the study. Supervision of execution and of the writing. Revision of the thesis.", first=False)
     body(doc, "Faculty of Dentistry, Pharos University in Alexandria.", first=False)
+
+
+def add_acknowledgements(doc):
+    add_heading1(doc, "ACKNOWLEDGEMENTS", page_break=True)
+    body(
+        doc,
+        "I thank Prof. Wegdan M. Abdel-Fattah and Asst. Prof. Emad M. El-Sayed for the plan, "
+        "the laboratory work and the reading of the text.",
+    )
+    body(
+        doc,
+        "Disc preparation was done in the Faculty of Dentistry, Pharos University in Alexandria. "
+        "The toothbrushing run and the measurements were done in the Conservative Dentistry laboratory, "
+        "Faculty of Dentistry, Alexandria University. I thank the staff of the Dental Biomaterial Department "
+        "there for the use of the custom brushing machine.",
+    )
+
+
+def add_dedication(doc):
+    add_heading1(doc, "DEDICATION", page_break=True)
+    centered(doc, "To my family.", 12, italic=True, before=72)
 
 
 def add_declaration(doc):
@@ -321,7 +376,7 @@ def add_abstract(doc):
         ),
         (
             "Methods. ",
-            "Thirty-six discs (10 mm diameter × 1 mm thick; n = 12) were brushed at 2 N in a Colgate Total slurry prepared after ISO guidance. Mass was recorded before and after abrasion. Ra was measured by contact profilometry. Percentage weight loss was compared by one-way ANOVA. Ra after brushing was compared by the Kruskal–Wallis test (α = 0.05).",
+            "Thirty-six discs (10 mm diameter × 1 mm thick; n = 12; shade A2) were packed in a CAD/CAM Teflon mould, cured through a Mylar strip and stored in water at 37 °C for 24 h. They were brushed at 2 N for 10 000 cycles in a Colgate Total slurry (RDA 70; 250 g/L). Mass was recorded on a RADWAG AS 220-R2. Ra was the mean of five MarSurf PS10 traces. Percentage weight loss was compared by one-way ANOVA. Ra after brushing was compared by the Kruskal–Wallis test (α = 0.05).",
         ),
         (
             "Results. ",
@@ -336,13 +391,51 @@ def add_abstract(doc):
             "Injectable composite; nanohybrid composite; toothbrush abrasion; wear; surface roughness; giomer.",
         ),
     ]
-    for lead, rest in blocks:
+    for i, (lead, rest) in enumerate(blocks):
         p = doc.add_paragraph()
-        _set_spacing(p, first_line=1.27)
+        _set_spacing(p, first_line=1.27, keep_with_next=(i == len(blocks) - 2))
         r = p.add_run(lead)
         _set_run_font(r, 12, bold=True)
         r2 = p.add_run(rest)
         _set_run_font(r2, 12)
+
+
+def add_arabic_abstract(doc):
+    add_heading1(doc, "الملخص", page_break=True)
+    arabic_para(doc, "الخلفية. تُسوَّق الراتينجات المركبة القابلة للحقن عالية الملء للاستخدام تحت الحمل. ما زال فقد الكتلة وتغيّر خشونة السطح بعد سحل فرشاة الأسنان يحتاجان إلى مقارنة مباشرة مع راتينج نانوهجين تقليدي تحت الشروط المختبرية نفسها.", first=True)
+    arabic_para(doc, "الهدف. مقارنة النسبة المئوية لفقد الوزن وخشونة السطح المتوسطة (Ra) لكل من Beautifil Flow Plus X F00 وG-ænial Universal Injectable وBeautifil II LS بعد عشرة آلاف دورة تفريش.", first=True)
+    arabic_para(doc, "الطريقة. أُعدّ ستة وثلاثون قرصاً (قطر 10 مم × سمك 1 مم؛ ن = 12؛ الدرجة A2) في قالب تفلون، ثم فُرشت بحمولة 2 نيوتن في معلق Colgate Total وفق إرشاد ISO. سُجّلت الكتلة قبل السحل وبعده. قيس Ra بجهاز تماسي (خمس قراءات لكل قرص). قورن فقد الوزن بتحليل التباين الأحادي، وقورن Ra بعد التفريش باختبار كروسكال–واليس (α = 0.05).", first=True)
+    arabic_para(doc, "النتائج. كان متوسط فقد الوزن 1.49 ± 3.14٪ لـ Beautifil Flow Plus X F00، و0.65 ± 0.37٪ لـ G-ænial Universal Injectable، و0.41 ± 0.25٪ لـ Beautifil II LS (p = 0.329). وكان متوسط Ra بعد التفريش 0.104 ± 0.017 ميكرومتر، و0.100 ± 0.023 ميكرومتر، و0.194 ± 0.050 ميكرومتر على الترتيب (p < 0.001). كان كل راتينج قابل للحقن أنعم من Beautifil II LS، ولم يختلف القابلان للحقن أحدهما عن الآخر. فقد قرص واحد من Beautifil Flow Plus X F00 نحو 11.4٪ من كتلته وهو مصدر الانحراف المعياري الكبير في تلك المجموعة.", first=True)
+    arabic_para(doc, "الاستنتاجات. تحت بروتوكول التفريش هذا لم يختلف السحل الوزني بين الراتينجات الثلاثة اختلافاً يعتد به إحصائياً. بقي القابلان للحقن أنعم من النانوهجين التقليدي. بقيت متوسطات القابلين للحقن دون عتبة اللويحة 0.2 ميكرومتر. وقع متوسط النانوهجين على تلك العتبة.", first=True)
+    arabic_para(doc, "الكلمات المفتاحية. الراتينج المركب القابل للحقن؛ الراتينج النانوهجين؛ سحل فرشاة الأسنان؛ التآكل؛ خشونة السطح؛ الجايومر.", first=True)
+
+
+def add_arabic_summary(doc):
+    add_heading1(doc, "الملخص العربي", page_break=True)
+    arabic_para(
+        doc,
+        "أُجريت هذه الدراسة في المختبر لمقارنة مقاومة التآكل وخشونة السطح لراتينجين مركبين قابلين للحقن عاليي الملء "
+        "(Beautifil Flow Plus X F00 وG-ænial Universal Injectable) مع راتينج نانوهجين تقليدي (Beautifil II LS) "
+        "بعد عشرة آلاف دورة تفريش بحمولة 2 نيوتن في معلق معجون Colgate Total. أُعدّت الأقراص بقطر 10 مم وسمك 1 مم "
+        "(اثنا عشر قرصاً لكل مجموعة) في قالب تفلون، وخُزنت في ماء مقطر عند 37 مئوية مدة أربع وعشرين ساعة. "
+        "قيست الكتلة بميزان RADWAG AS 220-R2، وقيس Ra بمتوسط خمس قراءات على جهاز MarSurf PS10.",
+        first=True,
+    )
+    arabic_para(
+        doc,
+        "لم يبلغ الفرق في النسبة المئوية لفقد الوزن حد الدلالة الإحصائية (تحليل التباين الأحادي، p = 0.329). "
+        "أما Ra بعد التفريش فقد اختلف اختلافاً دالاً (كروسكال–واليس، p < 0.001). كان القابلان للحقن أنعم من "
+        "Beautifil II LS ولم يختلفا أحدهما عن الآخر. بقي متوسطا القابلين للحقن دون 0.2 ميكرومتر، ووقع متوسط "
+        "Beautifil II LS على 0.194 ميكرومتر. فقد قرص واحد من Beautifil Flow Plus X F00 نحو 11.4٪ من كتلته "
+        "ولم يُستبعد من التحليل.",
+        first=True,
+    )
+    arabic_para(
+        doc,
+        "لا تجيز هذه النتائج الادعاء بأن الراتينجات القابلة للحقن أفضل ترميمات تحت الحمل الإطباقي. الاختبار هو سحل "
+        "فرشاة الأسنان ثلاثي الأجسام، وليس السحل ثنائي الأجسام بخصم مضاد.",
+        first=True,
+    )
 
 
 def add_contents(doc, entries):
@@ -360,7 +453,7 @@ def add_contents(doc, entries):
 def add_list_of_tables(doc):
     add_heading1(doc, "LIST OF TABLES", page_break=True)
     items = [
-        "Table 3.1  Brand, type, matrix, filler and load of the resin composites used in the study",
+        "Table 3.1  Brand, type, matrix, filler and load of the resin composites used in the study (protocol listing)",
         "Table 4.1  Mean weight before and after simulated toothbrushing and percentage weight loss",
         "Table 4.2  Mean surface roughness (Ra) before and after simulated toothbrushing and ΔRa",
         "Table 4.3  Absolute weight loss after 10 000 brushing cycles",
@@ -376,8 +469,11 @@ def add_abbreviations(doc):
     add_heading1(doc, "LIST OF ABBREVIATIONS", page_break=True)
     rows = [
         ("ANOVA", "Analysis of variance"),
+        ("CAD/CAM", "Computer-aided design / computer-aided manufacture"),
         ("ISO", "International Organization for Standardization"),
+        ("LED", "Light-emitting diode"),
         ("Ra", "Arithmetic mean roughness"),
+        ("RDA", "Relative dentine abrasivity"),
         ("SD", "Standard deviation"),
         ("S-PRG", "Surface pre-reacted glass-ionomer"),
         ("ΔRa", "Change in Ra (after − before)"),
@@ -501,28 +597,32 @@ def main():
         "2.4 Conventional Nanohybrid Resins and Giomers": 6,
         "2.5 Statement of the Problem": 6,
         "CHAPTER 3": 7,
-        "3.1 Study Design and Sample": 7,
-        "3.2 Materials": 7,
-        "3.3 Specimen Preparation": 8,
-        "3.4 Baseline Measurements": 8,
-        "3.5 Toothbrushing Protocol": 8,
-        "3.6 Post-test Evaluation": 8,
-        "3.7 Statistical Analysis": 9,
-        "CHAPTER 4": 10,
-        "4.1 Weight Loss": 10,
-        "4.2 Surface Roughness": 11,
-        "4.3 Summary of Results": 12,
-        "CHAPTER 5": 13,
-        "5.1 Weight Loss": 13,
-        "5.2 Surface Roughness": 14,
-        "5.3 Clinical Implications": 15,
-        "5.4 Strengths of the Study": 15,
-        "5.5 Limitations of the Study": 16,
-        "5.6 Concluding Remarks": 16,
-        "CHAPTER 6": 17,
-        "6.1 Conclusions": 17,
-        "6.2 Recommendations": 17,
-        "CHAPTER 7": 19,
+        "3.1 Study Design and Setting": 7,
+        "3.2 Sample Size": 7,
+        "3.3 Materials": 8,
+        "3.4 Equipment": 8,
+        "3.5 Specimen Preparation": 9,
+        "3.6 Baseline Measurements": 9,
+        "3.7 Toothbrushing Protocol": 9,
+        "3.8 Post-test Evaluation": 10,
+        "3.9 Statistical Analysis": 10,
+        "3.10 Ethical Considerations": 10,
+        "CHAPTER 4": 11,
+        "4.1 Weight Loss": 11,
+        "4.2 Surface Roughness": 12,
+        "4.3 Summary of Results": 14,
+        "CHAPTER 5": 15,
+        "5.1 Weight Loss": 15,
+        "5.2 Surface Roughness": 16,
+        "5.3 Clinical Implications": 18,
+        "5.4 Strengths of the Study": 18,
+        "5.5 Limitations of the Study": 19,
+        "5.6 Concluding Remarks": 19,
+        "CHAPTER 6": 20,
+        "6.1 Summary": 20,
+        "6.2 Conclusions": 20,
+        "6.3 Recommendations": 21,
+        "CHAPTER 7": 22,
     }
     pretty_titles = {
         "INTRODUCTION": "Introduction",
@@ -533,7 +633,17 @@ def main():
         "CONCLUSIONS AND RECOMMENDATIONS": "Conclusions and Recommendations",
         "REFERENCES": "References",
     }
-    toc_entries = []
+    toc_entries = [
+        ("ch", "Supervision Committee", "i"),
+        ("ch", "Declaration", "ii"),
+        ("ch", "Acknowledgements", "iii"),
+        ("ch", "Dedication", "iv"),
+        ("ch", "Abstract", "v"),
+        ("ch", "Arabic Abstract", "vi"),
+        ("ch", "Contents", "vii"),
+        ("ch", "List of Tables", "ix"),
+        ("ch", "List of Abbreviations", "x"),
+    ]
     pending = None
     for raw in md.splitlines():
         line = raw.rstrip()
@@ -548,10 +658,14 @@ def main():
         elif line.startswith("## "):
             h = line[3:].strip()
             toc_entries.append(("sec", h, chapter_pages.get(h, "")))
+    toc_entries.append(("ch", "Arabic Summary", 24))
 
     add_supervisors_page(doc)
     add_declaration(doc)
+    add_acknowledgements(doc)
+    add_dedication(doc)
     add_abstract(doc)
+    add_arabic_abstract(doc)
     add_contents(doc, toc_entries)
     add_list_of_tables(doc)
     add_abbreviations(doc)
@@ -562,6 +676,7 @@ def main():
     _setup_footer(body_sect, fmt="decimal", restart=1)
 
     convert_body(doc, md)
+    add_arabic_summary(doc)
     doc.save(OUT)
     print(f"Wrote {OUT}")
 

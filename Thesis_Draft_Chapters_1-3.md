@@ -1,3 +1,7 @@
+# SUPERSEDED DRAFT
+
+The complete thesis for supervision is `Thesis_Complete.docx` / `Thesis_Complete.pdf` / `Thesis_Complete.md`. This file still names 15 mm × 4 mm × 1.5 mm bars. That geometry was discarded. Use 10 mm × 1 mm discs only.
+
 # COMPARATIVE EVALUATION OF WEAR RESISTANCE AND SURFACE ROUGHNESS OF INJECTABLE VERSUS CONVENTIONAL NANOHYBRID COMPOSITE RESINS
 
 **(In Vitro Study)**

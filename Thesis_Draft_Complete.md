@@ -1,3 +1,7 @@
+# SUPERSEDED DRAFT
+
+The complete thesis for supervision is `Thesis_Complete.docx` / `Thesis_Complete.pdf` / `Thesis_Complete.md`. This file is an early outline. Chapters 4–6 below are empty placeholders. Specimen geometry here must not be used.
+
 # COMPARATIVE STUDY OF WEAR RESISTANCE AND SURFACE ROUGHNESS OF INJECTABLE VERSUS CONVENTIONAL COMPOSITE RESIN — IN VITRO STUDY
 
 **Arabic title.** دراسة مقارنة للتآكل و خشونة سطح الراتينج المركب القابل للحقن و التقليدي - دراسة في المختبر
