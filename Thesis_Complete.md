@@ -34,7 +34,7 @@ Revising the thesis and/or manuscript
 
 ## Acknowledgements
 
-I wish to thank my supervisors for their guidance throughout the planning and writing of this work, and the laboratory staff who supported the experimental procedures. I am grateful to my family for their patience during the period of study.
+I am grateful to Prof. Wegdan M. Abdel-Fattah and Asst. Prof. Emad M. El-Sayed for supervising this work from the protocol through the writing of the thesis. The discs were prepared in the laboratory of the Faculty of Dentistry, Pharos University in Alexandria, and the toothbrushing runs were carried out in the Dental Biomaterials Department of the Faculty of Dentistry, Alexandria University. I thank the staff of both laboratories. I am indebted to my family for the time this degree has taken from them.
 
 ---
 
@@ -62,11 +62,14 @@ I wish to thank my supervisors for their guidance throughout the planning and wr
 ## List of abbreviations
 
 ANOVA — analysis of variance  
+CAD/CAM — computer-aided design / computer-aided manufacture  
 ISO — International Organization for Standardization  
+LED — light-emitting diode  
 Ra — arithmetic mean roughness  
 RDA — relative dentine abrasivity  
 SD — standard deviation  
 S-PRG — surface pre-reacted glass-ionomer  
+vol% — percentage by volume  
 ΔRa — change in Ra (after − before)
 
 ---
@@ -92,9 +95,11 @@ S-PRG — surface pre-reacted glass-ionomer
 
 Resin-based composites have become the principal material for direct restoration of both anterior and posterior teeth. Their clinical performance is determined not only by handling and aesthetics but by the behaviour of the finished surface under the conditions of the mouth. Two surface properties are of particular concern. Progressive wear flattens occlusal anatomy, may reduce vertical dimension and can disturb the occlusal scheme. Increased roughness, independently of the volume of material lost, retains plaque, takes stain and favours secondary caries at the restoration margin (1,2). Daily toothbrushing contributes to both processes. The abrasive particles of a dentifrice act as a third body between the bristle and the restoration: the resin-rich surface layer is removed first, filler particles are then left standing proud or are plucked from the matrix, mass is lost and the arithmetic mean roughness (Ra) rises (3,4).
 
-For many years the materials used in load-bearing cavities were high-viscosity pastes, while low-filled flowable resins were reserved for liners, small defects and situations in which adaptation was more important than strength. First-generation flowables typically contained 40–55 wt% filler and showed higher polymerisation shrinkage and poorer wear resistance than their packable counterparts (5). A later generation of highly filled injectable composites was formulated to close that gap. By combining a higher inorganic load, a smaller mean particle size and improved silane treatment, manufacturers produced pastes that can still be injected from a syringe yet are offered for use in Class I and II restorations (6). Two such products, G-ænial Universal Injectable (GC Corporation, Tokyo, Japan) and Beautifil Flow Plus X F00 (Shofu Inc., Kyoto, Japan), are now in routine clinical use. Beautifil II LS (Shofu Inc.), a sculptable low-shrinkage nanohybrid giomer, remains a representative conventional paste and was chosen as the control material for the present work.
+For many years the materials used in load-bearing cavities were high-viscosity pastes, while low-filled flowable resins were reserved for liners, small defects and situations in which adaptation was more important than strength. First-generation flowables typically contained 40–55 wt% filler and showed higher polymerisation shrinkage and poorer wear resistance than their packable counterparts (5). A later generation of highly filled injectable composites was formulated to close that gap. By combining a higher inorganic load, a smaller mean particle size and improved silane treatment, manufacturers produced pastes that can still be injected from a syringe, often as a single increment, yet are offered for use in Class I and II restorations (6). Two such products, G-ænial Universal Injectable (GC Corporation, Tokyo, Japan) and Beautifil Flow Plus X F00 (Shofu Inc., Kyoto, Japan), are now in routine clinical use. Both were tested in shade A2. Beautifil II LS (Shofu Inc.), a sculptable low-shrinkage nanohybrid giomer in the same shade, remains a representative conventional paste and was chosen as the control.
 
-The laboratory literature on these products is uneven. Two-body chewing-simulator studies, in which a steatite antagonist is loaded at about 49 N, have reported favourable volumetric wear and flexural strength for highly filled injectables (6). Those data describe occlusal-contact wear. They do not describe the three-body abrasion produced by a toothbrush and a dentifrice slurry, which is the wear mode that acts on free cleanable surfaces and on margins throughout the life of a restoration. Toothbrushing tests conducted according to ISO/TR 14569-1, at a load of 2 N and for 10 000 strokes, are conventionally treated as the laboratory equivalent of one year of twice-daily brushing (3,7,8). Direct comparison of Beautifil Flow Plus X F00, G-ænial Universal Injectable and Beautifil II LS under that protocol has not been published.
+The three products were not chosen at random. G-ænial Universal Injectable is a nanofilled dimethacrylate paste with barium glass and silica. Beautifil Flow Plus X F00 is a zero-flow giomer injectable. Beautifil II LS is a packable giomer from the same manufacturer as the Shofu injectable. The comparison therefore asks two separate questions: whether two current injectables of different filler chemistry behave alike under the toothbrush, and whether either of them is at a disadvantage beside a conventional nanohybrid of higher filler volume.
+
+The laboratory literature on these products is uneven. Two-body chewing-simulator studies, in which a steatite antagonist is loaded at about 49 N, have reported favourable volumetric wear and flexural strength for highly filled injectables (6). Those data describe occlusal-contact wear. They do not describe the three-body abrasion produced by a toothbrush and a dentifrice slurry, which is the wear mode that acts on free cleanable surfaces — including the labial and palatal faces of anterior restorations — and on margins throughout the life of a restoration. Toothbrushing tests conducted according to ISO/TR 14569-1, at a load of 2 N and for 10 000 strokes, are conventionally treated as the laboratory equivalent of one year of twice-daily brushing (3,7,8). Direct comparison of Beautifil Flow Plus X F00, G-ænial Universal Injectable and Beautifil II LS under that protocol has not been published.
 
 The clinical meaning of the roughness values obtained after such a test is judged against two well-established thresholds. Bollen, Lambrechts and Quirynen concluded that plaque retention increases once Ra exceeds approximately 0.2 µm and that further smoothing below this value produces no additional clinical benefit (1). Jones, Billington and Pearson later showed that volunteers can detect roughness with the tip of the tongue once Ra lies between 0.25 µm and 0.50 µm, and they advised finishing restorations to no more than 0.50 µm (2). These two figures provide the frame within which the roughness results of the present study are interpreted.
 
@@ -130,7 +135,7 @@ Classical flowable resins, filled at approximately 40–55 wt%, wear more rapidl
 
 Laboratory evaluation of toothbrush wear follows ISO/TR 14569-1 (3). The stated scope of that technical report is the wear of artificial teeth and veneering materials, but the recommended brush load (0.5–2.5 N) and the requirement that the dentifrice comply with ISO 11609 have been adopted widely for the screening of restorative composites (3,14). Sexson and Phillips estimated that a patient who makes about fifteen strokes per surface, twice daily, produces of the order of 10 000 strokes in a year (7). Most subsequent toothbrushing papers have used that figure, or a simple multiple of it, as the laboratory equivalent of one year of hygiene (8). The conversion is an estimate; brushing habits vary, and the laboratory brush does not reproduce the anatomy of a restoration. It remains, nevertheless, the convention against which the present cycle count is set.
 
-Wear may be quantified as lost volume, as profilometric depth or as lost mass (10,15). Gravimetric loss is simple and repeatable when the balance reads to 0.1 mg and the specimen is dried in a consistent way. It does not describe the topography of the worn surface. Volumetric loss from a three-dimensional scan does, but requires equipment that was not used in this study. Heintze and colleagues compared three laboratory methods of wear quantification and showed that they do not always rank materials in the same order (15). The choice of a gravimetric outcome in the present work is therefore a methodological decision, not a claim that mass is equivalent to worn anatomy.
+Wear may be quantified as lost volume, as profilometric depth or as lost mass (10,15). Gravimetric loss is simple and repeatable when the balance reads to 0.1 mg and the specimen is dried in a consistent way. It does not describe the topography of the worn surface, and it cannot separate true abrasive loss from a change in water content if the drying step is not the same before and after the test. Volumetric loss from a three-dimensional scan does describe the worn anatomy, but requires equipment that was not used in this study. Heintze and colleagues compared three laboratory methods of wear quantification and showed that they do not always rank materials in the same order (15). The choice of a gravimetric outcome in the present work is therefore a methodological decision, not a claim that mass is equivalent to worn anatomy.
 
 ### 2.2 Surface roughness
 
@@ -142,11 +147,15 @@ Toothbrushing raises Ra. Heintze, Forjanic, Ohmiti and Rousson subjected nine co
 
 The dentifrice is an independent variable. da Costa, Adams-Belusko, Riley and Ferracane brushed four composites with Colgate Total (relative dentine abrasivity 70) and with two more abrasive Colgate pastes (RDA 145 and 200). All pastes reduced gloss and increased Ra; the least abrasive paste produced the smallest change, and composites with smaller fillers were less affected than those with larger fillers (25). Monteiro and Spohr, using a different set of dentifrices, also recorded an increase in Ra after simulated brushing but found that the manufacturer’s RDA value did not predict the roughness result in a simple way (8). A single dentifrice was therefore used in the present study, and the results apply to that paste.
 
+How the surface is finished before the first measurement also matters. A Mylar-covered, as-cured face is resin-rich and is not the surface that a dentist leaves after rotary finishing and polishing. AlAli, Silikas and Satterthwaite polished three nanohybrid pastes and then brushed them at intervals up to 20 000 cycles. Ra rose and gloss fell at every interval; after 10 000 cycles the polished nanohybrids were already rougher than they had been at baseline, and by 20 000 cycles mean Ra lay between 0.41 µm and 0.49 µm (26). Their baseline values (0.14–0.22 µm) were those of a polished paste, not of a Mylar film. The present discs were left as cured against Mylar. That choice follows the approved protocol. It means that the baseline Ra reported in Chapter 4 describes the as-cured film, and that any comparison with a polished-specimen paper has to be made with that difference in mind. Gloss was not measured here.
+
 ### 2.3 Injectable composite resins
 
 The first generation of flowable composites was introduced to improve adaptation in narrow cavities and to serve as liners. Their filler content was deliberately kept low in order to reduce viscosity, and their mechanical properties were correspondingly inferior to those of contemporaneous hybrid pastes (5,13). Baroudi and Rodrigues, in a systematic review, concluded that conventional flowables should not be used as sole restoratives in load-bearing situations (13).
 
 Highly filled injectable resins are a later development. G-ænial Universal Injectable contains barium glass and silica at a filler load of 50 vol% in a dimethacrylate matrix (6,18,19). Beautifil Flow Plus X F00 is a zero-flow giomer injectable that incorporates nano-sized surface pre-reacted glass-ionomer (S-PRG) filler (19). It should not be confused with Beautifil Flow Plus F00, an earlier product that appears in several laboratory papers (6). The distinction matters when results are compared.
+
+Syringeability and wear are not the same property. Imai and colleagues measured extrusion force and thread formation together with flexural strength and sliding-impact wear in a set of newer flowable resins. Some of those flowables wore as little as, or less than, the conventional pastes in the same study. Handling did not predict wear: a paste that left the syringe easily was not, on that account, the weaker material under the antagonist (27). The finding supports the manufacturer’s claim that a highly filled injectable can be used where a packable paste would otherwise be chosen. It does not, on its own, describe toothbrush abrasion.
 
 Rajabi, Denny, Karagiannopoulos and Petridis compared G-ænial Universal Injectable and Beautifil Flow Plus F00 with a conventional flowable (Tetric EvoFlow) and a nanohybrid paste (IPS Empress Direct) in two-body wear. Specimens were cycled 200 000 times against a steatite antagonist at 49 N under dry conditions, a regimen intended to represent approximately one year of occlusal contact. Both injectables lost less volume and showed higher flexural strength than the paste and the classical flowable; the two injectables did not differ from each other (6). The finding is favourable to highly filled injectables, but the wear mode is two-body contact without toothpaste. It cannot be transferred to a toothbrushing assay.
 
@@ -173,21 +182,29 @@ Two-body wear of G-ænial Universal Injectable and Beautifil Flow Plus F00 is fa
 # Chapter 3
 # Materials and methods
 
-### 3.1 Study design and sample
+### 3.1 Study design, setting and sample
 
-The investigation was a comparative in-vitro study of three commercially available resin composites. Thirty-six disc-shaped specimens, 10 mm in diameter and 1 mm thick, were prepared in a CAD/CAM Teflon mould. The discs were allocated at random to three equal groups (n = 12) according to the restorative material. An initial sample-size calculation in G*Power had indicated ten specimens per group; twelve were prepared in order to increase the power of the subsequent comparisons.
+The investigation was a comparative in-vitro study of three commercially available resin composites. Disc specimens were prepared in the laboratory of the Faculty of Dentistry, Pharos University in Alexandria. The toothbrushing runs were carried out on a custom simulator in the Dental Biomaterials Department of the Faculty of Dentistry, Alexandria University.
+
+Thirty-six discs, 10 mm in diameter and 1 mm thick, were prepared in a CAD/CAM Teflon mould designed in Blender (Blender Institute B.V., Amsterdam). The discs were allocated at random to three equal groups (n = 12) according to the restorative material:
+
+1. Group I — G-ænial Universal Injectable.
+2. Group II — Beautifil Flow Plus X F00.
+3. Group III — Beautifil II LS.
+
+The sample size was calculated in G*Power version 3.1.9.2 from the two-body wear comparison of Rajabi et al. (6), taking a power of 80 % (β = 0.20) and a two-sided significance level of 0.05. That calculation gave a minimum of ten specimens per group (thirty in all). Twelve were prepared in each group. The protocol provided that any disc lost in processing would be replaced so that the analysed number remained twelve; no disc was lost.
 
 ### 3.2 Materials
 
 The materials used were:
 
-1. G-ænial Universal Injectable — highly filled nanofilled injectable composite (GC Corporation, Tokyo, Japan).
-2. Beautifil Flow Plus X F00 — highly filled injectable giomer of zero-flow consistency (Shofu Inc., Kyoto, Japan).
-3. Beautifil II LS — conventional low-shrinkage nanohybrid giomer (Shofu Inc., Kyoto, Japan).
+1. G-ænial Universal Injectable, shade A2 — highly filled nanofilled injectable composite (GC Corporation, Tokyo, Japan).
+2. Beautifil Flow Plus X F00, shade A2 — highly filled injectable giomer of zero-flow consistency (Shofu Inc., Kyoto, Japan).
+3. Beautifil II LS, shade A2 — conventional low-shrinkage nanohybrid giomer (Shofu Inc., Kyoto, Japan).
 4. Colgate Total toothpaste.
 5. Distilled water.
 
-The composition of the three resins, as stated by the manufacturers, is summarised in Table 3.1.
+The composition of the three resins, as stated by the manufacturers, is summarised in Table 3.1. The instruments were a RADWAG AS 220-R2 analytical balance (RADWAG Wagi Elektroniczne, Warsaw), a MarSurf PS10 contact profilometer (Mahr GmbH, Göttingen) and the custom toothbrushing simulator already named.
 
 **Table 3.1** Brand, manufacturer, matrix, filler and load of the resin composites
 
@@ -201,19 +218,21 @@ Colgate Total was selected as the dentifrice because it is a widely used daily p
 
 ### 3.3 Specimen preparation
 
-Each material was placed in the Teflon mould as a single increment. A Mylar strip and a transparent glass slide were applied to exclude air from the test face and to produce a flat surface of uniform thickness. Polymerisation was carried out with an LED curing unit (MiniS, Woodpecker, Guilin, China) for 20 seconds at 800 mW/cm², with the tip in contact with the glass slide, followed by three additional 20-second exposures from different directions to ensure complete polymerisation. Flash was removed with a no. 12 scalpel blade. The discs were identified by group and stored in distilled water at 37 °C for 24 hours before the baseline measurements were made.
+Each material was placed in the Teflon mould as a single increment. A Mylar strip and a transparent glass slide were applied over the unset paste so that the test face was flat, of uniform thickness and free of an oxygen-inhibited layer. No rotary finishing or polishing was done. The surface that entered the test was therefore the as-cured film against Mylar, not a polished clinical finish.
+
+Polymerisation was carried out with an LED curing unit (MiniS, Woodpecker, Guilin, China) for 20 seconds at 800 mW/cm², with the tip in contact with the glass slide. Three further 20-second exposures were given from different directions so that a disc 1 mm thick was polymerised through. Flash was removed with a no. 12 scalpel blade (Suzhou Kyuan Medical Co., Jiangsu, China). After the disc had been taken from the mould its diameter was checked with a digital caliper. The discs were identified by group and stored in distilled water in a closed glass container at 37 °C for 24 hours before the baseline measurements were made.
 
 ### 3.4 Baseline measurements
 
-Each disc was dried and weighed on an electronic analytical balance (RADWAG Wagi Elektroniczne AS 220-R2), which records to 0.0001 g. Surface roughness was measured on the test face with a contact profilometer (MarSurf PS10, Mahr). Five traces were taken at random sites on each disc; the value entered for analysis was the mean of those traces. Ra was determined according to the definition in ISO 4287 (16).
+Each disc was lifted from the storage water and dried with a sterile disposable sponge. It was then weighed on the RADWAG AS 220-R2 balance, which records to 0.0001 g. Surface roughness was measured on the test face with the MarSurf PS10. Five traces were taken at random sites on each disc; the device software calculated Ra for each trace, and the value entered for analysis was the mean of those five traces. Ra was determined according to the definition in ISO 4287 (16).
 
 ### 3.5 Toothbrushing protocol
 
-The discs were mounted in a custom toothbrushing simulator (Dental Biomaterials Department, Faculty of Dentistry, Alexandria University). A slurry of Colgate Total (relative dentine abrasivity 70) and distilled water was prepared at 250 g of toothpaste per litre of water, in accordance with ISO 11609 and ISO/TR 14569-1 (3,14). The brush load was set at 2 N, which lies within the ISO range of 0.5–2.5 N (3). Each disc received 10 000 cycles. That count is the conventional laboratory equivalent of one year of twice-daily brushing, following the estimate of Sexson and Phillips (7,8). The slurry was replaced every 5 000 cycles. At the end of the run the discs were rinsed with a stream of water and dried.
+The discs were mounted in the custom toothbrushing simulator so that the whole of the test face was brushed under a vertical load of 2 N. That load lies within the ISO range of 0.5–2.5 N (3). A slurry of Colgate Total (relative dentine abrasivity 70) and distilled water was prepared at 250 g of toothpaste per litre of water, in accordance with ISO 11609 and ISO/TR 14569-1 (3,14). Each disc received 10 000 cycles. That count is the conventional laboratory equivalent of one year of twice-daily brushing, following the estimate of Sexson and Phillips (7,8). The slurry was replaced every 5 000 cycles. At the end of the run the discs were rinsed with a stream of compressed tap water and dried with a disposable sponge.
 
 ### 3.6 Post-test measurements and calculations
 
-Mass and Ra were recorded again with the same instruments and the same drying procedure as at baseline.
+Mass and Ra were recorded again with the same instruments and the same sponge-drying routine as at baseline, so that a change in mass would not be confused with a change in surface water.
 
 Percentage weight loss was calculated for each disc as
 
@@ -229,14 +248,14 @@ The change in roughness was calculated for each disc as
 
 ### 3.7 Statistical analysis
 
-Descriptive statistics are presented as mean ± standard deviation. Percentage weight loss was compared among the three groups by one-way analysis of variance. Ra after brushing was compared by the Kruskal–Wallis test, with pairwise post-hoc comparisons between groups. The choice of a parametric test for weight loss and a non-parametric test for roughness follows the distributions of the two outcomes in the experimental spreadsheet. The level of significance was set at α = 0.05.
+Descriptive statistics are presented as mean ± standard deviation. Percentage weight loss was compared among the three groups by one-way analysis of variance. Ra after brushing was compared by the Kruskal–Wallis test, with pairwise comparisons between groups. The choice of a parametric test for weight loss and a non-parametric test for roughness follows the distributions of the two outcomes in the experimental records. The name of the pairwise procedure used after the Kruskal–Wallis test was not recorded; the result that is reported is that each injectable differed from Beautifil II LS and that the two injectables did not differ from each other. The level of significance was set at α = 0.05. The statistical software used for the original analysis was not named in the laboratory records and is therefore not stated here.
 
 ---
 
 # Chapter 4
 # Results
 
-Thirty-six discs were tested, twelve in each group. All discs completed 10 000 cycles at 2 N. Wear is reported as mass; roughness is reported as Ra.
+Thirty-six discs were tested, twelve in each group. None was lost in processing. All discs completed 10 000 cycles at 2 N. Wear is reported as mass; roughness is reported as Ra.
 
 ### 4.1 Weight loss
 
@@ -292,9 +311,9 @@ Mean Ra before and after brushing, and ΔRa, are given in Table 4.3 and illustra
 
 **Figure 4.2** Mean surface roughness (Ra) of the three composite resins before and after 10 000 toothbrushing cycles at 2 N. Error bars represent one standard deviation (n = 12 per group). The broken line marks the 0.2 µm threshold above which plaque retention increases. Ra after brushing differed significantly among groups (Kruskal–Wallis, p < 0.001).
 
-At baseline Beautifil II LS was already the roughest (0.119 ± 0.054 µm). Beautifil Flow Plus X F00 was the smoothest (0.038 ± 0.011 µm). G-ænial Universal Injectable lay between them (0.054 ± 0.010 µm).
+At baseline, on the as-cured Mylar face, Beautifil II LS was already the roughest (0.119 ± 0.054 µm). Beautifil Flow Plus X F00 was the smoothest (0.038 ± 0.011 µm). G-ænial Universal Injectable lay between them (0.054 ± 0.010 µm). The order after brushing is therefore not a new ranking created by the toothbrush. It is the same order, carried forward.
 
-Every group became rougher. Mean ΔRa was 0.066 ± 0.021 µm for Beautifil Flow Plus X F00, 0.046 ± 0.023 µm for G-ænial Universal Injectable and 0.075 ± 0.066 µm for Beautifil II LS (Figure 4.3). After 10 000 cycles the means were 0.104 ± 0.017 µm, 0.100 ± 0.023 µm and 0.194 ± 0.050 µm respectively.
+Every group became rougher. Mean ΔRa was 0.066 ± 0.021 µm for Beautifil Flow Plus X F00, 0.046 ± 0.023 µm for G-ænial Universal Injectable and 0.075 ± 0.066 µm for Beautifil II LS (Figure 4.3). After 10 000 cycles the means were 0.104 ± 0.017 µm, 0.100 ± 0.023 µm and 0.194 ± 0.050 µm respectively. Relative to its own baseline, Beautifil Flow Plus X F00 rose by a factor of about 2.7, G-ænial Universal Injectable by about 1.9 and Beautifil II LS by about 1.6. The injectable that started smoothest therefore changed the most in relative terms, but it still finished beside the other injectable and well below the nanohybrid.
 
 ![Figure 4.3](figures/Figure_4.3_delta_ra.png)
 
@@ -339,15 +358,17 @@ The ΔRa standard deviation of Beautifil II LS (0.066 µm) is larger than both i
 
 Within the limits of this protocol, the two injectable resins may be used on surfaces that are subject to toothbrush abrasion without a roughness penalty relative to Beautifil II LS. They do not, on these data, wear less. They finish smoother. A smoother surface after hygiene is an advantage on freely cleanable faces and at accessible margins, where plaque retention and stain are the practical concerns (1,17). The result does not support a claim that the same materials will resist occlusal contact wear as well as, or better than, a packable nanohybrid, because occlusal contact was not tested. The caution of Tzimas et al., that laboratory mechanical properties of highly filled flowables remain inferior to those of medium-viscosity composites and that use in extensive load-bearing cavities should be considered carefully, is therefore not displaced by the present findings (20).
 
-Beautifil II LS remains a reasonable packable control. Its higher baseline Ra may reflect the size and distribution of its fillers, the finishing of the disc, or both. If the nanohybrid was left with a coarser as-cured or as-finished surface, part of the after-brushing difference was already present at baseline. The comparison after abrasion is nevertheless valid: the three groups were treated identically and were compared as they stood at the end of the test.
+Beautifil II LS remains a reasonable packable control. Its higher baseline Ra is the as-cured Mylar face of a nanohybrid that contains larger S-PRG particles, not the face of a disc that has been taken through a polishing sequence. The two injectables, cured against the same strip, started smoother. Part of the after-brushing difference was therefore already present before the first stroke. The comparison after abrasion is nevertheless the comparison the study was designed to make: the three groups were treated identically and were compared as they stood at the end of the test.
+
+A polished clinical restoration would not enter service at these baseline values. AlAli et al. started from polished nanohybrid surfaces of 0.14–0.22 µm and, after 10 000 cycles, were already rougher than at baseline; by 20 000 cycles their means had reached 0.41–0.49 µm (26). The present injectable means after 10 000 cycles (approximately 0.10 µm) are lower than those polished-and-brushed figures. The comparison is not exact — the materials and the starting finish differ — but it is enough to say that the injectable surfaces in this study did not deteriorate into the range that AlAli recorded for polished nanohybrids under a longer run.
 
 ### 5.4 Strengths of the study
 
-The three products are current commercial materials, and the Shofu injectable is the X-generation Flow Plus rather than the earlier F00 formulation used by Rajabi et al. (6). Twelve specimens were tested in each group rather than the ten indicated by the original power calculation. Mass and Ra were recorded on the same discs, so the two outcomes describe the same surfaces. The brushing load and the cycle count follow published ISO guidance and the Sexson–Phillips estimate (3,7). The statistical tests were chosen to match the distributions of the two outcomes. The outlying specimen was retained and identified rather than discarded.
+The three products are current commercial materials, and the Shofu injectable is the X-generation Flow Plus rather than the earlier F00 formulation used by Rajabi et al. (6). Twelve specimens were tested in each group rather than the ten indicated by the original power calculation. Mass and Ra were recorded on the same discs, so the two outcomes describe the same surfaces. The brushing load, the slurry ratio and the cycle count follow the approved protocol and the published ISO guidance (3,7,14). The statistical tests were chosen to match the distributions of the two outcomes. The outlying specimen was retained and identified rather than discarded.
 
 ### 5.5 Limitations of the study
 
-The investigation is an in-vitro abrasion test. Saliva, pH cycling, enzymatic activity and occlusal load are absent, and the ranking obtained here may change when those factors are added (10). Gravimetric loss is not worn volume and is not worn anatomy (15). A single dentifrice of moderate abrasivity was used; a whitening paste of higher RDA might enlarge the roughness differences (8,25). Brush stiffness and the exact slurry ratio were not fully specified. Scanning electron microscopy was not performed, so the inference that larger fillers are uncovered or plucked rests on the roughness numbers and on the published literature rather than on micrographs of these discs. Ten thousand cycles represent one conventional laboratory year, not a year of any particular patient’s hygiene. Disc geometry is not a Class II cavity, and the results should not be read as a prediction of wear at an occlusal contact or at a gingival margin.
+The investigation is an in-vitro abrasion test. Saliva, pH cycling, enzymatic activity and occlusal load are absent, and the ranking obtained here may change when those factors are added (10,28). Gravimetric loss is not worn volume and is not worn anatomy (15). A disc that has spent 24 hours in water can also change mass by taking up or losing water; the same sponge-drying step was used before and after brushing in order to limit that error, but it cannot be excluded. A single dentifrice of moderate abrasivity was used, at 250 g per litre; a whitening paste of higher RDA might enlarge the roughness differences (8,25). Brush stiffness was not recorded. Scanning electron microscopy was not performed, so the inference that larger fillers are uncovered or plucked rests on the roughness numbers and on the published literature rather than on micrographs of these discs. Gloss was not measured. Ten thousand cycles represent one conventional laboratory year, not a year of any particular patient’s hygiene. The test face was an as-cured Mylar surface, not a polished restoration. Disc geometry is not a Class II cavity, and the results should not be read as a prediction of wear at an occlusal contact or at a gingival margin. The statistical software and the name of the Kruskal–Wallis pairwise procedure were not recorded.
 
 ### 5.6 Concluding remarks of the discussion
 
@@ -365,14 +386,15 @@ Under the conditions of this in-vitro study:
 1. Percentage weight loss after 10 000 toothbrushing cycles did not differ significantly among Beautifil Flow Plus X F00, G-ænial Universal Injectable and Beautifil II LS (p = 0.329).
 2. Ra after the same abrasion did differ (p < 0.001). Both injectable resins were significantly smoother than Beautifil II LS. The two injectable resins did not differ from each other.
 3. Mean Ra of both injectable resins remained below 0.2 µm. Mean Ra of Beautifil II LS was 0.194 µm.
-4. One Beautifil Flow Plus X F00 disc lost approximately 11.4 % of its mass and is the source of that group’s large standard deviation.
-5. The first null hypothesis is retained. The second is rejected.
+4. The same order of roughness was already present on the as-cured Mylar face before brushing.
+5. One Beautifil Flow Plus X F00 disc lost approximately 11.4 % of its mass and is the source of that group’s large standard deviation.
+6. The first null hypothesis is retained. The second is rejected.
 
 ### 6.2 Recommendations
 
 **Clinical practice.** Where toothbrush abrasion and the smoothness of the surface after daily hygiene are the principal concerns, either injectable resin tested here may be considered alongside Beautifil II LS. The present data do not show that the injectables wear less; they show that they finish smoother. The result should not be used to justify the substitution of an injectable resin for a packable nanohybrid on occlusal contacts.
 
-**Further laboratory work.** The mass analysis should be repeated with and without the outlying disc, and both calculations should be reported. Volumetric loss or profilometric wear depth would complement the gravimetric outcome. Scanning electron microscopy of the worn surface would test the inference that larger fillers are uncovered in the nanohybrid. The finishing sequence, the brush and the slurry ratio should be stated in full. A second dentifrice of higher relative dentine abrasivity, or a higher cycle count, would show whether the roughness difference persists under a more aggressive challenge.
+**Further laboratory work.** The mass analysis should be repeated with and without the outlying disc, and both calculations should be reported. Volumetric loss or profilometric wear depth would complement the gravimetric outcome. Scanning electron microscopy of the worn surface would test the inference that larger fillers are uncovered in the nanohybrid. The same three materials should be finished and polished as they would be in the mouth, and then brushed, so that the ranking can be read against a clinical starting surface. Brush stiffness and the statistical software should be stated. A second dentifrice of higher relative dentine abrasivity, or a higher cycle count, would show whether the roughness difference persists under a more aggressive challenge.
 
 **Clinical research.** Only a controlled clinical study can determine whether the difference between approximately 0.10 µm and 0.19 µm after a laboratory year is associated with a difference in plaque accumulation, staining or restoration survival.
 
@@ -430,3 +452,9 @@ Under the conditions of this in-vitro study:
 24. Turssi CP, Ferracane JL, Vogel K. Filler features and their effects on wear and degree of conversion of particulate dental resin composites. Biomaterials. 2005;26(24):4932-4937.
 
 25. da Costa J, Adams-Belusko A, Riley K, Ferracane JL. The effect of various dentifrices on surface roughness and gloss of resin composites. J Dent. 2010;38(Suppl 2):e123-e128.
+
+26. AlAli M, Silikas N, Satterthwaite J. The effects of toothbrush wear on the surface roughness and gloss of resin composites with various types of matrices. Dent J (Basel). 2021;9(1):8.
+
+27. Imai A, Takamizawa T, Sugimura R, Tsujimoto A, Ishii R, Kawazu M, Saito T, Miyazaki M. Interrelation among the handling, mechanical, and wear properties of the newly developed flowable resin composites. J Mech Behav Biomed Mater. 2019;89:72-80.
+
+28. Dionysopoulos D, Gerasimidou O. Wear of contemporary dental composite resin restorations: a literature review. Restor Dent Endod. 2021;46(2):e18.

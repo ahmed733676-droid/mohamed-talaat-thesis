@@ -15,7 +15,7 @@ A complete thesis assembled from the locked experimental data, laid out to match
 
 Formatting follows the protocol: A4; Times New Roman 12 pt; double-spaced justified body with a 1.27 cm first-line indent and no extra gap between paragraphs; centred all-caps chapter titles; PUA header and faculty footer on every page; 3 cm left margin.
 
-The rendered PDF is 40 pages. Length comes from protocol-style spacing and one-section-per-page front matter, not from padded prose.
+The rendered PDF is 40 pages from protocol-style spacing. A later pass added laboratory detail from the approved protocol (setting, G*Power, Mylar finish, drying) and three verified papers. Numbers were not invented.
 
 ## Still for the candidate to insert
 
