@@ -63,13 +63,33 @@ def set_cell_border(cell):
     tcPr.append(tcBorders)
 
 
-def add_page_number(section):
-    footer = section.footer
-    footer.is_linked_to_previous = False
-    p = footer.paragraphs[0]
-    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    run = p.add_run()
-    set_run_font(run, size=11)
+def add_bottom_border(paragraph):
+    pPr = paragraph._p.get_or_add_pPr()
+    pBdr = OxmlElement("w:pBdr")
+    bottom = OxmlElement("w:bottom")
+    bottom.set(qn("w:val"), "single")
+    bottom.set(qn("w:sz"), "12")
+    bottom.set(qn("w:space"), "4")
+    bottom.set(qn("w:color"), "000000")
+    pBdr.append(bottom)
+    pPr.append(pBdr)
+
+
+def add_top_border(paragraph):
+    pPr = paragraph._p.get_or_add_pPr()
+    pBdr = OxmlElement("w:pBdr")
+    top = OxmlElement("w:top")
+    top.set(qn("w:val"), "single")
+    top.set(qn("w:sz"), "12")
+    top.set(qn("w:space"), "4")
+    top.set(qn("w:color"), "000000")
+    pBdr.append(top)
+    pPr.append(pBdr)
+
+
+def add_page_field(paragraph, size=10):
+    run = paragraph.add_run()
+    set_run_font(run, size=size)
     fld1 = OxmlElement("w:fldChar")
     fld1.set(qn("w:fldCharType"), "begin")
     instr = OxmlElement("w:instrText")
@@ -82,6 +102,59 @@ def add_page_number(section):
     run._r.append(fld2)
 
 
+def add_header_and_footer(section):
+    """Protocol header (PUA bilingual banner + rule) and footer (address block + page) on every page."""
+    section.different_first_page_header_footer = False
+    section.odd_and_even_pages_header_footer = False
+    section.header_distance = Cm(0.5)
+    section.footer_distance = Cm(0.4)
+
+    header = section.header
+    header.is_linked_to_previous = False
+    hp = header.paragraphs[0]
+    hp.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    hp.paragraph_format.space_before = Pt(0)
+    hp.paragraph_format.space_after = Pt(2)
+    hp.paragraph_format.line_spacing = 1.0
+    banner = ROOT / "figures" / "pua_header.png"
+    run = hp.add_run()
+    if banner.exists():
+        run.add_picture(str(banner), width=Cm(16.0))
+    add_bottom_border(hp)
+
+    footer = section.footer
+    footer.is_linked_to_previous = False
+    # clear default paragraph
+    fp = footer.paragraphs[0]
+    fp.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    fp.paragraph_format.space_before = Pt(2)
+    fp.paragraph_format.space_after = Pt(0)
+    fp.paragraph_format.line_spacing = 1.0
+    add_top_border(fp)
+    lines = [
+        "Address: P.O. Box 37, Sidi Gaber, Canal El Mahmoudia Street, Smouha, Alexandria, Egypt",
+        "العنوان: صندوق بريد ٣٧ سيدي جابر – شارع قناة المحمودية – سموحة – الإسكندرية – مصر",
+        "Phone: +(203) 38 77 026     Fax: +(203) 383 0249",
+        "E-mail: Dentistry@pua.edu.eg     Web Site: www.pua.edu.eg",
+    ]
+    run = fp.add_run(lines[0])
+    set_run_font(run, size=8)
+    for line in lines[1:]:
+        p = footer.add_paragraph()
+        p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        p.paragraph_format.space_before = Pt(0)
+        p.paragraph_format.space_after = Pt(0)
+        p.paragraph_format.line_spacing = 1.0
+        r = p.add_run(line)
+        set_run_font(r, size=8)
+    pnum = footer.add_paragraph()
+    pnum.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    pnum.paragraph_format.space_before = Pt(2)
+    pnum.paragraph_format.space_after = Pt(0)
+    pnum.paragraph_format.line_spacing = 1.0
+    add_page_field(pnum, size=10)
+
+
 def centered(doc, text, size, bold=False, italic=False, space_before=0, space_after=0):
     p = doc.add_paragraph()
     set_paragraph_format(p, align=WD_ALIGN_PARAGRAPH.CENTER, first_line=False,
@@ -92,26 +165,45 @@ def centered(doc, text, size, bold=False, italic=False, space_before=0, space_af
 
 
 def add_cover(doc):
-    centered(doc, "PHAROS UNIVERSITY IN ALEXANDRIA", 16, bold=True)
-    centered(doc, "FACULTY OF DENTISTRY", 14, bold=True)
-    centered(doc, "Department of Conservative Dentistry", 13, italic=True, space_after=24)
+    """Cover laid out from the approved research protocol (Feb 2025)."""
+    def left(text, size=12, bold=False, italic=False, space_before=0, space_after=0):
+        p = doc.add_paragraph()
+        set_paragraph_format(p, align=WD_ALIGN_PARAGRAPH.LEFT, first_line=False,
+                             space_before=space_before, space_after=space_after)
+        run = p.add_run(text)
+        set_run_font(run, size=size, bold=bold, italic=italic)
+        return p
+
+    left("Faculty of Dentistry", 13, bold=True)
+    left("Department of Restorative Dentistry", 13)
+    left("Student Code No. 202203112", 12, bold=True, space_after=12)
+
+    centered(doc, "A Thesis submitted in partial fulfilment of the", 13, bold=True, space_before=12)
+    centered(doc, "requirements for the degree of Master of Science", 13, bold=True)
+    centered(doc, "in Conservative Dentistry", 13, bold=True, space_after=6)
+    centered(doc, "Academic Year 2024–2025 / 2025–2026", 13, bold=True, space_after=12)
+
+    centered(doc, "Name of Candidate", 12, space_before=6)
+    centered(doc, "Mohamed Talaat Mohamed AbdelMoaty ElAbd", 14, bold=True, space_after=12)
+
+    left("English Title:", 12, bold=True, italic=True, space_before=8)
     centered(
         doc,
-        "COMPARATIVE EVALUATION OF WEAR RESISTANCE AND SURFACE ROUGHNESS OF "
-        "INJECTABLE VERSUS CONVENTIONAL NANOHYBRID COMPOSITE RESINS",
-        14, bold=True, space_before=12, space_after=6,
+        "COMPARATIVE STUDY OF WEAR RESISTANCE AND SURFACE ROUGHNESS OF "
+        "INJECTABLE VERSUS CONVENTIONAL COMPOSITE RESIN — IN VITRO STUDY",
+        13, bold=True, space_before=4, space_after=8,
     )
-    centered(doc, "(In Vitro Study)", 13, italic=True, space_after=24)
-    centered(doc, "A Thesis submitted in partial fulfilment of the", 12)
-    centered(doc, "requirements for the degree of Master of Science", 12)
-    centered(doc, "in", 12)
-    centered(doc, "Conservative Dentistry", 13, bold=True, space_after=24)
-    centered(doc, "Submitted by", 12, space_before=12)
-    centered(doc, "Mohamed Talaat Mohamed AbdelMoaty ElAbd", 13, bold=True, space_after=24)
-    centered(doc, "Supervisors", 12, bold=True, space_before=12)
-    centered(doc, "Professor Dr. …………………………………………", 12)
-    centered(doc, "Assistant Professor Dr. …………………………………………", 12, space_after=24)
-    centered(doc, "2025 / 2026", 13, bold=True, space_before=18)
+    left("Arabic Title:", 12, bold=True, italic=True)
+    centered(
+        doc,
+        "دراسة مقارنة للتآكل وخشونة سطح الراتينج المركب القابل للحقن والتقليدي – دراسة في المختبر",
+        13, bold=True, space_before=4, space_after=10,
+    )
+    left("Keywords: Surface roughness, wear, injectable composite, conventional composite.", 12, space_after=12)
+
+    centered(doc, "Supervision Committee", 13, bold=True, space_before=8, space_after=6)
+    centered(doc, "1. Prof. Wegdan M. Abdel-Fattah", 12)
+    centered(doc, "2. Asst. Prof. Emad M. El-Sayed  (Main supervisor)", 12, space_after=6)
     page_break(doc)
 
 
@@ -264,11 +356,11 @@ def main():
     section = doc.sections[0]
     section.page_width = Cm(21.0)
     section.page_height = Cm(29.7)
-    section.left_margin = Cm(3.0)
+    section.left_margin = Cm(2.5)
     section.right_margin = Cm(2.0)
-    section.top_margin = Cm(2.5)
-    section.bottom_margin = Cm(2.5)
-    add_page_number(section)
+    section.top_margin = Cm(3.4)
+    section.bottom_margin = Cm(3.6)
+    add_header_and_footer(section)
 
     style = doc.styles["Normal"]
     style.font.name = "Times New Roman"

@@ -18,10 +18,10 @@ Pharos University in Alexandria
 
 ## Supervisors
 
-Professor Dr. …………………………………………  
-Assistant Professor Dr. …………………………………………  
+**Supervision Committee** (as named on the approved research protocol)
 
-*(Supervisor names and titles to be entered from the approved research protocol.)*
+1. Prof. Wegdan M. Abdel-Fattah
+2. Asst. Prof. Emad M. El-Sayed (Main supervisor)
 
 ---
 
@@ -115,7 +115,7 @@ Wear is the progressive loss of substance from two surfaces that are in relative
 
 The wear resistance of a resin composite is governed by the filler, the matrix and the interface between them. Filler volume fraction, particle size and shape, inter-particle spacing, the degree of conversion of the resin and the quality of the silane coupling layer all contribute (11,12). Condon and Ferracane examined these variables systematically in an oral-wear simulator. Wear increased once filler volume fell below 48 vol% and rose in a linear fashion as the proportion of silane-treated filler was reduced. Raising the degree of conversion reduced wear, although the effect was smaller than that of filler volume or silanation (12). Turssi, Ferracane and Vogel later showed, in a set of experimental composites, that reducing filler size improved three-body abrasion resistance for both spherical and irregular particles, provided that conversion was not compromised (24). The practical consequence of this work is that a well-coupled bed of small particles protects the resin from the abrasive and limits the size of the pits left when a particle is lost.
 
-Classical flowable resins, filled at approximately 40–55 wt%, wear more rapidly than packable hybrids for precisely these reasons (5,13). The more recent injectable products raise filler load and reduce particle size in an attempt to retain syringeable handling without accepting that penalty. G-ænial Universal Injectable is listed at 69 wt% and 50 vol%, a volume fraction that sits just above the 48 vol% step identified by Condon and Ferracane (6,12). Beautifil II LS is listed at 83 wt%; the manufacturer does not publish a volume fraction (19).
+Classical flowable resins, filled at approximately 40–55 wt%, wear more rapidly than packable hybrids for precisely these reasons (5,13). The more recent injectable products raise filler load and reduce particle size in an attempt to retain syringeable handling without accepting that penalty. G-ænial Universal Injectable is listed at 50 vol%, a volume fraction that sits just above the 48 vol% step identified by Condon and Ferracane (6,12). Beautifil II LS is listed at 68 vol% (19).
 
 Laboratory evaluation of toothbrush wear follows ISO/TR 14569-1 (3). The stated scope of that technical report is the wear of artificial teeth and veneering materials, but the recommended brush load (0.5–2.5 N) and the requirement that the dentifrice comply with ISO 11609 have been adopted widely for the screening of restorative composites (3,14). Sexson and Phillips estimated that a patient who makes about fifteen strokes per surface, twice daily, produces of the order of 10 000 strokes in a year (7). Most subsequent toothbrushing papers have used that figure, or a simple multiple of it, as the laboratory equivalent of one year of hygiene (8). The conversion is an estimate; brushing habits vary, and the laboratory brush does not reproduce the anatomy of a restoration. It remains, nevertheless, the convention against which the present cycle count is set.
 
@@ -135,7 +135,7 @@ The dentifrice is an independent variable. da Costa, Adams-Belusko, Riley and Fe
 
 The first generation of flowable composites was introduced to improve adaptation in narrow cavities and to serve as liners. Their filler content was deliberately kept low in order to reduce viscosity, and their mechanical properties were correspondingly inferior to those of contemporaneous hybrid pastes (5,13). Baroudi and Rodrigues, in a systematic review, concluded that conventional flowables should not be used as sole restoratives in load-bearing situations (13).
 
-Highly filled injectable resins are a later development. G-ænial Universal Injectable contains ultrafine barium glass and silica with a mean particle size of about 150 nm, giving a filler load of 69 wt% (50 vol%) in a matrix of urethane dimethacrylate, Bis-MEPP and triethylene glycol dimethacrylate (6,18). Beautifil Flow Plus X F00 is a zero-flow giomer injectable that incorporates nano-sized surface pre-reacted glass-ionomer (S-PRG) filler (19). It should not be confused with Beautifil Flow Plus F00, an earlier product that appears in several laboratory papers (6). The distinction matters when results are compared.
+Highly filled injectable resins are a later development. G-ænial Universal Injectable contains barium glass and silica at a filler load of 50 vol% in a dimethacrylate matrix (6,18,19). Beautifil Flow Plus X F00 is a zero-flow giomer injectable that incorporates nano-sized surface pre-reacted glass-ionomer (S-PRG) filler (19). It should not be confused with Beautifil Flow Plus F00, an earlier product that appears in several laboratory papers (6). The distinction matters when results are compared.
 
 Rajabi, Denny, Karagiannopoulos and Petridis compared G-ænial Universal Injectable and Beautifil Flow Plus F00 with a conventional flowable (Tetric EvoFlow) and a nanohybrid paste (IPS Empress Direct) in two-body wear. Specimens were cycled 200 000 times against a steatite antagonist at 49 N under dry conditions, a regimen intended to represent approximately one year of occlusal contact. Both injectables lost less volume and showed higher flexural strength than the paste and the classical flowable; the two injectables did not differ from each other (6). The finding is favourable to highly filled injectables, but the wear mode is two-body contact without toothpaste. It cannot be transferred to a toothbrushing assay.
 
@@ -145,7 +145,7 @@ Tzimas, Pappa, Fostiropoulou, Papazoglou and Rahiotis reviewed highly filled flo
 
 ### 2.4 Conventional nanohybrid resins and giomers
 
-Nanohybrid composites combine nano-sized particles with larger submicron or micron fillers. The dual size distribution is intended to increase packing density, improve polishability and raise filler load, which commonly exceeds 70–80 wt% (11). Beautifil II LS belongs to this class. Its filler load is 83 wt%. The resin employs an SRS monomer formulated for low shrinkage, and the filler includes S-PRG glass together with pre-polymerised particles (19).
+Nanohybrid composites combine nano-sized particles with larger submicron or micron fillers. The dual size distribution is intended to increase packing density, improve polishability and raise filler load, which commonly exceeds 70–80 wt% (11). Beautifil II LS belongs to this class. Its filler load is 68 vol%. The resin contains Bis-GMA, UDMA, Bis-EMA, PEGMA and TEGDMA, and the filler includes multifunctional glass and S-PRG particles (19).
 
 S-PRG filler is a three-layered particle: a fluoro-boro-aluminosilicate glass core, a pre-reacted glass-ionomer hydrogel phase and an outer silica coating. It releases fluoride, strontium, borate, sodium, silicate and aluminium ions and can be recharged with fluoride (23). These ion-exchange properties are the basis of the giomer concept and are clinically attractive. They are not, however, a guarantee of surface stability. Yap and colleagues showed that chemical challenge can roughen composite surfaces by softening the matrix and exposing filler (21), and the same ion-exchange behaviour that buffers acid may leave a more irregular topography once the resin-rich layer has been brushed away. Larger and irregular fillers, once uncovered, produce a higher Ra than a uniform nanofilled injectable (18).
 
@@ -182,23 +182,23 @@ The composition of the three resins, as stated by the manufacturers, is summaris
 
 | Composite | Type | Matrix | Filler | Load | Manufacturer |
 |-----------|------|--------|--------|------|--------------|
-| G-ænial Universal Injectable | Nanofilled injectable | UDMA, Bis-MEPP, TEGDMA | Ultrafine barium glass and silica, ~150 nm | 69 wt% / 50 vol% | GC, Tokyo |
-| Beautifil Flow Plus X F00 | Giomer injectable, zero flow | Dimethacrylate resin | Nano S-PRG filler | Highly filled injectable (manufacturer) | Shofu, Kyoto |
-| Beautifil II LS | Nanohybrid giomer, low shrinkage | SRS monomer complex | S-PRG and pre-polymerised fillers | 83 wt% | Shofu, Kyoto |
+| G-ænial Universal Injectable (A2) | Nanohybrid injectable | Dimethacrylate monomers | Barium glass, silica | 50 vol% | GC, Tokyo |
+| Beautifil Flow Plus X F00 (A2) | Nanohybrid injectable giomer | Bis-GMA, TEGDMA | Multifunctional glass and S-PRG filler | 47 vol% | Shofu, Kyoto |
+| Beautifil II LS (A2) | Nanohybrid conventional giomer | Bis-GMA, UDMA, Bis-EMA, PEGMA, TEGDMA | Multifunctional glass and S-PRG filler | 68 vol% | Shofu, Kyoto |
 
 Colgate Total was selected as the dentifrice because it is a widely used daily paste of moderate abrasivity and because it has been employed as the low-RDA reference paste in previous toothbrushing studies of resin composites (25).
 
 ### 3.3 Specimen preparation
 
-Each material was placed in the Teflon mould. A transparent matrix strip and a glass plate were applied to exclude air from the test face and to produce a flat surface of uniform thickness. Polymerisation was carried out according to the manufacturer’s instructions for the product concerned. Excess flash was removed. The discs were identified by group and stored in distilled water until the baseline measurements were made.
+Each material was placed in the Teflon mould as a single increment. A Mylar strip and a transparent glass slide were applied to exclude air from the test face and to produce a flat surface of uniform thickness. Polymerisation was carried out with an LED curing unit (MiniS, Woodpecker, Guilin, China) for 20 seconds at 800 mW/cm², with the tip in contact with the glass slide, followed by three additional 20-second exposures from different directions to ensure complete polymerisation. Flash was removed with a no. 12 scalpel blade. The discs were identified by group and stored in distilled water at 37 °C for 24 hours before the baseline measurements were made.
 
 ### 3.4 Baseline measurements
 
-Each disc was dried and weighed on an analytical balance. The recorded masses are given to 0.0001 g, so the balance read to 0.1 mg. Surface roughness was measured on the test face with a contact profilometer. Ra was determined according to the definition in ISO 4287 (16). The value entered for analysis was the mean of the traces taken on that disc.
+Each disc was dried and weighed on an electronic analytical balance (RADWAG Wagi Elektroniczne AS 220-R2), which records to 0.0001 g. Surface roughness was measured on the test face with a contact profilometer (MarSurf PS10, Mahr). Five traces were taken at random sites on each disc; the value entered for analysis was the mean of those traces. Ra was determined according to the definition in ISO 4287 (16).
 
 ### 3.5 Toothbrushing protocol
 
-The discs were mounted in a toothbrushing simulator. A slurry of Colgate Total and distilled water was prepared in accordance with the guidance of ISO 11609 and ISO/TR 14569-1 (3,14). The brush load was set at 2 N, which lies within the ISO range of 0.5–2.5 N (3). Each disc received 10 000 cycles. That count is the conventional laboratory equivalent of one year of twice-daily brushing, following the estimate of Sexson and Phillips (7,8). Fresh slurry was supplied as required so that abrasive was present throughout the test. At the end of the run the discs were rinsed free of paste and dried.
+The discs were mounted in a custom toothbrushing simulator (Dental Biomaterials Department, Faculty of Dentistry, Alexandria University). A slurry of Colgate Total (relative dentine abrasivity 70) and distilled water was prepared at 250 g of toothpaste per litre of water, in accordance with ISO 11609 and ISO/TR 14569-1 (3,14). The brush load was set at 2 N, which lies within the ISO range of 0.5–2.5 N (3). Each disc received 10 000 cycles. That count is the conventional laboratory equivalent of one year of twice-daily brushing, following the estimate of Sexson and Phillips (7,8). The slurry was replaced every 5 000 cycles. At the end of the run the discs were rinsed with a stream of water and dried.
 
 ### 3.6 Post-test measurements and calculations
 
