@@ -77,8 +77,8 @@ COMPACT_FRONT = {
 # Protocol look, with enough body room that Word is not letterboxed.
 MARGIN_LEFT_CM = 3.0
 MARGIN_RIGHT_CM = 2.2
-MARGIN_TOP_CM = 2.55
-MARGIN_BOTTOM_CM = 2.30
+MARGIN_TOP_CM = 2.80
+MARGIN_BOTTOM_CM = 2.55
 HEADER_DISTANCE_CM = 0.30
 FOOTER_DISTANCE_CM = 0.28
 HEADER_IMAGE_WIDTH_CM = 13.8
@@ -88,7 +88,13 @@ BODY_FIRST_LINE_CM = 1.27
 CITE_RE = re.compile(r"\((\d+(?:\s*,\s*\d+)*)\)")
 
 
+def has_arabic(text):
+    return any("\u0600" <= ch <= "\u06FF" for ch in text or "")
+
+
 def set_run_font(run, size=12, bold=False, italic=False, name="Times New Roman"):
+    text = run.text or ""
+    cs_name = "Noto Naskh Arabic" if has_arabic(text) else name
     run.font.name = name
     rPr = run._element.get_or_add_rPr()
     rFonts = rPr.find(qn("w:rFonts"))
@@ -97,9 +103,16 @@ def set_run_font(run, size=12, bold=False, italic=False, name="Times New Roman")
         rPr.append(rFonts)
     rFonts.set(qn("w:ascii"), name)
     rFonts.set(qn("w:hAnsi"), name)
-    rFonts.set(qn("w:cs"), name)
+    rFonts.set(qn("w:cs"), cs_name)
     rFonts.set(qn("w:eastAsia"), name)
+    half = str(int(round(size * 2)))
     run.font.size = Pt(size)
+    for tag in ("w:sz", "w:szCs"):
+        el = rPr.find(qn(tag))
+        if el is None:
+            el = OxmlElement(tag)
+            rPr.append(el)
+        el.set(qn("w:val"), half)
     run.bold = bold
     run.italic = italic
     run.font.color.rgb = RGBColor(0, 0, 0)
@@ -198,6 +211,12 @@ def configure_styles(doc):
     rFonts.set(qn("w:hAnsi"), "Times New Roman")
     rFonts.set(qn("w:cs"), "Times New Roman")
     rFonts.set(qn("w:eastAsia"), "Times New Roman")
+    for tag in ("w:sz", "w:szCs"):
+        el = rPr.find(qn(tag))
+        if el is None:
+            el = OxmlElement(tag)
+            rPr.append(el)
+        el.set(qn("w:val"), "24")
     nf = normal.paragraph_format
     nf.space_before = Pt(0)
     nf.space_after = Pt(0)
@@ -208,7 +227,7 @@ def configure_styles(doc):
     nf.widow_control = True
 
     for style_name, size, align in (("Heading 1", 16, WD_ALIGN_PARAGRAPH.CENTER),
-                                   ("Heading 2", 13, WD_ALIGN_PARAGRAPH.LEFT)):
+                                   ("Heading 2", 12, WD_ALIGN_PARAGRAPH.LEFT)):
         st = doc.styles[style_name]
         st.font.name = "Times New Roman"
         st.font.size = Pt(size)
@@ -278,7 +297,7 @@ def add_header_and_footer(section):
     pnum.paragraph_format.space_after = Pt(0)
     pnum.paragraph_format.line_spacing = 1.0
     pnum.paragraph_format.first_line_indent = Cm(0)
-    add_page_field(pnum, size=11)
+    add_page_field(pnum, size=12)
 
 
 def cover_para(doc, text, *, size=12, bold=False, italic=False,
@@ -293,43 +312,44 @@ def cover_para(doc, text, *, size=12, bold=False, italic=False,
 
 
 def add_cover(doc):
+    cover_para(doc, "Pharos University in Alexandria", bold=True, align=WD_ALIGN_PARAGRAPH.LEFT)
     cover_para(doc, "Faculty of Dentistry", bold=True, align=WD_ALIGN_PARAGRAPH.LEFT)
     cover_para(doc, "Department of Restorative Dentistry", align=WD_ALIGN_PARAGRAPH.LEFT)
     cover_para(doc, "Student Code No. 202203112", bold=True,
-               align=WD_ALIGN_PARAGRAPH.LEFT, space_after=16)
+               align=WD_ALIGN_PARAGRAPH.LEFT, space_after=14)
 
-    cover_para(doc, "A Thesis submitted in partial fulfilment of the", bold=True, space_before=10)
+    cover_para(doc, "A Thesis submitted in partial fulfilment of the", bold=True, space_before=8)
     cover_para(doc, "requirements for the degree of Master of Science", bold=True)
     cover_para(doc, "in Conservative Dentistry", bold=True)
-    cover_para(doc, "Academic Year 2024–2025 / 2025–2026", bold=True, space_after=16)
+    cover_para(doc, "Academic Year 2024–2025 / 2025–2026", bold=True, space_after=14)
 
-    cover_para(doc, "Name of Candidate", space_before=8)
-    cover_para(doc, "Mohamed Talaat Mohamed AbdelMoaty ElAbd", size=13, bold=True, space_after=16)
+    cover_para(doc, "Name of Candidate", space_before=6)
+    cover_para(doc, "Mohamed Talaat Mohamed AbdelMoaty ElAbd", size=14, bold=True, space_after=14)
 
     cover_para(doc, "English Title:", bold=True, italic=True,
-               align=WD_ALIGN_PARAGRAPH.LEFT, space_before=6)
-    cover_para(doc, "COMPARATIVE STUDY OF WEAR RESISTANCE", bold=True, space_before=6)
+               align=WD_ALIGN_PARAGRAPH.LEFT, space_before=4)
+    cover_para(doc, "COMPARATIVE STUDY OF WEAR RESISTANCE", bold=True, space_before=4)
     cover_para(doc, "AND SURFACE ROUGHNESS OF INJECTABLE VERSUS", bold=True)
-    cover_para(doc, "CONVENTIONAL COMPOSITE RESIN — IN VITRO STUDY", bold=True, space_after=14)
+    cover_para(doc, "CONVENTIONAL COMPOSITE RESIN — IN VITRO STUDY", bold=True, space_after=12)
 
     cover_para(doc, "Arabic Title:", bold=True, italic=True,
-               align=WD_ALIGN_PARAGRAPH.LEFT, space_before=6)
+               align=WD_ALIGN_PARAGRAPH.LEFT, space_before=4)
     cover_para(
         doc,
         "دراسة مقارنة للتآكل وخشونة سطح الراتينج المركب القابل للحقن والتقليدي – دراسة في المختبر",
-        bold=True, space_before=6, space_after=14,
+        bold=True, space_before=4, space_after=12,
     )
 
     p = doc.add_paragraph()
     set_paragraph_format(p, align=WD_ALIGN_PARAGRAPH.LEFT, first_line=False,
-                         space_after=16, line_spacing=1.15)
+                         space_after=14, line_spacing=1.15)
     run = p.add_run("Keywords: ")
     set_run_font(run, size=12, bold=True)
     run = p.add_run("Surface roughness, wear, injectable composite, conventional composite.")
     set_run_font(run, size=12)
 
-    cover_para(doc, "Supervision Committee", bold=True, space_before=8, space_after=10)
-    cover_para(doc, "1. Prof. Wegdan M. Abdel-Fattah", space_after=6)
+    cover_para(doc, "Supervision Committee", bold=True, space_before=6, space_after=8)
+    cover_para(doc, "1. Prof. Wegdan M. Abdel-Fattah", space_after=4)
     cover_para(doc, "2. Asst. Prof. Emad M. El-Sayed  (Main supervisor)")
 
 
@@ -415,7 +435,7 @@ def add_table(doc, rows):
         widths = [6.2, 5.4, 4.2]
     else:
         widths = [usable / cols] * cols
-    cell_size = 10 if cols == 6 else 10.5
+    cell_size = 10
     cell_pad = 80 if cols == 6 else 100
 
     tbl = table._tbl
@@ -488,7 +508,7 @@ def add_heading_styled(doc, text, level, *, new_page=False, style_name=None):
         set_paragraph_format(p, align=WD_ALIGN_PARAGRAPH.LEFT, first_line=False,
                              space_before=16, space_after=8, line_spacing=1.0)
         run = p.add_run(text)
-        set_run_font(run, size=13, bold=True)
+        set_run_font(run, size=12, bold=True)
     keep_with_next(p)
     return p
 

@@ -1,4 +1,6 @@
-# Mohamed Talaat — Master’s thesis
+# Mohamed Talaat — complete Master’s thesis
+
+This is the **full thesis** (cover through Chapter 7, about 42 pages). It is not the short draft.
 
 Comparative study of wear resistance and surface roughness of injectable versus conventional composite resin (in vitro).
 
