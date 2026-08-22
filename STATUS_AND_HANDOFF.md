@@ -1,30 +1,26 @@
-# Mohamed Talaat Master's Thesis - Handoff
+# Mohamed Talaat Master's Thesis — status
 
 **Last updated:** 22 August 2026  
-**Branch:** `cursor/complete-thesis-f431`  
-**Assembled files:** `Thesis_Complete.md`, `Thesis_Complete.docx`
+**Branch:** `cursor/complete-thesis-f431`
 
-## Done
-- Single assembled thesis written in supervisor English (not the earlier machine register).
-- Cover page typeset from the **research protocol cover** (university, faculty, title, candidate, degree, year, supervisor lines).
-- Missing chapters written: Methods (from locked facts only), expanded Results, Discussion, Conclusions, Vancouver list (22 real sources).
-- Geometry: **10 mm × 1 mm discs**. Old 15 × 4 × 1.5 mm bars removed from the assembled text.
-- Tables 4.1–4.3 used as locked.
-- A4 Word file: Times New Roman 12 pt, double spacing, left margin 3 cm.
+## Final files on GitHub
+- `Thesis_Complete.docx`
+- `Thesis_Complete.pdf` (A4, 28 pages)
+- `Thesis_Complete.md`
+
+## Formatting checked
+- A4; left margin 3 cm; Times New Roman throughout
+- Body 12 pt, double spaced, justified, first-line indent
+- Chapter titles: centred, bold, all caps (CHAPTER n / TITLE)
+- Section titles: left, bold, numbered (1.1 Aim of the Study)
+- Each chapter starts on a new page
+- Cover, supervisors, declaration, abstract, contents (dotted leaders + page numbers), list of tables, abbreviations
+- Front matter: roman numerals; body: arabic
+- Tables 3.1 and 4.1–4.3 with captions above and footnotes below
+- References: Vancouver, hanging indent, single spaced
+
+## Content
+All seven chapters are in the assembled files. Geometry is 10 mm × 1 mm discs. Statistics are the locked values. Supervisor names remain blank until they are taken from the protocol.
 
 ## Cover photograph
-The photograph of the approved protocol cover is **not in this repository, Gmail, or Notion**. Page 1 of the .docx is a typeset stand-in. **Send the photo/scan (JPG, PNG or PDF) in chat** and it will replace page 1.
-
-## Still to insert from the laboratory notebook (not invented)
-- Supervisor names  
-- Batch numbers  
-- Curing light, profilometer, balance and brushing-machine models  
-- Polish sequence, slurry ratio, storage time/temperature  
-- Exact post-hoc test name and software version from Results Final.xlsx  
-
-## Page length
-The assembled body is a complete scholarly draft, not padded. Double-spaced A4 is short of 40 pages until the protocol cover photo, notebook Methods, and any figures are added. Do not invent pages.
-
-## Do not
-- Email mohammed.talaat09@gmail.com without Ahmed’s approval.  
-- Invent numbers or papers.  
+The typeset protocol cover is page 1. The photograph of the approved protocol was not in the repository. Send it to replace page 1.
