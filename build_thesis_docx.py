@@ -1,15 +1,14 @@
 #!/usr/bin/env python3
-"""Build A4 double-spaced thesis .docx from Thesis_Complete.md with a protocol-style cover."""
+"""Build an A4 double-spaced thesis .docx from Thesis_Complete.md."""
 
 from pathlib import Path
 
 from docx import Document
 from docx.enum.table import WD_TABLE_ALIGNMENT
-from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_LINE_SPACING
+from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_BREAK, WD_LINE_SPACING
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
-from docx.shared import Cm, Pt, RGBColor
-
+from docx.shared import Cm, Inches, Pt, RGBColor
 
 ROOT = Path(__file__).resolve().parent
 MD = ROOT / "Thesis_Complete.md"
@@ -25,38 +24,26 @@ def set_run_font(run, size=12, bold=False, italic=False, name="Times New Roman")
     run.font.color.rgb = RGBColor(0, 0, 0)
 
 
-def set_paragraph_format(p, *, align=WD_ALIGN_PARAGRAPH.JUSTIFY, space_after=0, first_line=True, space_before=0):
+def set_paragraph_format(p, *, align=WD_ALIGN_PARAGRAPH.JUSTIFY, space_after=0,
+                         first_line=True, space_before=0, line_spacing=2.0):
     pf = p.paragraph_format
     pf.alignment = align
     pf.space_before = Pt(space_before)
     pf.space_after = Pt(space_after)
-    pf.line_spacing_rule = WD_LINE_SPACING.DOUBLE
-    pf.line_spacing = 2.0
-    if first_line and align == WD_ALIGN_PARAGRAPH.JUSTIFY:
-        pf.first_line_indent = Cm(1.25)
-    else:
-        pf.first_line_indent = Cm(0)
+    pf.line_spacing_rule = WD_LINE_SPACING.DOUBLE if line_spacing == 2.0 else WD_LINE_SPACING.SINGLE
+    pf.line_spacing = line_spacing
+    pf.first_line_indent = Cm(1.25) if first_line and align == WD_ALIGN_PARAGRAPH.JUSTIFY else Cm(0)
 
 
-def add_page_break(doc):
+def page_break(doc):
     p = doc.add_paragraph()
-    run = p.add_run()
-    run.add_break()
+    p.add_run().add_break(WD_BREAK.PAGE)
     p.paragraph_format.space_before = Pt(0)
     p.paragraph_format.space_after = Pt(0)
-    # actual page break
-    p = doc.add_paragraph()
-    p.add_run().add_break(docx_break())
 
 
-def docx_break():
-    from docx.enum.text import WD_BREAK
-    return WD_BREAK.PAGE
-
-
-def shade_cell(cell, hex_color="F2F2F2"):
-    tc = cell._tePr if hasattr(cell, "_tePr") else cell._tc
-    tcPr = tc.get_or_add_tcPr()
+def shade_cell(cell, hex_color="E8E8E8"):
+    tcPr = cell._tc.get_or_add_tcPr()
     shd = OxmlElement("w:shd")
     shd.set(qn("w:fill"), hex_color)
     shd.set(qn("w:val"), "clear")
@@ -64,8 +51,7 @@ def shade_cell(cell, hex_color="F2F2F2"):
 
 
 def set_cell_border(cell):
-    tc = cell._tc
-    tcPr = tc.get_or_add_tcPr()
+    tcPr = cell._tc.get_or_add_tcPr()
     tcBorders = OxmlElement("w:tcBorders")
     for edge in ("top", "left", "bottom", "right"):
         el = OxmlElement(f"w:{edge}")
@@ -77,56 +63,59 @@ def set_cell_border(cell):
     tcPr.append(tcBorders)
 
 
-def add_cover(doc):
-    def centered(text, size, bold=False, italic=False, space_before=0, space_after=0):
-        p = doc.add_paragraph()
-        set_paragraph_format(p, align=WD_ALIGN_PARAGRAPH.CENTER, first_line=False, space_before=space_before, space_after=space_after)
-        run = p.add_run(text)
-        set_run_font(run, size=size, bold=bold, italic=italic)
-        return p
+def add_page_number(section):
+    footer = section.footer
+    footer.is_linked_to_previous = False
+    p = footer.paragraphs[0]
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run = p.add_run()
+    set_run_font(run, size=11)
+    fld1 = OxmlElement("w:fldChar")
+    fld1.set(qn("w:fldCharType"), "begin")
+    instr = OxmlElement("w:instrText")
+    instr.set(qn("xml:space"), "preserve")
+    instr.text = " PAGE "
+    fld2 = OxmlElement("w:fldChar")
+    fld2.set(qn("w:fldCharType"), "end")
+    run._r.append(fld1)
+    run._r.append(instr)
+    run._r.append(fld2)
 
-    centered("PHAROS UNIVERSITY IN ALEXANDRIA", 16, bold=True, space_after=0)
-    centered("FACULTY OF DENTISTRY", 14, bold=True)
-    centered("Department of Conservative Dentistry", 13, italic=True, space_after=18)
 
-    centered("RESEARCH PROTOCOL / THESIS COVER", 11, italic=True, space_after=18)
-
-    centered(
-        "COMPARATIVE EVALUATION OF WEAR RESISTANCE AND SURFACE ROUGHNESS OF INJECTABLE VERSUS CONVENTIONAL NANOHYBRID COMPOSITE RESINS",
-        14,
-        bold=True,
-        space_before=12,
-        space_after=6,
-    )
-    centered("(In Vitro Study)", 13, italic=True, space_after=24)
-
-    centered("A Thesis submitted in partial fulfillment of the", 12)
-    centered("requirements for the degree of Master of Science", 12)
-    centered("in", 12)
-    centered("Conservative Dentistry", 13, bold=True, space_after=24)
-
-    centered("Submitted by", 12, space_before=12)
-    centered("Mohamed Talaat Mohamed AbdelMoaty ElAbd", 13, bold=True, space_after=24)
-
-    centered("Supervisors", 12, bold=True, space_before=12)
-    centered("Prof. Dr. …………………………………………", 12)
-    centered("Ass. Prof. Dr. …………………………………………", 12, space_after=24)
-
-    centered("2025 / 2026", 13, bold=True, space_before=18)
-
+def centered(doc, text, size, bold=False, italic=False, space_before=0, space_after=0):
     p = doc.add_paragraph()
-    set_paragraph_format(p, align=WD_ALIGN_PARAGRAPH.CENTER, first_line=False, space_before=18)
-    run = p.add_run(
-        "This page is typeset from the protocol cover (title, candidate, faculty, degree, year). "
-        "Replace it with the photograph of the approved protocol cover when that file is supplied."
-    )
-    set_run_font(run, size=10, italic=True)
+    set_paragraph_format(p, align=WD_ALIGN_PARAGRAPH.CENTER, first_line=False,
+                         space_before=space_before, space_after=space_after)
+    run = p.add_run(text)
+    set_run_font(run, size=size, bold=bold, italic=italic)
+    return p
 
-    doc.add_paragraph().add_run().add_break(docx_break())
+
+def add_cover(doc):
+    centered(doc, "PHAROS UNIVERSITY IN ALEXANDRIA", 16, bold=True)
+    centered(doc, "FACULTY OF DENTISTRY", 14, bold=True)
+    centered(doc, "Department of Conservative Dentistry", 13, italic=True, space_after=24)
+    centered(
+        doc,
+        "COMPARATIVE EVALUATION OF WEAR RESISTANCE AND SURFACE ROUGHNESS OF "
+        "INJECTABLE VERSUS CONVENTIONAL NANOHYBRID COMPOSITE RESINS",
+        14, bold=True, space_before=12, space_after=6,
+    )
+    centered(doc, "(In Vitro Study)", 13, italic=True, space_after=24)
+    centered(doc, "A Thesis submitted in partial fulfilment of the", 12)
+    centered(doc, "requirements for the degree of Master of Science", 12)
+    centered(doc, "in", 12)
+    centered(doc, "Conservative Dentistry", 13, bold=True, space_after=24)
+    centered(doc, "Submitted by", 12, space_before=12)
+    centered(doc, "Mohamed Talaat Mohamed AbdelMoaty ElAbd", 13, bold=True, space_after=24)
+    centered(doc, "Supervisors", 12, bold=True, space_before=12)
+    centered(doc, "Professor Dr. …………………………………………", 12)
+    centered(doc, "Assistant Professor Dr. …………………………………………", 12, space_after=24)
+    centered(doc, "2025 / 2026", 13, bold=True, space_before=18)
+    page_break(doc)
 
 
 def parse_table(lines, start):
-    """Return (rows, next_index) for a markdown table starting at start."""
     rows = []
     i = start
     while i < len(lines) and lines[i].startswith("|"):
@@ -157,10 +146,10 @@ def add_table(doc, rows):
             p.paragraph_format.first_line_indent = Cm(0)
             text = row[c_idx] if c_idx < len(row) else ""
             run = p.add_run(text)
-            set_run_font(run, size=10, bold=(r_idx == 0))
+            set_run_font(run, size=9, bold=(r_idx == 0))
             set_cell_border(cell)
             if r_idx == 0:
-                shade_cell(cell, "E8E8E8")
+                shade_cell(cell)
     spacer = doc.add_paragraph()
     set_paragraph_format(spacer, first_line=False, space_after=6)
 
@@ -170,75 +159,76 @@ def add_heading_styled(doc, text, level):
     sizes = {0: 16, 1: 14, 2: 13, 3: 12}
     set_paragraph_format(
         p,
-        align=WD_ALIGN_PARAGRAPH.LEFT if level else WD_ALIGN_PARAGRAPH.CENTER,
+        align=WD_ALIGN_PARAGRAPH.CENTER if level == 0 else WD_ALIGN_PARAGRAPH.LEFT,
         first_line=False,
-        space_before=12 if level else 0,
+        space_before=12 if level else 6,
         space_after=6,
     )
     run = p.add_run(text)
     set_run_font(run, size=sizes.get(level, 12), bold=True)
 
 
-def is_body_start(line):
-    return line == "# Chapter 1"
+def add_image(doc, path: Path):
+    if not path.exists():
+        return
+    p = doc.add_paragraph()
+    set_paragraph_format(p, align=WD_ALIGN_PARAGRAPH.CENTER, first_line=False, space_before=6, space_after=6)
+    run = p.add_run()
+    run.add_picture(str(path), width=Inches(5.7))
+
+
+def render_inline(p, text):
+    parts = text.split("**")
+    for idx, part in enumerate(parts):
+        if not part:
+            continue
+        run = p.add_run(part)
+        set_run_font(run, bold=(idx % 2 == 1))
 
 
 def convert_md(doc, text):
     lines = text.splitlines()
-    # skip markdown cover block until Chapter 1; front matter after cover is rebuilt in Word
-    try:
-        start = next(i for i, ln in enumerate(lines) if ln.strip() == "# Chapter 1")
-    except StopIteration:
-        start = 0
+    start = next((i for i, ln in enumerate(lines) if ln.strip() == "## Supervisors"), 0)
+    chapter1 = next(i for i, ln in enumerate(lines) if ln.strip() == "# Chapter 1")
 
-    # Abstract and lists from markdown (between Abstract heading and Chapter 1)
-    abs_idx = next((i for i, ln in enumerate(lines) if ln.strip() == "## Abstract"), None)
-    if abs_idx is not None:
-        add_heading_styled(doc, "Abstract", 0)
-        i = abs_idx + 1
-        while i < start:
-            line = lines[i].rstrip()
-            if not line:
-                i += 1
-                continue
-            if line.startswith("## List of tables"):
-                add_heading_styled(doc, "List of tables", 1)
-                i += 1
-                continue
-            if line.startswith("## List of abbreviations"):
-                add_heading_styled(doc, "List of abbreviations", 1)
-                i += 1
-                continue
-            if line.startswith("- "):
-                p = doc.add_paragraph()
-                set_paragraph_format(p, first_line=False, space_after=0)
-                run = p.add_run(line[2:])
-                set_run_font(run)
-                i += 1
-                continue
-            if line.startswith("**") and line.endswith("**") is False:
-                # bold lead-in paragraph
-                p = doc.add_paragraph()
-                set_paragraph_format(p)
-                render_inline(p, line)
-                i += 1
-                continue
-            if line.startswith("---"):
-                i += 1
-                continue
-            p = doc.add_paragraph()
-            set_paragraph_format(p)
-            render_inline(p, line)
-            i += 1
-        doc.add_paragraph().add_run().add_break(docx_break())
-
+    # Front matter from Supervisors through Chapter 1
     i = start
+    while i < chapter1:
+        line = lines[i].rstrip()
+        if not line or line.startswith("---"):
+            i += 1
+            continue
+        if line.startswith("## "):
+            heading = line[3:].strip()
+            add_heading_styled(doc, heading, 0 if heading in {"Abstract"} else 1)
+            i += 1
+            continue
+        if line.startswith("- "):
+            p = doc.add_paragraph()
+            set_paragraph_format(p, first_line=False, space_after=0)
+            run = p.add_run(line[2:])
+            set_run_font(run)
+            i += 1
+            continue
+        p = doc.add_paragraph()
+        set_paragraph_format(p)
+        render_inline(p, line)
+        i += 1
+    page_break(doc)
+
+    i = chapter1
     n = len(lines)
     while i < n:
         line = lines[i].rstrip()
-        if line.startswith("## Note on sources"):
-            break
         if not line:
+            i += 1
+            continue
+        if line.startswith("---"):
+            i += 1
+            continue
+        if line.startswith("![") and "](" in line:
+            src = line.split("](", 1)[1].rstrip(")")
+            add_image(doc, ROOT / src)
             i += 1
             continue
         if line.startswith("|"):
@@ -246,10 +236,12 @@ def convert_md(doc, text):
             add_table(doc, rows)
             continue
         if line.startswith("# ") and not line.startswith("##"):
-            add_heading_styled(doc, line[2:].strip(), 0 if "Chapter" in line or line[2:].strip() in {
+            title = line[2:].strip()
+            level = 0 if title.startswith("Chapter") or title in {
                 "Introduction", "Review of literature", "Materials and methods",
                 "Results", "Discussion", "Conclusions and recommendations", "References",
-            } else 1)
+            } else 1
+            add_heading_styled(doc, title, level)
             i += 1
             continue
         if line.startswith("### "):
@@ -260,32 +252,11 @@ def convert_md(doc, text):
             add_heading_styled(doc, line[3:].strip(), 1)
             i += 1
             continue
-        if line.startswith("---"):
-            i += 1
-            continue
-        if line[0].isdigit() and ". " in line[:4] and line[0:2].replace(".", "").isdigit() or (
-            len(line) > 2 and line[0].isdigit() and line[1] == "."
-        ):
-            # numbered conclusions / objectives / references
-            p = doc.add_paragraph()
-            set_paragraph_format(p, first_line=False)
-            render_inline(p, line)
-            i += 1
-            continue
+        numbered = len(line) > 2 and line[0].isdigit() and (line[1] == "." or (line[1].isdigit() and line[2] == "."))
         p = doc.add_paragraph()
-        set_paragraph_format(p)
+        set_paragraph_format(p, first_line=not numbered)
         render_inline(p, line)
         i += 1
-
-
-def render_inline(p, text):
-    """Minimal **bold** support."""
-    parts = text.split("**")
-    for idx, part in enumerate(parts):
-        if not part:
-            continue
-        run = p.add_run(part)
-        set_run_font(run, bold=(idx % 2 == 1))
 
 
 def main():
@@ -297,6 +268,7 @@ def main():
     section.right_margin = Cm(2.0)
     section.top_margin = Cm(2.5)
     section.bottom_margin = Cm(2.5)
+    add_page_number(section)
 
     style = doc.styles["Normal"]
     style.font.name = "Times New Roman"
