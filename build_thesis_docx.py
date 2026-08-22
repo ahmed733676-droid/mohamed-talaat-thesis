@@ -76,11 +76,12 @@ COMPACT_FRONT = {
 # Protocol look, with enough body room that Word is not letterboxed.
 MARGIN_LEFT_CM = 3.0
 MARGIN_RIGHT_CM = 2.2
-MARGIN_TOP_CM = 2.80
-MARGIN_BOTTOM_CM = 2.55
-HEADER_DISTANCE_CM = 0.30
-FOOTER_DISTANCE_CM = 0.28
-HEADER_IMAGE_WIDTH_CM = 13.6
+# Slim header/footer so Word does not reserve a thick band on every page.
+MARGIN_TOP_CM = 1.85
+MARGIN_BOTTOM_CM = 1.70
+HEADER_DISTANCE_CM = 0.20
+FOOTER_DISTANCE_CM = 0.18
+HEADER_IMAGE_HEIGHT_CM = 1.30
 BODY_WIDTH_CM = 15.8
 BODY_FIRST_LINE_CM = 1.27
 
@@ -261,9 +262,8 @@ def add_header_and_footer(section):
     banner = ROOT / "figures" / "pua_header.png"
     run = hp.add_run()
     if banner.exists():
-        # Width only: the banner already carries its own rule, so a second
-        # paragraph border is not added (that doubled line was crowding the body).
-        run.add_picture(str(banner), width=Cm(HEADER_IMAGE_WIDTH_CM))
+        # Height-capped so the Word header pane is a thin strip, not a second page.
+        run.add_picture(str(banner), height=Cm(HEADER_IMAGE_HEIGHT_CM))
 
     footer = section.footer
     footer.is_linked_to_previous = False
@@ -274,25 +274,14 @@ def add_header_and_footer(section):
     fp.paragraph_format.line_spacing = 1.0
     fp.paragraph_format.first_line_indent = Cm(0)
     add_top_border(fp)
-    compact = [
-        "Address: P.O. Box 37, Sidi Gaber, Canal El Mahmoudia Street, Smouha, Alexandria, Egypt",
-        "العنوان: صندوق بريد ٣٧ سيدي جابر – شارع قناة المحمودية – سموحة – الإسكندرية – مصر",
-        "Phone: +(203) 38 77 026    Fax: +(203) 383 0249    E-mail: Dentistry@pua.edu.eg    www.pua.edu.eg",
-    ]
-    run = fp.add_run(compact[0])
+    run = fp.add_run(
+        "Faculty of Dentistry, Pharos University in Alexandria  ·  "
+        "Canal El Mahmoudia Street, Smouha  ·  +(203) 38 77 026  ·  Dentistry@pua.edu.eg"
+    )
     set_run_font(run, size=8)
-    for line in compact[1:]:
-        p = footer.add_paragraph()
-        p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        p.paragraph_format.space_before = Pt(0)
-        p.paragraph_format.space_after = Pt(0)
-        p.paragraph_format.line_spacing = 1.0
-        p.paragraph_format.first_line_indent = Cm(0)
-        r = p.add_run(line)
-        set_run_font(r, size=8)
     pnum = footer.add_paragraph()
     pnum.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    pnum.paragraph_format.space_before = Pt(3)
+    pnum.paragraph_format.space_before = Pt(2)
     pnum.paragraph_format.space_after = Pt(0)
     pnum.paragraph_format.line_spacing = 1.0
     pnum.paragraph_format.first_line_indent = Cm(0)
