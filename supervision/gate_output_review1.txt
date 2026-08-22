@@ -1,0 +1,124 @@
+==============================================================================
+THESIS SUPERVISION GATE  --  Thesis_Complete.md
+==============================================================================
+[FAIL] G1   Page count >= 40
+           21 pages (rendered PDF Thesis_Complete.pdf); minimum 40. Shortfall 19 pages.
+[WARN] G2   Page count >= 45 (safety margin)
+           21 pages. A thesis delivered at exactly 40 drops below the minimum after the first round of examiner cuts.
+[INFO] G1   Total word count
+           5,075 words (excluding fenced code blocks)
+[INFO] G2   Chapter volume
+           Measured against THESIS_ACCEPTANCE_SPEC.md sec. 2
+             - Introduction: 411 words (~1.8 pp), minimum 1,100
+             - Review of literature: 1,025 words (~4.5 pp), minimum 3,400
+             - Materials and methods: 589 words (~2.6 pp), minimum 1,500
+             - Results: 755 words (~3.3 pp), minimum 1,000
+             - Discussion: 929 words (~4.0 pp), minimum 2,200
+             - Conclusions and recommendations: 250 words (~1.1 pp), minimum 400
+[FAIL] G2   Chapter minima
+           6 chapter(s) below the minimum.
+             - Introduction: 411 words, needs 1,100 (+689)
+             - Review of literature: 1,025 words, needs 3,400 (+2,375)
+             - Materials and methods: 589 words, needs 1,500 (+911)
+             - Results: 755 words, needs 1,000 (+245)
+             - Discussion: 929 words, needs 2,200 (+1,271)
+             - Conclusions and recommendations: 250 words, needs 400 (+150)
+[FAIL] G-struct Required sections present
+           3 required section(s) missing.
+             - Acknowledgements
+             - Table of contents
+             - List of figures
+[PASS] G12  Chapter 5 required elements
+           Interpretation, literature comparison, clinical implications, strengths, limitations and concluding remarks all present.
+[FAIL] G3   Reference count >= 40
+           22 references; minimum 40. Shortfall 18.
+[PASS] G5   Sequential numbering 1..N
+           Numbered 1..N without gaps or repeats.
+[PASS] G4   Every reference cited in text
+           Every entry is cited.
+[PASS] G4   Every citation resolves to an entry
+           All citations resolve.
+[PASS] G5   Citations numbered in order of first appearance
+           First-appearance order is 1..22.
+[PASS] G4   No duplicate references
+           No duplicates detected.
+[PASS] G3   Vancouver formatting shape
+           All entries carry a year and a locator block.
+[WARN] G4   Reference reality (manual)
+           22 entries require verification against DOI / PubMed. A script cannot confirm a source exists. See SUPERVISION_REPORT.md sec. 7.
+[INFO] G3   Citation style consistency
+           Style in use: ['parenthetical']. STATUS_AND_HANDOFF.md specifies superscript; confirm which form the faculty requires.
+[FAIL] G6   No placeholders
+           9 placeholder site(s) still in the text.
+             - line 28 [dotted fill]: ...of assembly.  ---  ## Supervisors  Prof. Dr. …………………………………………   Ass. Prof. Dr. …………………………………………    *(Names...
+             - line 29 [dotted fill]: ...Prof. Dr. …………………………………………   Ass. Prof. Dr. …………………………………………    *(Names to be entered from the approved p...
+             - line 31 [to be completed]: ...Ass. Prof. Dr. …………………………………………    *(Names to be entered from the approved protocol.)*  ---  ## Abstr...
+             - line 173 [deferred work]: ...etails belong in the laboratory notebook and should be inserted from it.  ### 3.4 Baseline measurements  Eac...
+             - line 196 [deferred work]: ...are version and the exact post-hoc procedure should be copied from that spreadsheet’s output when the labo...
+             - line 22 [missing data admission]: ...1 of the bound thesis.** The photograph was not present in the repository at the time of assembly.  ---  ## Supervisor...
+             - line 167 [missing data admission]: ...83 wt% | Shofu, Kyoto |  Batch numbers were not available in the working files and are not invented here.  ### 3.3 Specimen...
+             - line 380 [missing data admission]: ...supervisor names were not in those files and were not invented....
+             - line 173 [missing data admission]: ...files used for this write-up. Those details belong in the laboratory notebook and should be inserted from it.  ### 3.4 Bas...
+[FAIL] G7   No internal / process commentary
+           9 passage(s) address the writing process rather than the science.
+             - line 22 [repository reference]: ...bound thesis.** The photograph was not present in the repository at the time of assembly.  ---  ## Supervisors  Prof. D...
+             - line 380 [markdown / file reference]: ...ters 1 and 2 were rewritten from [Thesis_Draft_Complete.md](Thesis_Draft_Complete.md) and [Thesis_Draft_Chapters_...
+             - line 149 [draft-history commentary]: ...e bar geometry (15 mm × 4 mm × 1.5 mm) that appears in an earlier draft was not the test that was run. Disc geometry is the ge...
+             - line 196 [internal process reference]: ...Significance was set at α = 0.05. The tests match the locked analysis of the experimental spreadsheet. Software version and...
+             - line 294 [internal process reference]: ...statistical tests match the distributions used in the locked spreadsheet. The outlier was kept and named.  ### 5.5 Limits  The...
+             - line 106 [internal process reference]: ...S is listed at 83 wt%; volume fraction is not given in the files used here.  Toothbrushing tests follow ISO/TR 14569-1. The brush...
+             - line 173 [internal process reference]: ...l or storage time beyond that statement is recorded in the files used for this write-up. Those details belong in the laboratory notebook and s...
+             - line 22 [internal process reference]: ...is.** The photograph was not present in the repository at the time of assembly.  ---  ## Supervisors  Prof. Dr. …………………………………………   As...
+             - line 378 [internal process reference]: ...2007;138(5):621-627.  ---  ## Note on sources used for this assembly  Chapters 1 and 2 were rewritten from [Thesis_Draft_Co...
+[PASS] style No AI filler phrases
+           No stock filler phrases found.
+[INFO] style Sentence-length profile
+           Register diagnostic
+             - Introduction: mean sentence 13.6 words; 13% of sentences <= 6 words
+             - Review of literature: mean sentence 12.2 words; 18% of sentences <= 6 words
+             - Materials and methods: mean sentence 12.1 words; 17% of sentences <= 6 words
+             - Results: mean sentence 12.9 words; 23% of sentences <= 6 words
+             - Discussion: mean sentence 10.6 words; 27% of sentences <= 6 words
+[WARN] style Academic register (not telegraphic)
+           Chapters read as clipped notes rather than connected scholarly argument. Join the fragments into full sentences with explicit logical links.
+             - Introduction: mean 13.6 words/sentence, 13% very short (target: mean 18-25, under 10% very short)
+             - Review of literature: mean 12.2 words/sentence, 18% very short (target: mean 18-25, under 10% very short)
+             - Materials and methods: mean 12.1 words/sentence, 17% very short (target: mean 18-25, under 10% very short)
+             - Results: mean 12.9 words/sentence, 23% very short (target: mean 18-25, under 10% very short)
+             - Discussion: mean 10.6 words/sentence, 27% very short (target: mean 18-25, under 10% very short)
+[PASS] G8   Locked mean ± SD values present
+           Every locked mean ± SD pair appears in the text.
+[PASS] G8   Locked design and test values present
+           Cycles, load, n, p-values and thresholds all present.
+[FAIL] G10  Specimen geometry consistent
+           The abandoned 15 x 4 x 1.5 mm bar geometry still appears. The experiment used 10 mm x 1 mm discs. Remove every trace of the bar, including any sentence that explains the discrepancy -- a thesis states the method used, it does not adjudicate between drafts.
+[PASS] G9   Table arithmetic reconciles
+           Weight, percentage, absolute loss and delta-Ra all reconcile.
+             - Beautifil Flow Plus X F00: (before - after) = 2.60 mg vs reported 2.58 mg -- reconciles
+             - Beautifil Flow Plus X F00: 1.49% (mean of ratios) vs 1.61% (ratio of means) -- consistent
+             - G-ænial Universal Injectable: (before - after) = 1.10 mg vs reported 1.07 mg -- reconciles
+             - G-ænial Universal Injectable: 0.65% (mean of ratios) vs 0.66% (ratio of means) -- consistent
+             - Beautifil II LS: (before - after) = 1.00 mg vs reported 0.95 mg -- reconciles
+             - Beautifil II LS: 0.41% (mean of ratios) vs 0.41% (ratio of means) -- consistent
+             - Beautifil Flow Plus X F00: delta-Ra 0.066 = 0.104 - 0.038 -- exact
+             - G-ænial Universal Injectable: delta-Ra 0.046 = 0.100 - 0.054 -- exact
+             - Beautifil II LS: delta-Ra 0.075 = 0.194 - 0.119 -- exact
+             - outlier: 20.7 mg at 11.4% implies a disc of 181.6 mg, above the group mean of 160.2 mg -- plausible
+[WARN] G9   Distributional sanity
+           Verify against the raw data.
+             - Beautifil Flow Plus X F00 weight SD falls from 7.4 mg to 3.1 mg. This is consistent with the heaviest disc shedding 20.7 mg onto the group mean, but confirm it against the raw spreadsheet.
+             - Beautifil II LS delta-Ra SD (0.066) exceeds both the before (0.054) and after (0.050) SDs. That requires a negative within-disc correlation. Confirm delta-Ra was computed per disc and not from the group means.
+[FAIL] G-tab Tables numbered in order of first mention
+           First-mention order: ['3.1', '4.1', '4.3', '4.2']. Expected ['3.1', '4.1', '4.2', '4.3'].
+[PASS] G-tab Every table has a caption
+           All tables captioned.
+[FAIL] G-fig Figures present
+           The thesis contains no figures. Two quantitative outcome measures need graphical presentation, and Chapter 3 needs specimen and apparatus images. See THESIS_ACCEPTANCE_SPEC.md sec. 4 for the required set.
+[PASS] G11  Formatting (A4 / TNR 12 / double / justified / 3 cm)
+           A4, Times New Roman 12 pt, double spaced, 66/67 body paragraphs justified, 3 cm left margin.
+[FAIL] G-fig Images embedded in .docx
+           The .docx contains no images. Figures 3.1-3.3 and 4.1-4.3 are required.
+==============================================================================
+10 FAIL   4 WARN   13 PASS
+VERDICT: NOT RELEASABLE
+==============================================================================
