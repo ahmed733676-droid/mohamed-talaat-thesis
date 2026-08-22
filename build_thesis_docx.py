@@ -276,6 +276,10 @@ def add_header_and_footer(section):
     header = section.header
     _clear_hf_part(header)
     hp = header.paragraphs[0]
+    pPr = hp._p.get_or_add_pPr()
+    for child in list(pPr):
+        if child.tag == qn("w:pStyle"):
+            pPr.remove(child)
     hp.alignment = WD_ALIGN_PARAGRAPH.CENTER
     hp.paragraph_format.space_before = Pt(0)
     hp.paragraph_format.space_after = Pt(0)
