@@ -25,6 +25,7 @@ Supporting files (not for the supervisors unless they ask):
 
 - `build_thesis_docx.py` — rebuilds Word from the markdown
 - `assets/cover/` — protocol PDF, cover page images, official PUA website header logo (`pua_logo_official.png` from pua.edu.eg)
+- `figures/` — Figures 4.1–4.3, built from `supervision/locked_data.json`. Laboratory photographs (mould, brushing machine, profilometer) still have to come from the candidate.
 - `WRITING_RULES.md` — writing constraints for later edits
 - `STATUS_AND_HANDOFF.md` — internal status
 

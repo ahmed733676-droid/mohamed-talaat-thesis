@@ -208,7 +208,11 @@ Beautifil II LS discs were heavier at baseline (0.2313 ± 0.0154 g) than the two
 
 One-way ANOVA on percentage loss gave p = 0.329. The first null hypothesis is not rejected. Numerically, Beautifil II LS lost the least (0.41 ± 0.25 %), then G-ænial Universal Injectable (0.65 ± 0.37 %), then Beautifil Flow Plus X F00 (1.49 ± 3.14 %). The last standard deviation is an order larger than the other two.
 
-A non-significant p-value does not make the three means equal. It says that, with twelve discs a group and with the variance that was observed, the test could not separate them. Most of that variance sits in one group.
+A non-significant p-value does not make the three means equal. It says that, with twelve discs a group and with the variance that was observed, the test could not separate them. Most of that variance sits in one group. Figure 4.1 plots the same means and standard deviations as Table 4.1.
+
+![Figure 4.1](figures/Figure_4.1_weight_loss.png)
+
+**Figure 4.1** Mean percentage weight loss of the three composite resins after 10 000 toothbrushing cycles at 2 N. Error bars represent one standard deviation (n = 12 per group). In the Beautifil Flow Plus X F00 group the standard deviation exceeds the mean, so the lower error bar extends below zero; this reflects the dispersion introduced by a single specimen that lost about 11.4 % of its mass and does not imply a gain in weight. Differences among groups were not statistically significant (one-way ANOVA, p = 0.329).
 
 Absolute loss is given in Table 4.3, after the roughness data, because percentage loss on a lighter disc can exaggerate a small mass change. The two numbers should be read together.
 
@@ -228,7 +232,15 @@ Mean Ra before and after brushing, and ΔRa, are given in Table 4.2.
 
 At baseline Beautifil II LS was already the roughest (0.119 ± 0.054 µm). Beautifil Flow Plus X F00 was the smoothest (0.038 ± 0.011 µm). G-ænial Universal Injectable lay between them (0.054 ± 0.010 µm). The finishing step was the same for every disc: a Mylar strip under a glass slide and a scalpel for flash. No further polish sequence was used. The baseline gap is therefore a material difference on an as-cured, strip-finished face, not a difference in grit.
 
-Every group roughened. ΔRa was 0.066 ± 0.021 µm for Beautifil Flow Plus X F00, 0.046 ± 0.023 µm for G-ænial Universal Injectable and 0.075 ± 0.066 µm for Beautifil II LS. After 10 000 cycles the means were 0.104 ± 0.017 µm, 0.100 ± 0.023 µm and 0.194 ± 0.050 µm.
+Every group roughened. ΔRa was 0.066 ± 0.021 µm for Beautifil Flow Plus X F00, 0.046 ± 0.023 µm for G-ænial Universal Injectable and 0.075 ± 0.066 µm for Beautifil II LS. After 10 000 cycles the means were 0.104 ± 0.017 µm, 0.100 ± 0.023 µm and 0.194 ± 0.050 µm. Figure 4.2 shows Ra before and after on the same discs. Figure 4.3 shows ΔRa.
+
+![Figure 4.2](figures/Figure_4.2_surface_roughness.png)
+
+**Figure 4.2** Mean surface roughness (Ra) of the three composite resins before and after 10 000 toothbrushing cycles at 2 N. Error bars represent one standard deviation (n = 12 per group). The broken line marks the 0.2 µm threshold above which plaque retention increases. Ra after brushing differed significantly among groups (Kruskal–Wallis, p < 0.001).
+
+![Figure 4.3](figures/Figure_4.3_delta_ra.png)
+
+**Figure 4.3** Mean change in surface roughness (ΔRa = Ra after − Ra before) of the three composite resins after 10 000 toothbrushing cycles at 2 N. Error bars represent one standard deviation (n = 12 per group).
 
 From the same locked means, Ra rose by a factor of about 2.7 in Beautifil Flow Plus X F00 (0.038 µm to 0.104 µm), about 1.9 in G-ænial Universal Injectable (0.054 µm to 0.100 µm) and about 1.6 in Beautifil II LS (0.119 µm to 0.194 µm). The nanohybrid started higher, so its relative rise is smaller even though its absolute ΔRa is the largest.
 

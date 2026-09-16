@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import re
 from pathlib import Path
 
 from docx import Document
@@ -19,6 +20,7 @@ OUT = ROOT / "Thesis_Complete.docx"
 PROTOCOL_PAGE1 = ROOT / "assets" / "cover" / "protocol_page1.png"
 PROTOCOL_PAGE2 = ROOT / "assets" / "cover" / "protocol_page2.png"
 PUA_LOGO = ROOT / "assets" / "cover" / "pua_logo_official.png"
+FIG_DIR = ROOT / "figures"
 FONT = "Times New Roman"
 
 
@@ -530,13 +532,36 @@ def add_contents(doc, entries):
         _set_run_font(run, 12, bold=(kind == "ch"))
 
 
+def add_figure(doc, path, width_cm=14.5):
+    """Insert a Chapter 4 chart generated from supervision/locked_data.json."""
+    p = doc.add_paragraph()
+    _set_spacing(p, double=False, before=12, after=6, align=WD_ALIGN_PARAGRAPH.CENTER, keep_with_next=True)
+    run = p.add_run()
+    run.add_picture(str(path), width=Cm(width_cm))
+
+
 def add_list_of_tables(doc):
     add_heading1(doc, "LIST OF TABLES", page_break=True)
     items = [
         ("Table 3.1  Brand, type, matrix, filler and load of the resin composites used in the study (protocol listing)", 11),
         ("Table 4.1  Mean weight before and after simulated toothbrushing and percentage weight loss", 15),
-        ("Table 4.2  Mean surface roughness (Ra) before and after simulated toothbrushing and ΔRa", 16),
-        ("Table 4.3  Absolute weight loss after 10 000 brushing cycles", 18),
+        ("Table 4.2  Mean surface roughness (Ra) before and after simulated toothbrushing and ΔRa", 17),
+        ("Table 4.3  Absolute weight loss after 10 000 brushing cycles", 20),
+    ]
+    for item, page in items:
+        p = doc.add_paragraph()
+        _set_spacing(p, first_line=0, align=WD_ALIGN_PARAGRAPH.LEFT)
+        p.paragraph_format.tab_stops.add_tab_stop(Cm(15.5), WD_TAB_ALIGNMENT.RIGHT, WD_TAB_LEADER.DOTS)
+        run = p.add_run(f"{item}\t{page}")
+        _set_run_font(run, 12)
+
+
+def add_list_of_figures(doc):
+    add_heading1(doc, "LIST OF FIGURES", page_break=True)
+    items = [
+        ("Figure 4.1  Mean percentage weight loss after 10 000 toothbrushing cycles", 16),
+        ("Figure 4.2  Mean Ra before and after 10 000 toothbrushing cycles", 18),
+        ("Figure 4.3  Mean change in Ra (ΔRa) after 10 000 toothbrushing cycles", 19),
     ]
     for item, page in items:
         p = doc.add_paragraph()
@@ -586,10 +611,17 @@ def convert_body(doc, text):
             rows, i = parse_table(lines, i)
             add_table(doc, rows)
             continue
-        if line.startswith("**Table ") and line.endswith("**") is False:
-            # caption line **Table x.x** rest
+        if line.startswith("![") and "](" in line:
+            m = re.match(r"!\[([^\]]*)\]\(([^)]+)\)", line)
+            if m:
+                path = (ROOT / m.group(2)).resolve()
+                if path.exists():
+                    add_figure(doc, path)
+            i += 1
+            continue
+        if (line.startswith("**Table ") or line.startswith("**Figure ")) and not line.endswith("**"):
             p = doc.add_paragraph()
-            _set_spacing(p, first_line=0, align=WD_ALIGN_PARAGRAPH.LEFT, keep_with_next=True, before=12, after=6)
+            _set_spacing(p, first_line=0, align=WD_ALIGN_PARAGRAPH.LEFT, keep_with_next=False, before=6, after=12)
             render_inline(p, line)
             i += 1
             continue
@@ -691,25 +723,25 @@ def main():
         "3.5 Specimen Preparation": 12,
         "3.6 Baseline Measurements": 13,
         "3.7 Toothbrushing Protocol": 13,
-        "3.8 Post-test Evaluation": 14,
+        "3.8 Post-test Evaluation": 13,
         "3.9 Statistical Analysis": 14,
         "3.10 Ethical Considerations": 14,
         "CHAPTER 4": 15,
         "4.1 Weight Loss": 15,
-        "4.2 Surface Roughness": 16,
-        "4.3 Summary of Results": 18,
-        "CHAPTER 5": 19,
-        "5.1 Weight Loss": 19,
-        "5.2 Surface Roughness": 21,
-        "5.3 Clinical Implications": 22,
-        "5.4 Strengths of the Study": 23,
-        "5.5 Limitations of the Study": 23,
-        "5.6 Concluding Remarks": 24,
-        "CHAPTER 6": 25,
-        "6.1 Summary": 25,
-        "6.2 Conclusions": 25,
-        "6.3 Recommendations": 26,
-        "CHAPTER 7": 27,
+        "4.2 Surface Roughness": 17,
+        "4.3 Summary of Results": 20,
+        "CHAPTER 5": 21,
+        "5.1 Weight Loss": 21,
+        "5.2 Surface Roughness": 23,
+        "5.3 Clinical Implications": 24,
+        "5.4 Strengths of the Study": 25,
+        "5.5 Limitations of the Study": 26,
+        "5.6 Concluding Remarks": 26,
+        "CHAPTER 6": 27,
+        "6.1 Summary": 27,
+        "6.2 Conclusions": 27,
+        "6.3 Recommendations": 28,
+        "CHAPTER 7": 29,
     }
     pretty_titles = {
         "INTRODUCTION": "Introduction",
@@ -729,7 +761,8 @@ def main():
         ("ch", "Arabic Abstract", "vii"),
         ("ch", "Contents", "ix"),
         ("ch", "List of Tables", "xii"),
-        ("ch", "List of Abbreviations", "xiii"),
+        ("ch", "List of Figures", "xiii"),
+        ("ch", "List of Abbreviations", "xiv"),
     ]
     pending = None
     for raw in md.splitlines():
@@ -745,7 +778,7 @@ def main():
         elif line.startswith("## "):
             h = line[3:].strip()
             toc_entries.append(("sec", h, chapter_pages.get(h, "")))
-    toc_entries.append(("ch", "Arabic Summary", 30))
+    toc_entries.append(("ch", "Arabic Summary", 32))
 
     add_supervisors_page(doc)
     add_declaration(doc)
@@ -755,6 +788,7 @@ def main():
     add_arabic_abstract(doc)
     add_contents(doc, toc_entries)
     add_list_of_tables(doc)
+    add_list_of_figures(doc)
     add_abbreviations(doc)
 
     # Body section — Arabic page numbers
