@@ -18,13 +18,14 @@ GitHub cannot preview Word or PDF. Use the raw download links, not the blob page
 | File | Role |
 |---|---|
 | [Thesis_Complete.docx](https://github.com/ahmed733676-droid/mohamed-talaat-thesis/raw/main/Thesis_Complete.docx) | **Send this.** Assembled, editable Word thesis. Pages 1–2 are the approved protocol covers. |
-| [Thesis_Complete.pdf](https://github.com/ahmed733676-droid/mohamed-talaat-thesis/raw/main/Thesis_Complete.pdf) | Same document as PDF (A4, 38 pages). |
+| [Thesis_Complete.pdf](https://github.com/ahmed733676-droid/mohamed-talaat-thesis/raw/main/Thesis_Complete.pdf) | Same document as PDF (A4). |
 | [Thesis_Complete.md](Thesis_Complete.md) | Chapter source text only. Not the formatted submission. |
 
 Supporting files (not for the supervisors unless they ask):
 
 - `build_thesis_docx.py` — rebuilds Word from the markdown
-- `assets/cover/` — protocol PDF and cover page images
+- `assets/cover/` — protocol PDF, cover page images, official PUA website header logo (`pua_logo_official.png` from pua.edu.eg)
+- `figures/` — Figures 4.1–4.3, built from `supervision/locked_data.json`. Laboratory photographs (mould, brushing machine, profilometer) still have to come from the candidate.
 - `WRITING_RULES.md` — writing constraints for later edits
 - `STATUS_AND_HANDOFF.md` — internal status
 

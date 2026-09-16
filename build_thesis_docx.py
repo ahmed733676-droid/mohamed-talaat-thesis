@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import re
 from pathlib import Path
 
 from docx import Document
@@ -18,6 +19,8 @@ MD = ROOT / "Thesis_Complete.md"
 OUT = ROOT / "Thesis_Complete.docx"
 PROTOCOL_PAGE1 = ROOT / "assets" / "cover" / "protocol_page1.png"
 PROTOCOL_PAGE2 = ROOT / "assets" / "cover" / "protocol_page2.png"
+PUA_LOGO = ROOT / "assets" / "cover" / "pua_logo_official.png"
+FIG_DIR = ROOT / "figures"
 FONT = "Times New Roman"
 
 
@@ -79,12 +82,12 @@ def _add_page_number(paragraph, fmt="decimal"):
 
 
 def _setup_footer(section, fmt="decimal", restart=None):
-    footer = section.footer
-    footer.is_linked_to_previous = False
-    p = footer.paragraphs[0]
-    p.clear()
-    _set_spacing(p, double=False, align=WD_ALIGN_PARAGRAPH.CENTER, after=0, before=0)
-    _add_page_number(p, fmt)
+    _set_title_page(section, False)
+    for footer in _footer_parts(section):
+        _clear_story(footer)
+        p = footer.paragraphs[0]
+        _set_spacing(p, double=False, align=WD_ALIGN_PARAGRAPH.CENTER, after=0, before=0)
+        _add_page_number(p, fmt)
     sectPr = section._sectPr
     pgNumType = sectPr.find(qn("w:pgNumType"))
     if pgNumType is None:
@@ -95,11 +98,77 @@ def _setup_footer(section, fmt="decimal", restart=None):
         pgNumType.set(qn("w:start"), str(restart))
 
 
+def _set_title_page(section, enabled):
+    """Force w:titlePg on or off. New sections inherit it from the cover."""
+    section.different_first_page_header_footer = enabled
+    sectPr = section._sectPr
+    titlePg = sectPr.find(qn("w:titlePg"))
+    if enabled and titlePg is None:
+        sectPr.append(OxmlElement("w:titlePg"))
+    if not enabled and titlePg is not None:
+        sectPr.remove(titlePg)
+
+
+def _header_parts(section):
+    """Default, first-page and even-page headers. All three must be set or Word/LibreOffice will blank a page."""
+    return (section.header, section.first_page_header, section.even_page_header)
+
+
+def _footer_parts(section):
+    return (section.footer, section.first_page_footer, section.even_page_footer)
+
+
+def _clear_story(part):
+    part.is_linked_to_previous = False
+    paragraphs = list(part.paragraphs)
+    if not paragraphs:
+        return
+    paragraphs[0].clear()
+    for extra in paragraphs[1:]:
+        extra._element.getparent().remove(extra._element)
+
+
 def _hide_footer(section):
-    footer = section.footer
-    footer.is_linked_to_previous = False
-    for p in footer.paragraphs:
-        p.clear()
+    for footer in _footer_parts(section):
+        _clear_story(footer)
+
+
+def _hide_header(section):
+    for header in _header_parts(section):
+        _clear_story(header)
+
+
+def _draw_pua_header(header):
+    """Official pua.edu.eg wordmark, centred, with a Faculty of Dentistry rule."""
+    _clear_story(header)
+    p = header.paragraphs[0]
+    _set_spacing(p, double=False, before=0, after=0, align=WD_ALIGN_PARAGRAPH.CENTER)
+    run = p.add_run()
+    # Official pua.edu.eg wordmark is 510 × 125. 1.35 cm high stays inside the header box.
+    run.add_picture(str(PUA_LOGO), height=Cm(1.35))
+    p2 = header.add_paragraph()
+    _set_spacing(p2, double=False, before=1, after=0, align=WD_ALIGN_PARAGRAPH.CENTER)
+    r2 = p2.add_run("Faculty of Dentistry — Pharos University in Alexandria")
+    _set_run_font(r2, 9, italic=True)
+    pPr = p2._p.get_or_add_pPr()
+    pBdr = OxmlElement("w:pBdr")
+    bottom = OxmlElement("w:bottom")
+    bottom.set(qn("w:val"), "single")
+    bottom.set(qn("w:sz"), "8")
+    bottom.set(qn("w:space"), "3")
+    bottom.set(qn("w:color"), "1B3A6B")
+    pBdr.append(bottom)
+    pPr.append(pBdr)
+
+
+def add_pua_header(section):
+    """Official PUA website header logo on every page of this section, including first and even pages."""
+    _set_title_page(section, False)
+    for header in _header_parts(section):
+        _draw_pua_header(header)
+    section.header_distance = Cm(0.40)
+    section.top_margin = Cm(3.70)
+    section.footer_distance = Cm(1.20)
 
 
 def _style_heading(style, size, bold=True, align="center", space_before=0, space_after=12):
@@ -226,7 +295,12 @@ def add_table(doc, rows):
     cols = max(len(r) for r in rows)
     table = doc.add_table(rows=len(rows), cols=cols)
     table.alignment = WD_TABLE_ALIGNMENT.CENTER
-    table.autofit = True
+    table.autofit = False
+    usable = 15.5
+    first = usable * (0.34 if cols >= 4 else 0.40)
+    rest = (usable - first) / (cols - 1) if cols > 1 else usable
+    for i, col in enumerate(table.columns):
+        col.width = Cm(first if i == 0 else rest)
     for r_idx, row in enumerate(rows):
         for c_idx in range(cols):
             cell = table.cell(r_idx, c_idx)
@@ -234,8 +308,16 @@ def add_table(doc, rows):
             p = cell.paragraphs[0]
             _set_spacing(p, double=False, after=2, before=2, align=WD_ALIGN_PARAGRAPH.LEFT)
             text = row[c_idx] if c_idx < len(row) else ""
-            run = p.add_run(text)
-            _set_run_font(run, size=9, bold=(r_idx == 0))
+            if r_idx == 0 and " Mean ± SD" in text:
+                main, _tail = text.split(" Mean ± SD", 1)
+                run = p.add_run(main)
+                _set_run_font(run, size=9, bold=True)
+                run.add_break()
+                runb = p.add_run("Mean ± SD")
+                _set_run_font(runb, size=9, bold=True)
+            else:
+                run = p.add_run(text)
+                _set_run_font(run, size=9, bold=(r_idx == 0))
             set_cell_border(cell)
             if r_idx == 0:
                 shade_cell(cell)
@@ -445,23 +527,47 @@ def add_contents(doc, entries):
         indent = 0 if kind == "ch" else 1.0
         _set_spacing(p, first_line=0, align=WD_ALIGN_PARAGRAPH.LEFT, before=0, after=0)
         p.paragraph_format.left_indent = Cm(indent)
-        p.paragraph_format.tab_stops.add_tab_stop(Cm(14.0), WD_TAB_ALIGNMENT.RIGHT, WD_TAB_LEADER.DOTS)
+        p.paragraph_format.tab_stops.add_tab_stop(Cm(15.5), WD_TAB_ALIGNMENT.RIGHT, WD_TAB_LEADER.DOTS)
         run = p.add_run(f"{text}\t{page}")
         _set_run_font(run, 12, bold=(kind == "ch"))
+
+
+def add_figure(doc, path, width_cm=14.5):
+    """Insert a Chapter 4 chart generated from supervision/locked_data.json."""
+    p = doc.add_paragraph()
+    _set_spacing(p, double=False, before=12, after=6, align=WD_ALIGN_PARAGRAPH.CENTER, keep_with_next=True)
+    run = p.add_run()
+    run.add_picture(str(path), width=Cm(width_cm))
 
 
 def add_list_of_tables(doc):
     add_heading1(doc, "LIST OF TABLES", page_break=True)
     items = [
-        "Table 3.1  Brand, type, matrix, filler and load of the resin composites used in the study (protocol listing)",
-        "Table 4.1  Mean weight before and after simulated toothbrushing and percentage weight loss",
-        "Table 4.2  Mean surface roughness (Ra) before and after simulated toothbrushing and ΔRa",
-        "Table 4.3  Absolute weight loss after 10 000 brushing cycles",
+        ("Table 3.1  Brand, type, matrix, filler and load of the resin composites used in the study (protocol listing)", 11),
+        ("Table 4.1  Mean weight before and after simulated toothbrushing and percentage weight loss", 15),
+        ("Table 4.2  Mean surface roughness (Ra) before and after simulated toothbrushing and ΔRa", 17),
+        ("Table 4.3  Absolute weight loss after 10 000 brushing cycles", 20),
     ]
-    for item in items:
+    for item, page in items:
         p = doc.add_paragraph()
         _set_spacing(p, first_line=0, align=WD_ALIGN_PARAGRAPH.LEFT)
-        run = p.add_run(item)
+        p.paragraph_format.tab_stops.add_tab_stop(Cm(15.5), WD_TAB_ALIGNMENT.RIGHT, WD_TAB_LEADER.DOTS)
+        run = p.add_run(f"{item}\t{page}")
+        _set_run_font(run, 12)
+
+
+def add_list_of_figures(doc):
+    add_heading1(doc, "LIST OF FIGURES", page_break=True)
+    items = [
+        ("Figure 4.1  Mean percentage weight loss after 10 000 toothbrushing cycles", 16),
+        ("Figure 4.2  Mean Ra before and after 10 000 toothbrushing cycles", 18),
+        ("Figure 4.3  Mean change in Ra (ΔRa) after 10 000 toothbrushing cycles", 19),
+    ]
+    for item, page in items:
+        p = doc.add_paragraph()
+        _set_spacing(p, first_line=0, align=WD_ALIGN_PARAGRAPH.LEFT)
+        p.paragraph_format.tab_stops.add_tab_stop(Cm(15.5), WD_TAB_ALIGNMENT.RIGHT, WD_TAB_LEADER.DOTS)
+        run = p.add_run(f"{item}\t{page}")
         _set_run_font(run, 12)
 
 
@@ -481,9 +587,10 @@ def add_abbreviations(doc):
     for abbr, meaning in rows:
         p = doc.add_paragraph()
         _set_spacing(p, first_line=0, align=WD_ALIGN_PARAGRAPH.LEFT)
+        p.paragraph_format.tab_stops.add_tab_stop(Cm(3.2), WD_TAB_ALIGNMENT.LEFT)
         r = p.add_run(f"{abbr}")
         _set_run_font(r, 12, bold=True)
-        r2 = p.add_run(f"    {meaning}")
+        r2 = p.add_run(f"\t{meaning}")
         _set_run_font(r2, 12)
 
 
@@ -504,10 +611,17 @@ def convert_body(doc, text):
             rows, i = parse_table(lines, i)
             add_table(doc, rows)
             continue
-        if line.startswith("**Table ") and line.endswith("**") is False:
-            # caption line **Table x.x** rest
+        if line.startswith("![") and "](" in line:
+            m = re.match(r"!\[([^\]]*)\]\(([^)]+)\)", line)
+            if m:
+                path = (ROOT / m.group(2)).resolve()
+                if path.exists():
+                    add_figure(doc, path)
+            i += 1
+            continue
+        if (line.startswith("**Table ") or line.startswith("**Figure ")) and not line.endswith("**"):
             p = doc.add_paragraph()
-            _set_spacing(p, first_line=0, align=WD_ALIGN_PARAGRAPH.LEFT, keep_with_next=True, before=12, after=6)
+            _set_spacing(p, first_line=0, align=WD_ALIGN_PARAGRAPH.LEFT, keep_with_next=False, before=6, after=12)
             render_inline(p, line)
             i += 1
             continue
@@ -574,7 +688,10 @@ def main():
     configure_styles(doc)
     _enable_update_fields(doc)
     set_cover_page(doc.sections[0])
-    doc.sections[0].different_first_page_header_footer = True
+    # Protocol pages already carry the PUA header. Do not overlay a Word header, and do not
+    # leave w:titlePg on so later sections inherit an empty first-page header.
+    _set_title_page(doc.sections[0], False)
+    _hide_header(doc.sections[0])
     _hide_footer(doc.sections[0])
 
     add_cover(doc)
@@ -582,47 +699,49 @@ def main():
     # Front matter section — roman numerals
     sect = doc.add_section()
     set_margins(sect)
+    add_pua_header(sect)
     _setup_footer(sect, fmt="roman", restart=1)
 
     md = MD.read_text(encoding="utf-8")
     chapter_pages = {
         "CHAPTER 1": 1,
-        "1.1 Aim of the Study": 2,
-        "1.2 Objectives": 2,
-        "1.3 Null Hypotheses": 2,
-        "CHAPTER 2": 3,
-        "2.1 Wear of Restorative Resins": 3,
-        "2.2 Surface Roughness": 4,
-        "2.3 Injectable Composite Resins": 5,
-        "2.4 Conventional Nanohybrid Resins and Giomers": 6,
-        "2.5 Statement of the Problem": 6,
-        "CHAPTER 3": 7,
-        "3.1 Study Design and Setting": 7,
-        "3.2 Sample Size": 7,
-        "3.3 Materials": 8,
-        "3.4 Equipment": 8,
-        "3.5 Specimen Preparation": 9,
-        "3.6 Baseline Measurements": 9,
-        "3.7 Toothbrushing Protocol": 9,
-        "3.8 Post-test Evaluation": 10,
-        "3.9 Statistical Analysis": 10,
-        "3.10 Ethical Considerations": 10,
-        "CHAPTER 4": 11,
-        "4.1 Weight Loss": 11,
-        "4.2 Surface Roughness": 12,
-        "4.3 Summary of Results": 14,
-        "CHAPTER 5": 15,
-        "5.1 Weight Loss": 15,
-        "5.2 Surface Roughness": 16,
-        "5.3 Clinical Implications": 18,
-        "5.4 Strengths of the Study": 18,
-        "5.5 Limitations of the Study": 19,
-        "5.6 Concluding Remarks": 19,
-        "CHAPTER 6": 20,
-        "6.1 Summary": 20,
-        "6.2 Conclusions": 20,
-        "6.3 Recommendations": 21,
-        "CHAPTER 7": 22,
+        "1.1 Aim of the Study": 3,
+        "1.2 Objectives": 3,
+        "1.3 Null Hypotheses": 3,
+        "CHAPTER 2": 4,
+        "2.1 Wear of Restorative Resins": 4,
+        "2.2 Surface Roughness": 5,
+        "2.3 Filler Size and Toothbrush Abrasion": 6,
+        "2.4 Injectable Composite Resins": 7,
+        "2.5 Conventional Nanohybrid Resins and Giomers": 8,
+        "2.6 Statement of the Problem": 9,
+        "CHAPTER 3": 10,
+        "3.1 Study Design and Setting": 10,
+        "3.2 Sample Size": 10,
+        "3.3 Materials": 11,
+        "3.4 Equipment": 12,
+        "3.5 Specimen Preparation": 12,
+        "3.6 Baseline Measurements": 13,
+        "3.7 Toothbrushing Protocol": 13,
+        "3.8 Post-test Evaluation": 13,
+        "3.9 Statistical Analysis": 14,
+        "3.10 Ethical Considerations": 14,
+        "CHAPTER 4": 15,
+        "4.1 Weight Loss": 15,
+        "4.2 Surface Roughness": 17,
+        "4.3 Summary of Results": 20,
+        "CHAPTER 5": 21,
+        "5.1 Weight Loss": 21,
+        "5.2 Surface Roughness": 23,
+        "5.3 Clinical Implications": 24,
+        "5.4 Strengths of the Study": 25,
+        "5.5 Limitations of the Study": 26,
+        "5.6 Concluding Remarks": 26,
+        "CHAPTER 6": 27,
+        "6.1 Summary": 27,
+        "6.2 Conclusions": 27,
+        "6.3 Recommendations": 28,
+        "CHAPTER 7": 29,
     }
     pretty_titles = {
         "INTRODUCTION": "Introduction",
@@ -639,10 +758,11 @@ def main():
         ("ch", "Acknowledgements", "iii"),
         ("ch", "Dedication", "iv"),
         ("ch", "Abstract", "v"),
-        ("ch", "Arabic Abstract", "vi"),
-        ("ch", "Contents", "vii"),
-        ("ch", "List of Tables", "ix"),
-        ("ch", "List of Abbreviations", "x"),
+        ("ch", "Arabic Abstract", "vii"),
+        ("ch", "Contents", "ix"),
+        ("ch", "List of Tables", "xii"),
+        ("ch", "List of Figures", "xiii"),
+        ("ch", "List of Abbreviations", "xiv"),
     ]
     pending = None
     for raw in md.splitlines():
@@ -658,7 +778,7 @@ def main():
         elif line.startswith("## "):
             h = line[3:].strip()
             toc_entries.append(("sec", h, chapter_pages.get(h, "")))
-    toc_entries.append(("ch", "Arabic Summary", 24))
+    toc_entries.append(("ch", "Arabic Summary", 32))
 
     add_supervisors_page(doc)
     add_declaration(doc)
@@ -668,15 +788,25 @@ def main():
     add_arabic_abstract(doc)
     add_contents(doc, toc_entries)
     add_list_of_tables(doc)
+    add_list_of_figures(doc)
     add_abbreviations(doc)
 
     # Body section — Arabic page numbers
     body_sect = doc.add_section()
     set_margins(body_sect)
+    add_pua_header(body_sect)
     _setup_footer(body_sect, fmt="decimal", restart=1)
 
     convert_body(doc, md)
     add_arabic_summary(doc)
+
+    # Accessing even_page_header can turn on odd/even headers. We already drew the
+    # logo into the even header; keep the setting off so one header serves every page.
+    settings = doc.settings.element
+    eah = settings.find(qn("w:evenAndOddHeaders"))
+    if eah is not None:
+        settings.remove(eah)
+
     doc.save(OUT)
     print(f"Wrote {OUT}")
 
