@@ -1,6 +1,11 @@
 # Mohamed Talaat — Master's thesis
 
-**Canonical files for supervisors live on `main` only.** Do not open closed pull requests or restored draft names.
+**Canonical files for supervisors live on `main` only** (merged [PR #5](https://github.com/ahmed733676-droid/mohamed-talaat-thesis/pull/5)). Do not open closed pull requests or restored draft names.
+
+GitHub cannot preview Word or PDF. Use these raw download links, not the blob page:
+
+- **Word (send this):** https://github.com/ahmed733676-droid/mohamed-talaat-thesis/raw/main/Thesis_Complete.docx
+- **PDF (same document, 48 A4 pages):** https://github.com/ahmed733676-droid/mohamed-talaat-thesis/raw/main/Thesis_Complete.pdf
 
 | | |
 |---|---|
@@ -13,12 +18,10 @@
 
 ## Files to send the supervisors
 
-GitHub cannot preview Word or PDF. Use the raw download links, not the blob page.
-
 | File | Role |
 |---|---|
-| [Thesis_Complete.docx](https://github.com/ahmed733676-droid/mohamed-talaat-thesis/raw/main/Thesis_Complete.docx) | **Send this.** Assembled, editable Word thesis. Pages 1–2 are the approved protocol covers. |
-| [Thesis_Complete.pdf](https://github.com/ahmed733676-droid/mohamed-talaat-thesis/raw/main/Thesis_Complete.pdf) | Same document as PDF (A4). |
+| [Thesis_Complete.docx](https://github.com/ahmed733676-droid/mohamed-talaat-thesis/raw/main/Thesis_Complete.docx) | **Send this.** Assembled, editable Word thesis. Pages 1–2 are the approved protocol covers. Official PUA header on the remaining pages. Figures 4.1–4.3 are in Chapter 4. |
+| [Thesis_Complete.pdf](https://github.com/ahmed733676-droid/mohamed-talaat-thesis/raw/main/Thesis_Complete.pdf) | Same document as PDF (A4, 48 pages). |
 | [Thesis_Complete.md](Thesis_Complete.md) | Chapter source text only. Not the formatted submission. |
 
 Supporting files (not for the supervisors unless they ask):
@@ -39,7 +42,7 @@ These overlapping drafts were deleted from `main` in [PR #4](https://github.com/
 - `Chapter_4_Results_Current.md`
 - `Tables_Mastered_Academic.md`
 
-Closed PRs #2 and #3 are superseded. #1 is already merged.
+Closed PRs #2 and #3 are superseded. #1 and #5 are merged.
 
 ## Locked items (do not reopen)
 
